@@ -11,11 +11,11 @@ function Landing({ children }: LandingLayoutType) {
         <>
             <Head>
                 <title>Fosad Recruit - Explore & discover the perfect job for you!.</title>
-                <meta name="description" content="Fosad Recruit - Explore & discover the perfect job for you!.qqqqqqqqqqq" />
+                <meta name="description" content="Fosad Recruit - Explore & discover the perfect job for you!." />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <LandingNavbar />
-            <div className='mt-24 '>
+            <div className=' '>
                 {children}
             </div>
         </>

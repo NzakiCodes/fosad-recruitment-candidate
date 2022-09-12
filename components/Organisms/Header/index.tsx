@@ -4,8 +4,8 @@ import HeaderCard from "../../Molecules/HeaderCard";
 
 function LandingHeader() {
   return (
-    <div className="bg-secondary py-8">
-      <div className="bg-secondary text-white py-10 pb-32 landing-header">
+    <div className="bg-secondary pt-28 py-8">
+      <div className="bg-secondary text-white py-10 pb-40 landing-header">
         <Container className="flex justify-between gap-x-10">
           <div className="w-full lg:w-[55%]">
             <h1 className="font-bold text-7xl leading-[89px] my-9 mb-11">
