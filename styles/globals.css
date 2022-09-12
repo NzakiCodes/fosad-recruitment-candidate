@@ -1,26 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.btn-group {
+  /* @apply border border-secondaryBorder; */
+}
+.btn-group .btn {
+  @apply hover:bg-primary hover:text-secondary transition-all hover:transition-all;
+}
+.btn-group .btn,
+.btn {
+  @apply py-3 px-6 text-center;
+}
+.btn-primary{
+  @apply bg-primary text-secondary rounded-lg;
+}
+.btn-group .btn:first-child {
+  @apply rounded-tl-lg rounded-bl-lg border border-r-0 border-secondaryBorder;
+}
+.btn-group .btn:last-child {
+  @apply rounded-tr-lg rounded-br-lg border border-secondaryBorder;
 }
 
-* {
-  box-sizing: border-box;
+
+.landing-header{
+  @apply bg-secondary bg-hero-pattern bg-no-repeat bg-[length:230px_400px];
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
+.landing-header-card{
+  @apply bg-right-top  bg-hero-card-pattern bg-no-repeat bg-[length:180px_100px];
 }
