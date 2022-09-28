@@ -3,14 +3,16 @@ import React, { ReactNode, useState } from "react";
 import SelectCheckbox from "../../components/Atoms/SelectCheckbox";
 import SelectRadio from "../../components/Atoms/SelectRadio";
 import { OnboardingLayout } from "../../components/Layouts";
+import Progress from "../../components/Molecules/Progress";
 import { PageWithlayout } from "../_app";
 
 const Onbording: PageWithlayout = () => {
-  const [onboardingSteps, setOnboardingSteps] = useState<number>(4);
+  const [onboardingSteps, setOnboardingSteps] = useState<number>(1);
+  const totalSteps = 7;
 
   return (
-    <div>
-      <div className="py-4 mx-auto max-w-xl h-screen">
+    <div className="relative">
+      <div className="py-4 mx-auto max-w-xl h-screen mb-32">
         <div className="flex justify-center items-center h-full w-full">
           <div className="w-full">
             {onboardingSteps === 1 && <OnboardingStep1 />}
@@ -22,6 +24,9 @@ const Onbording: PageWithlayout = () => {
             {onboardingSteps === 7 && <OnboardingStep7 />}
           </div>
         </div>
+      </div>
+      <div className="fixed z-30 bottom-0 w-1/2 bg-white mt-3 right-0">
+        <Progress submit={()=>console.log("Submit")} onStepChange={(stepState)=>setOnboardingSteps(stepState)} totalSteps={totalSteps} step={onboardingSteps} />
       </div>
     </div>
   );
@@ -207,15 +212,64 @@ const OnboardingStep4 = () => {
           </button>
         </div>
         <span className="inline-block my-4 font-medium text-sm text-[#63748A]">
-         {" I'll"} try to find jobs that match as many of these skills as I can. If
-          you add multiple skills, some jobs might not match every skill you
-          choose.
+          {" I'll"} try to find jobs that match as many of these skills as I
+          can. If you add multiple skills, some jobs might not match every skill
+          you choose.
         </span>
       </div>
     </div>
   );
 };
 
+declare type JobIndustryType = {
+  id: string;
+  title: string;
+  isSelected: boolean;
+};
+
+const OnboardingStep5 = () => {
+  const [jobTypeList, setJobTypeList] = useState<JobType[]>([
+    { id: "business", title: "Business", isSelected: false },
+    { id: "part_time", title: "Transportation and Storage", isSelected: false },
+    { id: "retail", title: "Retail", isSelected: false },
+    {
+      id: "finance_insurance",
+      title: "Finance and Insurance",
+      isSelected: false,
+    },
+    { id: "manufacturing", title: "Manufacturing", isSelected: false },
+    { id: "technology", title: "Technology", isSelected: false },
+    { id: "food", title: "Food", isSelected: false },
+  ]);
+  const updateJobTypeList = (id: string) => {
+    const updatedJobs = jobTypeList.map((job) => {
+      if (id === job.id) {
+        return { ...job, isSelected: !job.isSelected };
+      }
+      return job;
+    });
+    console.log(updatedJobs);
+
+    setJobTypeList(updatedJobs);
+  };
+  return (
+    <div className="lg:w-full mx-5">
+      <span className="inline-block mb-4 font-semibold text-xl text-secondary">
+        Please select a location from the dropdown.
+      </span>
+
+      {jobTypeList &&
+        jobTypeList?.map(({ id, title, isSelected }) => (
+          <SelectCheckbox
+            key={id}
+            text={title}
+            selected={isSelected}
+            onClick={() => updateJobTypeList(id)}
+          />
+        ))}
+    </div>
+  );
+};
 const OnboardingStep6 = () => {
   const [jobType, setJobType] = useState<number>(1);
 
@@ -273,55 +327,6 @@ const OnboardingStep7 = () => {
 
 /* Step 4 Goes Here */
 
-declare type JobIndustryType = {
-  id: string;
-  title: string;
-  isSelected: boolean;
-};
-
-const OnboardingStep5 = () => {
-  const [jobTypeList, setJobTypeList] = useState<JobType[]>([
-    { id: "business", title: "Business", isSelected: false },
-    { id: "part_time", title: "Transportation and Storage", isSelected: false },
-    { id: "retail", title: "Retail", isSelected: false },
-    {
-      id: "finance_insurance",
-      title: "Finance and Insurance",
-      isSelected: false,
-    },
-    { id: "manufacturing", title: "Manufacturing", isSelected: false },
-    { id: "technology", title: "Technology", isSelected: false },
-    { id: "food", title: "Food", isSelected: false },
-  ]);
-  const updateJobTypeList = (id: string) => {
-    const updatedJobs = jobTypeList.map((job) => {
-      if (id === job.id) {
-        return { ...job, isSelected: !job.isSelected };
-      }
-      return job;
-    });
-    console.log(updatedJobs);
-
-    setJobTypeList(updatedJobs);
-  };
-  return (
-    <div className="lg:w-full mx-5">
-      <span className="inline-block mb-4 font-semibold text-xl text-secondary">
-        Please select a location from the dropdown.
-      </span>
-
-      {jobTypeList &&
-        jobTypeList?.map(({ id, title, isSelected }) => (
-          <SelectCheckbox
-            key={id}
-            text={title}
-            selected={isSelected}
-            onClick={() => updateJobTypeList(id)}
-          />
-        ))}
-    </div>
-  );
-};
 
 Onbording.title = "Do you know what you're looking for?";
 
