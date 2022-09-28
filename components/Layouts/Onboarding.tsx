@@ -23,7 +23,7 @@ function OnboardingLayout({
         <link rel="icon" href="/favicon.ico" />
       </Head>{" "}
       <div className="flex">
-        <div className="w-1/2 bg-secondary h-screen">
+        <div className="hidden lg:block w-1/2 bg-secondary h-screen">
           <Container className="mx-10 my-5">
             <Link href={"/"}>
               <a className="py-8 block">
@@ -63,7 +63,7 @@ function OnboardingLayout({
             </div>
           </Container>
         </div>
-        <div>{children}</div>
+        <div className="w-full lg:w-1/2">{children}</div>
       </div>
     </>
   );

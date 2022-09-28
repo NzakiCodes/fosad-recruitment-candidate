@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import type { NextPage } from "next";
 import { ReactElement } from "react";
 import Container from "../components/Atoms/Container";

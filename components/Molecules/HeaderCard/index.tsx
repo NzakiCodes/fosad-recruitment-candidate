@@ -25,11 +25,13 @@ const HeaderCard = () => {
             text="I'm looking for a job right now"
             selected={jobOptionSelect === 1}
             onClick={() => setJobOptionSelect(1)}
+            styled
           />
           <SelectRadio
             text="I'm looking for a job, but no rush"
             selected={jobOptionSelect === 2}
             onClick={() => setJobOptionSelect(2)}
+            styled
           />
           <Link href={"/onboarding"}>
             <a className="flex justify-center gap-x-1 bg-secondary  rounded-lg py-5 px-8 w-full items-center mt-5 transition-all hover:opacity-90 hover:transition-all">
