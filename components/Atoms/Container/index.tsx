@@ -11,7 +11,7 @@ declare type ContainerType = {
 
 function Container({ children, className }: ContainerType) {
   return (
-    <div className={`max-w-screen-xl px-5  md:px-10 mx-auto ${className ? className : ""}`}>
+    <div className={`max-w-[1440px] px-5  md:px-10 mx-auto ${className ? className : ""}`}>
       {children}
     </div>
   );
