@@ -6,9 +6,15 @@ interface ProgressProps {
   submit?: () => void;
   previous?: () => void;
   onStepChange: (stepState: number) => void;
+  updateStateOnNextStep: () => void;
 }
 
-const Progress = ({ submit, totalSteps, onStepChange }: ProgressProps) => {
+const Progress = ({
+  submit,
+  totalSteps,
+  onStepChange,
+  updateStateOnNextStep,
+}: ProgressProps) => {
   const [progressCount, setProgressCount] = useState<number>(1);
   //   const [progress, setProgress] = useState<number>(0);
   const progressCalc = (pCount: number) => {
@@ -29,6 +35,7 @@ const Progress = ({ submit, totalSteps, onStepChange }: ProgressProps) => {
     setProgressCount((prevActiveStep: number) => {
       const newValue = prevActiveStep + 1;
       onStepChange(newValue);
+      updateStateOnNextStep();
       return newValue;
     });
 

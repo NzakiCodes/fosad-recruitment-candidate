@@ -15,6 +15,7 @@ const SelectCheckbox = ({
     e.preventDefault();
     onClick && onClick();
   };
+
   return (
     <button
       className={` flex justify-between ${
@@ -24,7 +25,9 @@ const SelectCheckbox = ({
       } ${
         selected
           ? `${
-              styled ? "hover:!text-white !border-secondary" : "!border-secondary"
+              styled
+                ? "hover:!text-white !border-secondary"
+                : "!border-secondary"
             }   !text-secondary`
           : ""
       } rounded-lg py-5 px-8 w-full transition-colors hover:transition-colors font-medium text-[18px] flex gap-5 my-3`}
