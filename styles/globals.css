@@ -15,7 +15,7 @@ body {
   /* @apply border border-secondaryBorder; */
 }
 .btn-group .btn {
-  @apply hover:bg-primary hover:text-secondary transition-all hover:transition-all;
+  @apply hover:bg-primary hover:text-secondary border border-secondaryBorder border-r-0 transition-all hover:transition-all;
 }
 .btn-group .btn,
 .btn {

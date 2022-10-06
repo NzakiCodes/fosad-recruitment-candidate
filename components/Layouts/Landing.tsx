@@ -6,7 +6,7 @@ declare type LandingLayoutType = {
     children: ReactNode;
 }
 
-function Landing({ children }: LandingLayoutType) {
+function LandingLayout({ children }: LandingLayoutType) {
     return (
         <>
             <Head>
@@ -22,4 +22,4 @@ function Landing({ children }: LandingLayoutType) {
     )
 }
 
-export default Landing
+export default LandingLayout
