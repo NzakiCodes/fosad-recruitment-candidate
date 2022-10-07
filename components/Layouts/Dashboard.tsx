@@ -11,7 +11,7 @@ declare type DashboardLayoutType = {
 };
 function DashboardLayout({ children }: DashboardLayoutType) {
   return (
-    <>
+    <div className="bg-[#F7F8FA]">
       <Head>
         <title>
           Fosad Recruit - Explore & discover the perfect job for you!.
@@ -23,9 +23,9 @@ function DashboardLayout({ children }: DashboardLayoutType) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <div className=" bg-[#F7F8FA] relative">
-        <div className="bg-white fixed w-full top-[89px] lg:top-[100px] left-0">
-          <Container className="py-3">
+      <div className="  relative">
+        <div className="bg-white fixed z-30 w-full top-[89px] lg:top-[100px] left-0">
+          <Container className="py-3 h-28">
             <div className="flex flex-col md:flex-row items-center ">
               <div className="flex h-12 lg:h-14  gap-x-3 rounded-lg items-center border-[#DEE3E9] border px-4 hover:border-secondary hover:text-secondary transition-colors hover:transition-colors">
                 <div className="flex items-center py-2 gap-x-3">
@@ -60,7 +60,7 @@ function DashboardLayout({ children }: DashboardLayoutType) {
             </div>
           </Container>
           <Container>
-            <div className="flex justify-between md:justify-start items-center gap-x-3 md:gap-x-5 lg:gap-x-8 lg:pt-3">
+            <div className="flex justify-between md:justify-start items-center gap-x-3 md:gap-x-5 lg:gap-x-8 lg:pt-2">
               <TabLink text="Suggested Jobs" href="/jobs/suggested" />
               <TabLink text="Applied Jobs" href="/jobs/applied" />
               <TabLink text="Saved Jobs" href="/jobs/saved" />
@@ -68,9 +68,9 @@ function DashboardLayout({ children }: DashboardLayoutType) {
             </div>
           </Container>
         </div>
-        <Container className="py-7 mt-[280px]">{children}</Container>
+        <Container className="py-2 mt-[255px]">{children}</Container>
       </div>
-    </>
+    </div>
   );
 }
 
@@ -78,7 +78,7 @@ const TabLink = ({ href, text }: { href: string; text: string }) => {
   const router = useRouter();
   return (
     <Link href={href}>
-      <a className=" flex text-xs lg:text-base text-center flex-col justify-between gap-y-4">
+      <a className=" flex text-xs lg:text-base text-center flex-col justify-between gap-y-2">
         <span
           className={`${
             router.asPath === href ? "font-bold" : "font-normal"
