@@ -3,9 +3,17 @@ declare type SelectRadioType = {
   text: string;
   onClick?: () => void;
   styled?: boolean;
+  noBorder?: boolean;
+  className?:string;
 };
 
-const SelectRadio = ({ selected, text, onClick, styled }: SelectRadioType) => {
+const SelectRadio = ({
+  selected,
+  text,
+  onClick,
+  styled,
+  noBorder,
+}: SelectRadioType) => {
   const handleEvent = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     onClick && onClick();
@@ -15,11 +23,17 @@ const SelectRadio = ({ selected, text, onClick, styled }: SelectRadioType) => {
       className={` ${
         styled
           ? "bg-[#E1EEFB] group hover:bg-secondary hover:text-white text-secondary"
-          : "text-[#63748A] border-[#DEE3E9] border hover:border-secondary hover:text-secondary"
+          : `text-[#63748A] ${
+              !noBorder
+                ? "border-[#DEE3E9] border hover:border-secondary hover:text-secondary"
+                : ""
+            }`
       } ${
         selected
           ? `${
-              styled ? "hover:!text-white !border-secondary" : "!border-secondary"
+              styled
+                ? "hover:!text-white !border-secondary"
+                : "!border-secondary"
             } border-secondary !text-secondary`
           : ""
       } rounded-lg py-5 px-8 w-full transition-colors hover:transition-colors font-medium text-[18px] flex gap-5 my-3`}
