@@ -14,7 +14,7 @@ const HeaderCard = () => {
   const router = useRouter();
 
   const proceed = () => {
-    updateSignUpState({ employment_demand: jobOptionSelect });
+    updateSignUpState({ job_urgency: jobOptionSelect });
     router.push("/onboarding");
   };
 

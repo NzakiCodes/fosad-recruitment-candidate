@@ -127,3 +127,32 @@
     filter: invert(1);
   }
 }
+
+.toasts-wrapper {
+  position: fixed;
+  bottom: -100%;
+  width: 100%;
+  transition: all 1s;
+}
+
+
+.show {
+  bottom: 0;
+}
+
+.hide {
+  bottom: -100%;
+}
+
+.toast {
+  padding: 1rem;
+  color: white;
+}
+
+.success {
+  background-color: #002D5B;
+}
+
+.error {
+  background-color: #E15634;
+}

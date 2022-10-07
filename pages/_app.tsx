@@ -3,6 +3,8 @@ import type { AppProps } from "next/app";
 import { NextPage } from "next";
 import { ReactElement, ReactNode, useState } from "react";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
+import toast, { Toaster } from 'react-hot-toast';
+
 import { AuthProviderContainer } from "../context/authContext";
 import { ToastContextProvider } from "../context/toastContext";
 
@@ -22,6 +24,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   return getLayout(
     <QueryClientProvider client={queryClient}>
+      <Toaster/>
       <ToastContextProvider>
         <AuthProviderContainer>
           <Component {...pageProps} />

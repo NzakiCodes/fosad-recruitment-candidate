@@ -1,11 +1,16 @@
-import Link from "next/link";
-import React, { ReactNode, useContext, useState } from "react";
+import { AxiosError, AxiosResponse } from "axios";
+import { useRouter } from "next/router";
+import { ReactNode, useContext, useState } from "react";
+import toast from "react-hot-toast";
 import { OnboardingLayout } from "../../components/Layouts";
 import Progress from "../../components/Molecules/Progress";
 import AuthContext from "../../context/authContext";
-import { JobSearchOption, JobType } from "../../interfaces/jobs";
-import { IUserSignUp } from "../../interfaces/user";
+import { useToast } from "../../context/toastContext";
+import { JobInterests, JobSearchOption, JobType } from "../../interfaces/jobs";
+import { IResponse } from "../../interfaces/response";
+import { UserResponse } from "../../interfaces/user";
 import useForm from "../../utils/useForm";
+import { useSignUpCandidtate } from "../api/mutations/auth";
 import { PageWithlayout } from "../_app";
 import OnboardingStepFive from "./stepFive";
 import OnboardingStepFour from "./stepFour";
@@ -15,9 +20,17 @@ import OnboardingStepSix from "./stepSix";
 import OnboardingStepThree from "./stepThree";
 import OnboardingStepTwo from "./stepTwo";
 
+interface IUserSignUp {
+  fullName: string;
+  email: string;
+  password: string;
+}
+
 const Onbording: PageWithlayout = () => {
+  const router = useRouter();
+  const { mutate } = useSignUpCandidtate();
   const { updateSignUpState, signUpState } = useContext(AuthContext);
-  const [onboardingSteps, setOnboardingSteps] = useState<number>(1);
+  const { addToast } = useToast();
   const totalSteps = 7;
   const [jobOptionSelect, setJobOptionSelect] = useState<string>(
     JobSearchOption.LOOKINGFORJOB
@@ -29,44 +42,106 @@ const Onbording: PageWithlayout = () => {
   const [selectJobStation, setSelectedJobStation] = useState<JobType>(
     {} as JobType
   );
-  const [selectWorkIndustry, setSelectedWorkIndustry] = useState<JobType>(
-    {} as JobType
+  const [selectWorkIndustry, setSelectedWorkIndustry] = useState<JobInterests>(
+    {} as JobInterests
   );
+  const [selectedSkills, setSelectedSkills] = useState<string>("");
+  const [progressCount, setProgressCount] = useState<number>(1);
 
-  const updateStateOnNextStep = () => {
-    if (onboardingSteps === 1) {
-      updateSignUpState({ ...signUpState, job_urgency: jobOptionSelect });
-    }
-    if (onboardingSteps === 2) {
-      updateSignUpState({
-        ...signUpState,
-        employment_demand: selectedJobType.title,
-      });
-    }
-    if (onboardingSteps === 3) {
-      updateSignUpState({
-        ...signUpState,
-        work_location: selectedJobLocation,
-        work_model: selectJobStation.title,
-      });
-    }
-    if (onboardingSteps === 5) {
-      updateSignUpState({
-        ...signUpState,
-        industry_categories: selectWorkIndustry.title,
-      });
-    }
-    if (onboardingSteps === 6) {
-      updateSignUpState({
-        ...signUpState,
-        fullName: inputs.fullName,
-        email: inputs.email,
-        password: inputs.password,
-      });
+  const handleBack = () => {
+    setProgressCount(progressCount - 1);
+  };
+
+  const updateStep = () => {
+    setProgressCount(progressCount + 1);
+  };
+
+  const handleNext = () => {
+    if (progressCount === 1) {
+      if (jobOptionSelect === "") {
+        toast.error("Please select an option");
+      } else {
+        updateSignUpState({ ...signUpState, job_urgency: jobOptionSelect });
+        updateStep();
+      }
+    } else if (progressCount === 2) {
+      if (selectedJobType.title === undefined) {
+        toast.error("Please select an option");
+      } else {
+        updateSignUpState({
+          ...signUpState,
+          employment_demand: selectedJobType.title,
+        });
+        updateStep();
+      }
+    } else if (progressCount === 3) {
+      if (selectedJobLocation === "" || selectJobStation.title === undefined) {
+        toast.error("Please select an option");
+      } else {
+        updateSignUpState({
+          ...signUpState,
+          work_location: selectedJobLocation,
+          work_model: selectJobStation.title,
+        });
+        updateStep();
+      }
+    } else if (progressCount === 4) {
+      if (selectedSkills === "") {
+        toast.error("Please select an option");
+      } else {
+        updateSignUpState({
+          ...signUpState,
+          skills: selectedSkills,
+        });
+        updateStep();
+      }
+    } else if (progressCount === 5) {
+      if (selectWorkIndustry.name === "") {
+        toast.error("Please select an option");
+      } else {
+        updateSignUpState({
+          ...signUpState,
+          industry_categories: selectWorkIndustry.name,
+        });
+        updateStep();
+      }
+    } else if (progressCount === 6) {
+      if (
+        inputs.email === undefined ||
+        inputs.fullName === undefined ||
+        inputs.password === undefined
+      ) {
+        toast.error("Please enter your full name, email and password");
+      } else {
+        updateSignUpState({
+          ...signUpState,
+          fullName: inputs.fullName,
+          email: inputs.email,
+          password: inputs.password,
+        });
+        updateStep();
+      }
+    } else {
+      submit();
     }
   };
 
-  const submit = () => {};
+  const submit = () => {
+    mutate(
+      { ...signUpState },
+      {
+        onSuccess: async (response: AxiosResponse<IResponse<UserResponse>>) => {
+          const { data } = response;
+          console.log(data);
+          router.push("/jobs/suggested");
+          toast.success("Signup Successful");
+        },
+        onError: (error) => {
+          const err = error as AxiosError;
+        },
+      }
+    );
+  };
 
   const { handleChange, inputs } = useForm<IUserSignUp>(
     {} as IUserSignUp,
@@ -78,19 +153,19 @@ const Onbording: PageWithlayout = () => {
       <div className="py-4 mx-auto max-w-xl h-screen mb-32">
         <div className="flex justify-center items-center h-full w-full">
           <div className="w-full">
-            {onboardingSteps === 1 && (
+            {progressCount === 1 && (
               <OnboardingStepOne
                 jobOptionSelect={jobOptionSelect}
                 setJobOptionSelect={setJobOptionSelect}
               />
             )}
-            {onboardingSteps === 2 && (
+            {progressCount === 2 && (
               <OnboardingStepTwo
                 selectedJobType={selectedJobType}
                 setSelectedJobType={setSelectedJobType}
               />
             )}
-            {onboardingSteps === 3 && (
+            {progressCount === 3 && (
               <OnboardingStepThree
                 selectedJobLocation={selectedJobLocation}
                 setSelectedJobLocation={setSelectedJobLocation}
@@ -98,36 +173,36 @@ const Onbording: PageWithlayout = () => {
                 setSelectedJobStation={setSelectedJobStation}
               />
             )}
-            {onboardingSteps === 4 && <OnboardingStepFour />}
-            {onboardingSteps === 5 && (
+            {progressCount === 4 && (
+              <OnboardingStepFour
+                selectedSkills={selectedSkills}
+                setSelectedSkills={setSelectedSkills}
+              />
+            )}
+            {progressCount === 5 && (
               <OnboardingStepFive
                 selectWorkIndustry={selectWorkIndustry}
                 setSelectedWorkIndustry={setSelectedWorkIndustry}
               />
             )}
-            {onboardingSteps === 6 && (
+            {progressCount === 6 && (
               <OnboardingStepSix handleChange={handleChange} />
             )}
-            {onboardingSteps === 7 && <OnboardingStepSeven />}
+            {progressCount === 7 && <OnboardingStepSeven />}
           </div>
         </div>
       </div>
       <div className="fixed z-30 bottom-0 w-1/2 bg-white mt-3 right-0">
         <Progress
-          submit={() => submit()}
-          onStepChange={(stepState) => {
-            setOnboardingSteps(stepState);
-          }}
+          progressCount={progressCount}
           totalSteps={totalSteps}
-          step={onboardingSteps}
-          updateStateOnNextStep={updateStateOnNextStep}
+          handleNext={handleNext}
+          handleBack={handleBack}
         />
       </div>
     </div>
   );
 };
-
-/* Step 4 Goes Here */
 
 Onbording.title = "Do you know what you're looking for?";
 

@@ -1,6 +1,5 @@
-import { FC, useContext, useState } from "react";
+import { FC, useState } from "react";
 import SelectCheckbox from "../../components/Atoms/SelectCheckbox";
-import AuthContext from "../../context/authContext";
 import { JobType } from "../../interfaces/jobs";
 
 interface IOnboardingStep2 {
@@ -28,8 +27,6 @@ const OnboardingStepTwo: FC<IOnboardingStep2> = ({
 
     setJobTypeList(updatedJobs);
   };
-
-  console.log(selectedJobType);
 
   return (
     <div className="lg:w-full mx-5">

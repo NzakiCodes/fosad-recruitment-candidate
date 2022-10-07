@@ -1,36 +1,55 @@
-import { useState } from "react";
-import SelectCheckbox from "../../components/Atoms/SelectCheckbox";
+import React, { FC, useState } from "react";
+import { JobInterests, JobType } from "../../interfaces/jobs";
+import { useGetUserSkills } from "../api/queries/user";
 
-declare type SkillsType = {
-  id: string;
-  title: string;
-  isSelected: boolean;
-};
-const OnboardingStepFour = () => {
-  const [jobType, setJobType] = useState<number>(1);
-  const [jobLocationTypeList, setJobLocationTypeList] = useState<SkillsType[]>([
-    { id: "in_person", title: "In-Person", isSelected: false },
-    { id: "hybrid", title: "Hybrid", isSelected: false },
-    { id: "remote", title: "Remote", isSelected: false },
-  ]);
-  const updateJobLocationTypeList = (id: string) => {
-    const updatedJobLocations = jobLocationTypeList.map((jobLocation) => {
-      if (id === jobLocation.id) {
-        return { ...jobLocation, isSelected: !jobLocation.isSelected };
-      }
-      return jobLocation;
-    });
-    console.log(updatedJobLocations);
+interface OnboardingStep4 {
+  selectedSkills: string;
+  setSelectedSkills: Function;
+}
 
-    setJobLocationTypeList(updatedJobLocations);
-  };
+const OnboardingStepFour: FC<OnboardingStep4> = ({
+  selectedSkills,
+  setSelectedSkills,
+}) => {
+  const { data } = useGetUserSkills();
+  const skills = data?.data.data;
+  const [skill, setSkill] = useState<string>("");
+  const [userSkills, setUserSkills] = useState<string[]>([]);
+
+  // const handleCheckBoxChange = (name: string) => {
+  //   if (selectedSkills.indexOf(name) !== -1) {
+  //     setSelectedSkills(
+  //       selectedSkills.filter((selectedId: string) => selectedId !== name)
+  //     );
+  //   } else {
+  //     setSelectedSkills([...selectedSkills, name]);
+  //   }
+  // };
+
   return (
     <div className="lg:w-full mx-5">
-      {jobLocationTypeList &&
-        jobLocationTypeList?.map(({ id, title }) => (
-          <div>
-            <label>{title}</label>
-            <input type="checkbox" />
+      {skills &&
+        skills?.map((skill: JobInterests, index: number) => (
+          <div key={index}>
+            <label>{skill.name}</label>
+            <input
+              type="checkbox"
+              value={skill.name}
+              onChange={(e) => setSelectedSkills(e.target.value)}
+              checked={selectedSkills.includes(skill.name)}
+            />
+          </div>
+        ))}
+      {userSkills &&
+        userSkills?.map((skill: string, index: number) => (
+          <div key={index}>
+            <label>{skill}</label>
+            <input
+              type="checkbox"
+              value={skill}
+              onChange={(e) => setSelectedSkills(e.target.value)}
+              checked={selectedSkills.includes(skill)}
+            />
           </div>
         ))}
       <hr className="my-8" />
@@ -43,8 +62,13 @@ const OnboardingStepFour = () => {
             type="text"
             placeholder="Enter Skill"
             className="w-5/6 px-8 py-4 h-full active:outline-0 focus:outline-0"
+            onChange={(e) => setSkill(e.target.value)}
+            value={skill}
           />
-          <button className="h-full border-l  border-[#DEE3E9] w-1/6 py-4">
+          <button
+            className="h-full border-l  border-[#DEE3E9] w-1/6 py-4"
+            onClick={() => setUserSkills([...userSkills, skill])}
+          >
             Add +
           </button>
         </div>

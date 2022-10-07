@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { IToastMsg } from "../context/toastContext";
+import "../styles/Home.module.css";
 
 const Toast = ({ toasts }: { toasts: IToastMsg[] }) => {
   const ref = useRef<HTMLElement | null>(null);
@@ -24,7 +25,7 @@ const Toast = ({ toasts }: { toasts: IToastMsg[] }) => {
               }`}
               key={`toast${index}`}
             >
-              <div className="m-auto px-[10px] xl:max-width-[1200px] lg:max-width-[1140px]">
+              <div className="m-auto px-[10px] xl:max-width-[1200px] lg:max-width-[1140px] max-width-[100%]">
                 <div className="justify-center">
                   <div>{toast.msg}</div>
                 </div>

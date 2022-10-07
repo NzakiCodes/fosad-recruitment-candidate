@@ -1,5 +1,6 @@
 import { useCallback, useContext, useState, createContext } from "react";
 import Toast from "../components/toast";
+import "../styles/Home.module.css";
 
 interface IToastContextProvider {
   children: JSX.Element | JSX.Element[];

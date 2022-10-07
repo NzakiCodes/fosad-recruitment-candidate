@@ -32,7 +32,7 @@ const OnboardingStepThree: FC<IOnboardingStep3> = ({
     setJobLocationTypeList(updatedJobLocations);
   };
 
-  const handleLocationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setSelectedJobLocation(value);
   };
@@ -51,10 +51,11 @@ const OnboardingStepThree: FC<IOnboardingStep3> = ({
       <hr className="my-8" />
       <div>
         <span className="inline-block mb-4 font-semibold text-xl text-secondary">
-          Please select a location from the dropdown.
+          Please Enter Your Location.
         </span>
-        <div className="w-full rounded-lg py-5 px-8 text-[#63748A] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-medium text-[18px] flex gap-5 my-3">
+        <div className="relative">
           <svg
+            className="absolute top-[30%] left-[5%]"
             width="16"
             height="21"
             viewBox="0 0 16 21"
@@ -66,19 +67,14 @@ const OnboardingStepThree: FC<IOnboardingStep3> = ({
               fill="#63748A"
             />
           </svg>
-          <select
-            className="w-full active:outline-0 focus:outline-0"
-            name="location"
-            id="location"
+          <input
+            type="text"
+            className="w-full rounded-lg py-5 px-16 text-[#63748A] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-medium text-[18px] flex gap-5 my-3"
+            placeholder="Address"
+            name="work_location"
             value={selectedJobLocation}
             onChange={handleLocationChange}
-          >
-            <option>Uyo, Nigeria</option>
-            <option>Lagos, Nigeria</option>
-            <option>Abuja, Nigeria</option>
-            <option>Markurdi, Nigeria</option>
-            <option>Ado Ekiti, Nigeria</option>
-          </select>
+          />
         </div>
         <span className="inline-block my-4 font-medium text-sm text-[#63748A]">
           If {"you're"} looking Remote jobs, I still need to collect your
