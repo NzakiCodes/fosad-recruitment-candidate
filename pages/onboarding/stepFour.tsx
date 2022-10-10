@@ -11,7 +11,7 @@ const OnboardingStepFour: FC<OnboardingStep4> = ({
   selectedSkills,
   setSelectedSkills,
 }) => {
-  const { data } = useGetUserSkills();
+  const { data, isLoading } = useGetUserSkills();
   const skills = data?.data.data;
   const [skill, setSkill] = useState<string>("");
   const [userSkills, setUserSkills] = useState<string[]>([]);
@@ -28,7 +28,9 @@ const OnboardingStepFour: FC<OnboardingStep4> = ({
 
   return (
     <div className="lg:w-full mx-5">
-      {skills &&
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
         skills?.map((skill: JobInterests, index: number) => (
           <div key={index}>
             <label>{skill.name}</label>
@@ -39,7 +41,8 @@ const OnboardingStepFour: FC<OnboardingStep4> = ({
               checked={selectedSkills.includes(skill.name)}
             />
           </div>
-        ))}
+        ))
+      )}
       {userSkills &&
         userSkills?.map((skill: string, index: number) => (
           <div key={index}>

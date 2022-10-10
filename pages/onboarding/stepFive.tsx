@@ -12,41 +12,36 @@ const OnboardingStepFive: FC<IOnboardingStep5> = ({
   selectWorkIndustry,
   setSelectedWorkIndustry,
 }) => {
-  const { data } = useGetUserInterests();
-
-  const [jobTypeList, setJobTypeList] = useState<JobInterests[]>(
-    data?.data.data!
-  );
+  const { data, isLoading } = useGetUserInterests();
 
   const updateJobTypeList = (id: string) => {
-    const updatedJobs = jobTypeList.map((job) => {
+    const updatedJobs = data?.data.data.map((job) => {
       if (id === job.id) {
         setSelectedWorkIndustry(job);
       }
       return job;
     });
-    setJobTypeList(updatedJobs);
+    return updatedJobs;
   };
-
-  useEffect(() => {
-    setJobTypeList(data?.data.data!);
-  }, []);
 
   return (
     <div className="lg:w-full mx-5">
-      <span className="inline-block mb-4 font-semibold text-xl text-secondary">
+      <div className="inline-block mb-4 font-semibold text-xl text-secondary">
         Select any you might be interested in.
-      </span>
+      </div>
 
-      {jobTypeList &&
-        jobTypeList?.map(({ id, name }) => (
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        data?.data.data?.map(({ id, name }) => (
           <SelectCheckbox
             key={id}
             text={name}
-            selected={selectWorkIndustry.id === id}
             onClick={() => updateJobTypeList(id)}
+            selected={selectWorkIndustry.id === id}
           />
-        ))}
+        ))
+      )}
     </div>
   );
 };

@@ -76,7 +76,7 @@ const Onbording: PageWithlayout = () => {
       }
     } else if (progressCount === 3) {
       if (selectedJobLocation === "" || selectJobStation.title === undefined) {
-        toast.error("Please select an option");
+        toast.error("Please select an option and enter your location");
       } else {
         updateSignUpState({
           ...signUpState,
@@ -138,6 +138,7 @@ const Onbording: PageWithlayout = () => {
         },
         onError: (error) => {
           const err = error as AxiosError;
+          toast.error(`${err}`);
         },
       }
     );
