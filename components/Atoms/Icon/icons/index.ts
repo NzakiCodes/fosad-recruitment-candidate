@@ -24,3 +24,4 @@ export * from "./FosadRecruiter";
 export * from "./Account";
 export * from "./Work";
 export * from "./Notification";
+export * from "./PlusCircle";
