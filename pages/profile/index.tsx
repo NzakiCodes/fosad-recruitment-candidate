@@ -4,15 +4,17 @@ import React, { ReactElement, useEffect, useState } from "react";
 import Avatar from "../../components/Atoms/Avatar";
 import Container from "../../components/Atoms/Container";
 import Icon from "../../components/Atoms/Icon";
-import SelectRadio from "../../components/Atoms/SelectRadio";
 import DashboardLayout from "../../components/Layouts/Dashboard";
+import Education from "../../components/Organisms/ProfileTabs/Education";
 import CandidateSidebar, {
   menuItems,
 } from "../../components/Molecules/CandidateSidebar";
-import Education from "../../components/Organisms/ProfileTabs/Education";
+
 import Overview from "../../components/Organisms/ProfileTabs/Overview";
 import Skills from "../../components/Organisms/ProfileTabs/Skills";
 import WorkExperience from "../../components/Organisms/ProfileTabs/WorkExperience";
+import OtherInformation from "../../components/Organisms/ProfileTabs/OtherInformation";
+import MyAccount from "../../components/Organisms/ProfileTabs/MyAccount";
 
 function Profile() {
   const { query } = useRouter();
@@ -40,7 +42,12 @@ function Profile() {
           {currentTab === "overview" && <Overview />}
           {currentTab === "work" && <WorkExperience />}
           {currentTab === "education" && <Education />}
+          {currentTab === "otherInfo" && <OtherInformation />}
+          {currentTab === "account" && <MyAccount />}
           {currentTab === "skills" && <Skills />}
+
+          
+
         </div>
         <div className="hidden lg:block w-[25%] h-full">
           <div className="fixed">

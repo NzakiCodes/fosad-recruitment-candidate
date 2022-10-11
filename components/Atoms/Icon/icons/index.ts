@@ -25,3 +25,13 @@ export * from "./Account";
 export * from "./Work";
 export * from "./Notification";
 export * from "./PlusCircle";
+export * from "./EditWhite"
+export * from "./InboxColor"
+export * from "./phone"
+export * from "./Smuv"
+export * from "./Instagram"
+export * from "./Twitter"
+export * from "./Github"
+export * from "./Linkedin"
+export * from "./Camera"
+
