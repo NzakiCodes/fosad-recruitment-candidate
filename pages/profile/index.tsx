@@ -1,18 +1,35 @@
 import Link from "next/link";
-import React, { ReactElement, useState } from "react";
+import { useRouter } from "next/router";
+import React, { ReactElement, useEffect, useState } from "react";
 import Avatar from "../../components/Atoms/Avatar";
 import Container from "../../components/Atoms/Container";
 import Icon from "../../components/Atoms/Icon";
 import SelectRadio from "../../components/Atoms/SelectRadio";
 import DashboardLayout from "../../components/Layouts/Dashboard";
+<<<<<<< HEAD
 import CandidateSidebar from "../../components/Molecules/CandidateSidebar";
+=======
+import CandidateSidebar, {
+  menuItems,
+} from "../../components/Molecules/CandidateSidebar";
+>>>>>>> c028f989cd4908a15711ca00393c8c5f598ceb2b
 import Education from "../../components/Organisms/ProfileTabs/Education";
 import Overview from "../../components/Organisms/ProfileTabs/Overview";
+import Skills from "../../components/Organisms/ProfileTabs/Skills";
 import WorkExperience from "../../components/Organisms/ProfileTabs/WorkExperience";
 import OtherInformation from "../../components/Organisms/ProfileTabs/OtherInformation";
 import MyAccount from "../../components/Organisms/ProfileTabs/MyAccount";
 
 function Profile() {
+  const { query } = useRouter();
+  useEffect(() => {
+    if (query.tab) {
+      const itemExist = menuItems.find((m) => m.id == query.tab);
+      console.log(itemExist);
+      if (itemExist) setCurrentTab(`${query.tab}`);
+    }
+  }, [query]);
+
   const [currentTab, setCurrentTab] = useState<string>("overview");
   return (
     <Container className="py-4">
@@ -29,8 +46,12 @@ function Profile() {
           {currentTab === "overview" && <Overview />}
           {currentTab === "work" && <WorkExperience />}
           {currentTab === "education" && <Education />}
+<<<<<<< HEAD
           {currentTab === "otherInfo" && <OtherInformation />}
           {currentTab === "account" && <MyAccount />}
+=======
+          {currentTab === "skills" && <Skills />}
+>>>>>>> c028f989cd4908a15711ca00393c8c5f598ceb2b
         </div>
         <div className="hidden lg:block w-[25%] h-full">
           <div className="fixed">
@@ -48,6 +69,9 @@ function Profile() {
                   <span className="text-base font-normal">
                     your personal recruiter.
                   </span>
+                  <Link href={"/profile?tab=education"}>
+                    <a>JJ</a>
+                  </Link>
                 </div>
               </div>
               <div className="bg-white pt-4 pb-2 rounded-b-lg">
@@ -62,33 +86,26 @@ function Profile() {
                     Finish your profile to get accurated job matches and stand
                     out.
                   </span>
-                  
-                  </div>
-                  <div className="my-4 px-6 relative z-[1]">
-                    <CustomRadioButtton
-                      isSelected={false}
-                      text="Add Work Experience"
-                    />
-                    <CustomRadioButtton
-                      isSelected={true}
-                      text="Add Education"
-                    />
-                     <CustomRadioButtton
-                      isSelected={true}
-                      text="Add Skills"
-                    />
-                     <CustomRadioButtton
-                      isSelected={false}
-                      text="Add Years of Experience"
-                    />
-                     <CustomRadioButtton
-                      isSelected={false}
-                      text="Add Salary Range"
-                    />
-                     <CustomRadioButtton
-                      isSelected={false}
-                      text="Add Profile Image"
-                    />
+                </div>
+                <div className="my-4 px-6 relative z-[1]">
+                  <CustomRadioButtton
+                    isSelected={false}
+                    text="Add Work Experience"
+                  />
+                  <CustomRadioButtton isSelected={true} text="Add Education" />
+                  <CustomRadioButtton isSelected={true} text="Add Skills" />
+                  <CustomRadioButtton
+                    isSelected={false}
+                    text="Add Years of Experience"
+                  />
+                  <CustomRadioButtton
+                    isSelected={false}
+                    text="Add Salary Range"
+                  />
+                  <CustomRadioButtton
+                    isSelected={false}
+                    text="Add Profile Image"
+                  />
                 </div>
               </div>
             </div>
@@ -107,7 +124,11 @@ const CustomRadioButtton = ({
   text: string;
 }) => {
   return (
-    <button className={`flex justify-between w-full items-center my-3 ${isSelected?"opacity-40":""}`}>
+    <button
+      className={`flex justify-between w-full items-center my-3 ${
+        isSelected ? "opacity-40" : ""
+      }`}
+    >
       <div className="flex gap-x-3 items-center">
         {isSelected ? (
           <svg
