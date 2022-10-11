@@ -49,7 +49,7 @@ function Button(props: ButtonProp & ButtonHTMLAttributes<HTMLButtonElement>) {
     >
       <span className={` ${bold && "!font-medium"} text-center block`}>{label}</span>
 
-      {iconRight && iconRight}
+      {iconRight}
     </button>
   );
 }
