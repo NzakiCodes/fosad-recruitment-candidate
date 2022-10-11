@@ -70,5 +70,5 @@ body {
 
 }
 .selectable-label span {
-  @apply bg-[#E1EEFB] flex font-medium justify-between items-center px-6 py-3 rounded-full text-secondary xl:text-[14px] 2xl:text-base transition-[0.25s] ease-linear;
+  @apply bg-[#E1EEFB] flex font-medium justify-between items-center px-4 py-2 rounded-full text-secondary xl:text-[14px] transition-[0.25s] ease-linear;
 }
