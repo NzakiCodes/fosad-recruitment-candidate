@@ -4,7 +4,7 @@ import { Signup, UserResponse } from "../../../interfaces/user";
 import Axios from "./axios";
 
 const SignUp = async (payload: Signup) => {
-  const res: AxiosResponse<IResponse<UserResponse>> = await Axios.post(
+  const res: AxiosResponse<UserResponse> = await Axios.post(
     "auth/candidate",
     payload
   );

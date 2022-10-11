@@ -29,7 +29,8 @@ interface IUserSignUp {
 const Onbording: PageWithlayout = () => {
   const router = useRouter();
   const { mutate } = useSignUpCandidtate();
-  const { updateSignUpState, signUpState } = useContext(AuthContext);
+  const { updateSignUpState, signUpState, setAuthAndCache } =
+    useContext(AuthContext);
   const { addToast } = useToast();
   const totalSteps = 7;
   const [jobOptionSelect, setJobOptionSelect] = useState<string>(
@@ -45,7 +46,7 @@ const Onbording: PageWithlayout = () => {
   const [selectWorkIndustry, setSelectedWorkIndustry] = useState<JobInterests>(
     {} as JobInterests
   );
-  const [selectedSkills, setSelectedSkills] = useState<string>("");
+  const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
   const [progressCount, setProgressCount] = useState<number>(1);
 
   const handleBack = () => {
@@ -86,8 +87,8 @@ const Onbording: PageWithlayout = () => {
         updateStep();
       }
     } else if (progressCount === 4) {
-      if (selectedSkills === "") {
-        toast.error("Please select an option");
+      if (selectedSkills.length < 1) {
+        toast.error("Please select 1 or more skills");
       } else {
         updateSignUpState({
           ...signUpState,
@@ -130,10 +131,10 @@ const Onbording: PageWithlayout = () => {
     mutate(
       { ...signUpState },
       {
-        onSuccess: async (response: AxiosResponse<IResponse<UserResponse>>) => {
+        onSuccess: async (response: AxiosResponse<UserResponse>) => {
           const { data } = response;
-          console.log(data);
           router.push("/jobs/suggested");
+          setAuthAndCache(data.accessToken);
           toast.success("Signup Successful");
         },
         onError: (error) => {

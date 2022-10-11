@@ -3,7 +3,7 @@ import { JobInterests, JobType } from "../../interfaces/jobs";
 import { useGetUserSkills } from "../api/queries/user";
 
 interface OnboardingStep4 {
-  selectedSkills: string;
+  selectedSkills: string[];
   setSelectedSkills: Function;
 }
 
@@ -16,15 +16,15 @@ const OnboardingStepFour: FC<OnboardingStep4> = ({
   const [skill, setSkill] = useState<string>("");
   const [userSkills, setUserSkills] = useState<string[]>([]);
 
-  // const handleCheckBoxChange = (name: string) => {
-  //   if (selectedSkills.indexOf(name) !== -1) {
-  //     setSelectedSkills(
-  //       selectedSkills.filter((selectedId: string) => selectedId !== name)
-  //     );
-  //   } else {
-  //     setSelectedSkills([...selectedSkills, name]);
-  //   }
-  // };
+  const handleCheckBoxChange = (name: string) => {
+    if (selectedSkills.indexOf(name) !== -1) {
+      setSelectedSkills(
+        selectedSkills.filter((selectedId: string) => selectedId !== name)
+      );
+    } else {
+      setSelectedSkills([...selectedSkills, name]);
+    }
+  };
 
   return (
     <div className="lg:w-full mx-5">
@@ -37,7 +37,7 @@ const OnboardingStepFour: FC<OnboardingStep4> = ({
             <input
               type="checkbox"
               value={skill.name}
-              onChange={(e) => setSelectedSkills(e.target.value)}
+              onChange={(e) => handleCheckBoxChange(e.target.value)}
               checked={selectedSkills.includes(skill.name)}
             />
           </div>
@@ -50,7 +50,7 @@ const OnboardingStepFour: FC<OnboardingStep4> = ({
             <input
               type="checkbox"
               value={skill}
-              onChange={(e) => setSelectedSkills(e.target.value)}
+              onChange={(e) => handleCheckBoxChange(e.target.value)}
               checked={selectedSkills.includes(skill)}
             />
           </div>

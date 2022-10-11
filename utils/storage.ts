@@ -11,8 +11,8 @@ export class SecureStorage {
 export const getDefaultAuth = () => {
   const secureStorage = new SecureStorage();
   try {
-    const token = secureStorage.getItem(Constants.token);
-    return token;
+    const accessToken = secureStorage.getItem(Constants.accessToken);
+    return accessToken;
   } catch (e) {
     return null;
   }
