@@ -4,16 +4,12 @@ import React, { ReactElement, useEffect, useState } from "react";
 import Avatar from "../../components/Atoms/Avatar";
 import Container from "../../components/Atoms/Container";
 import Icon from "../../components/Atoms/Icon";
-import SelectRadio from "../../components/Atoms/SelectRadio";
 import DashboardLayout from "../../components/Layouts/Dashboard";
-<<<<<<< HEAD
-import CandidateSidebar from "../../components/Molecules/CandidateSidebar";
-=======
+import Education from "../../components/Organisms/ProfileTabs/Education";
 import CandidateSidebar, {
   menuItems,
 } from "../../components/Molecules/CandidateSidebar";
->>>>>>> c028f989cd4908a15711ca00393c8c5f598ceb2b
-import Education from "../../components/Organisms/ProfileTabs/Education";
+
 import Overview from "../../components/Organisms/ProfileTabs/Overview";
 import Skills from "../../components/Organisms/ProfileTabs/Skills";
 import WorkExperience from "../../components/Organisms/ProfileTabs/WorkExperience";
@@ -46,12 +42,12 @@ function Profile() {
           {currentTab === "overview" && <Overview />}
           {currentTab === "work" && <WorkExperience />}
           {currentTab === "education" && <Education />}
-<<<<<<< HEAD
           {currentTab === "otherInfo" && <OtherInformation />}
           {currentTab === "account" && <MyAccount />}
-=======
           {currentTab === "skills" && <Skills />}
->>>>>>> c028f989cd4908a15711ca00393c8c5f598ceb2b
+
+          
+
         </div>
         <div className="hidden lg:block w-[25%] h-full">
           <div className="fixed">
