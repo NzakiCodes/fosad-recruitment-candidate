@@ -1,12 +1,29 @@
 /* eslint-disable @next/next/no-img-element */
-import type { NextPage } from "next";
-import { ReactElement } from "react";
+import { useRouter } from "next/router";
+import { ReactElement, useEffect, useState } from "react";
 import Container from "../components/Atoms/Container";
+import Initializer from "../components/initializer";
 import { LandingLayout } from "../components/Layouts";
 import LandingHeader from "../components/Organisms/Header";
+import { useAuth } from "../context/authContext";
 import type { PageWithlayout } from "./_app";
 
 const Home: PageWithlayout = () => {
+  const { auth, initializing } = useAuth();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (auth && !isLoading && !initializing) {
+      router.push("/jobs");
+    }
+    setIsLoading(false);
+  }, [auth, isLoading, initializing]);
+
+  if (initializing && isLoading && !auth) {
+    return <Initializer />;
+  }
+
   return (
     <div className="">
       <LandingHeader />

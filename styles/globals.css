@@ -31,7 +31,6 @@ body {
   @apply rounded-tr-lg rounded-br-lg border border-secondaryBorder;
 }
 
-
 .landing-header{
   @apply bg-secondary bg-hero-pattern bg-no-repeat bg-[length:230px_400px];
 }
@@ -39,7 +38,6 @@ body {
 .landing-header-card{
   @apply bg-right-top  bg-hero-card-pattern bg-no-repeat bg-[length:180px_100px];
 }
-
 
 .selectable-label {
   @apply flex cursor-pointer font-medium relative overflow-hidden w-max mb-3;

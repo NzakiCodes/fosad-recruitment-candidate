@@ -1,41 +1,24 @@
 import React, { useEffect, useMemo, useState } from "react";
 
 interface ProgressProps {
-  step: number;
   totalSteps: number;
-  submit?: () => void;
   previous?: () => void;
-  onStepChange: (stepState: number) => void;
+  handleNext: () => void;
+  handleBack: () => void;
+  progressCount: number;
 }
 
-const Progress = ({ submit, totalSteps, onStepChange }: ProgressProps) => {
-  const [progressCount, setProgressCount] = useState<number>(1);
-  //   const [progress, setProgress] = useState<number>(0);
+const Progress = ({
+  totalSteps,
+  handleNext,
+  handleBack,
+  progressCount,
+}: ProgressProps) => {
   const progressCalc = (pCount: number) => {
     return (pCount / totalSteps) * 100;
   };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const progress = useMemo(() => progressCalc(progressCount), [progressCount]);
-
-  const handleBack = () => {
-    setProgressCount((prevActiveStep: number) => {
-      const newValue = prevActiveStep - 1;
-      onStepChange(newValue);
-      return newValue;
-    });
-  };
-
-  const handleNext = () => {
-    setProgressCount((prevActiveStep: number) => {
-      const newValue = prevActiveStep + 1;
-      onStepChange(newValue);
-      return newValue;
-    });
-
-    if (progressCount === totalSteps - 1 && submit) {
-      submit();
-    }
-  };
 
   return (
     <div className=" h-[127px]">
@@ -51,14 +34,12 @@ const Progress = ({ submit, totalSteps, onStepChange }: ProgressProps) => {
       </div>
 
       <div
-        className={`flex flex-row px-6 items-center justify-between w-full ${
-          progressCount === totalSteps ? " py-7" : "py-1"
-        }`}
+        className={`flex flex-row px-6 items-center justify-between w-full py-1`}
       >
         <div>
           <button
             className={`text-[16px] px-5 py-[14px] rounded w-32 border ${
-              progressCount === 1 ? "hidden" : "block"
+              progressCount === 1 || progressCount === 7 ? "hidden" : "block"
             }`}
             onClick={handleBack}
           >
@@ -66,14 +47,21 @@ const Progress = ({ submit, totalSteps, onStepChange }: ProgressProps) => {
           </button>
         </div>
         <div>
-          <button
-            className={`bg-secondary text-white text-[16px] px-5 py-[14px] rounded w-32 m-6 ${
-              progressCount === totalSteps ? "hidden" : "block"
-            }`}
-            onClick={handleNext}
-          >
-            Next
-          </button>
+          {progressCount === 7 ? (
+            <button
+              className={`bg-secondary text-white text-[16px] px-5 py-[14px] rounded w-32 m-6`}
+              onClick={handleNext}
+            >
+              Done
+            </button>
+          ) : (
+            <button
+              className={`bg-secondary text-white text-[16px] px-5 py-[14px] rounded w-32 m-6`}
+              onClick={handleNext}
+            >
+              Next
+            </button>
+          )}
         </div>
       </div>
     </div>
