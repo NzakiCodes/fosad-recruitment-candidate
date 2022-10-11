@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import Icon from "../../Atoms/Icon";
 
-const menuItems: MenuItemsProps[] = [
+export const menuItems: MenuItemsProps[] = [
   {
     id: "overview",
     text: "Overview",
@@ -31,7 +31,7 @@ const menuItems: MenuItemsProps[] = [
   },
 ];
 
-interface MenuItemsProps {
+export declare interface MenuItemsProps {
   id: string;
   text: string;
   href?: string;

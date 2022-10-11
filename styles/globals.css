@@ -39,3 +39,36 @@ body {
 .landing-header-card{
   @apply bg-right-top  bg-hero-card-pattern bg-no-repeat bg-[length:180px_100px];
 }
+
+
+.selectable-label {
+  @apply flex cursor-pointer font-medium relative overflow-hidden w-max mb-3;
+}
+.selectable-label input {
+  position: absolute;
+  left: -9999px;
+}
+.selectable-label input:checked + span {
+  @apply bg-transparent;
+
+}
+.selectable-label input:checked + span:before {
+  @apply border-2 border-secondary text-secondary  transition-[border];
+}
+.selectable-label  input + span::after{
+  @apply flex justify-end items-center ml-3 mt-1;
+  content: url("./plusIcon.svg");
+}
+.selectable-label  input:checked + span::after{
+  @apply flex justify-end items-center ml-3 transition-[content] w-4 h-4;
+  content: url("./xIcon.svg");
+
+}
+.selectable-label span:before {
+  content: "";
+  @apply absolute top-0 left-0 bottom-0 ring-0 w-full h-full rounded-full;
+
+}
+.selectable-label span {
+  @apply bg-[#E1EEFB] flex font-medium justify-between items-center px-4 py-2 rounded-full text-secondary xl:text-[14px] transition-[0.25s] ease-linear;
+}
