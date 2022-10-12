@@ -16,9 +16,12 @@ import WorkExperience from "../../components/Organisms/ProfileTabs/WorkExperienc
 import OtherInformation from "../../components/Organisms/ProfileTabs/OtherInformation";
 import MyAccount from "../../components/Organisms/ProfileTabs/MyAccount";
 import { useGetUserProfile } from "../api/queries/user";
+import Modal from "../../components/Molecules/Modal";
+import Resume from "../../components/Organisms/ProfileTabs/Resume";
 
 function Profile() {
   const { query } = useRouter();
+  const [currentTab, setCurrentTab] = useState<string>("overview");
   useEffect(() => {
     if (query.tab) {
       const itemExist = menuItems.find((m) => m.id == query.tab);
@@ -27,7 +30,6 @@ function Profile() {
     }
   }, [query]);
 
-  const [currentTab, setCurrentTab] = useState<string>("overview");
   const { data } = useGetUserProfile();
   console.log(data);
 
@@ -46,6 +48,7 @@ function Profile() {
           {currentTab === "overview" && <Overview />}
           {currentTab === "work" && <WorkExperience />}
           {currentTab === "education" && <Education />}
+          {currentTab === "resume" && <Resume />}
           {currentTab === "otherInfo" && <OtherInformation />}
           {currentTab === "account" && <MyAccount />}
           {currentTab === "skills" && <Skills />}

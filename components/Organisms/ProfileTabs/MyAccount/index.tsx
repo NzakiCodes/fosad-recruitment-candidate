@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "../../../Atoms/Avatar";
 import Button from "../../../Atoms/Button";
 import Icon from "../../../Atoms/Icon";
+import Modal from "../../../Molecules/Modal";
 
 const MyAccount = () => {
+  const [showModal, setShowModal] = useState<boolean>(false);
   return (
     <div>
-      <MyAccountCard title="My Account" edit={() => {}}></MyAccountCard>
+       <Modal isOpen={showModal} handleClose={() => setShowModal(false)}>
+        <div className="px-5 py-5">
+          <div className="flex justify-end">
+            <button onClick={() => setShowModal(false)}>
+              <Icon icon="cancel" />
+            </button>
+          </div>
+          <div className="px-3 py-4">My Account</div>
+        </div>
+      </Modal>
+      <MyAccountCard title="My Account" edit={() => setShowModal(true)}></MyAccountCard>
       <div className="px-5 bg-white rounded-lg">
         <div className=" pt-6 pb-3">
           <div className="left-[24px]">

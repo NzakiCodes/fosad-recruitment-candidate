@@ -54,7 +54,7 @@ body {
   @apply border-2 border-secondary text-secondary  transition-[border];
 }
 .selectable-label  input + span::after{
-  @apply flex justify-end items-center ml-3 mt-1;
+  @apply flex justify-end items-center ml-3 mt-1 w-4 h-4;
   content: url("./plusIcon.svg");
 }
 .selectable-label  input:checked + span::after{
@@ -68,7 +68,7 @@ body {
 
 }
 .selectable-label span {
-  @apply bg-[#E1EEFB] flex font-medium justify-between items-center px-4 py-2 rounded-full text-secondary xl:text-[14px] transition-[0.25s] ease-linear;
+  @apply bg-[#E1EEFB] flex font-medium justify-between items-center px-4 py-3 rounded-full text-secondary xl:text-[14px] transition-[0.25s] ease-linear;
 }
 
 .lds-ring {
