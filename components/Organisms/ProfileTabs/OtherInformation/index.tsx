@@ -1,13 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../../../Atoms/Button";
 import Icon from "../../../Atoms/Icon";
 import { edit } from "../../../Atoms/Icon/icons";
+import Modal from "../../../Molecules/Modal";
 
 
 const OtherInformation = () => {
+  const [showModal, setShowModal] = useState<boolean>(false);
   return (
     <div>
-      <OtherInfoCard title="Other Informations" edit={() => {}}></OtherInfoCard>
+      <Modal isOpen={showModal} handleClose={() => setShowModal(false)}>
+        <div className="px-5 py-5">
+          <div className="flex justify-end">
+            <button onClick={() => setShowModal(false)}>
+              <Icon icon="cancel" />
+            </button>
+          </div>
+          <div className="px-3 py-4">Other Information</div>
+        </div>
+      </Modal>
+      <OtherInfoCard title="Other Informations" edit={() => setShowModal(true)}></OtherInfoCard>
       <div className="px-5 bg-white rounded-lg">
         <div className=" pt-6 pb-3">
           <div className="font-mediun text-[16px] text-[#63748A]">

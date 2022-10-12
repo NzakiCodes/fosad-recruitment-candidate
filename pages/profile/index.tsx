@@ -14,10 +14,16 @@ import Overview from "../../components/Organisms/ProfileTabs/Overview";
 import Skills from "../../components/Organisms/ProfileTabs/Skills";
 import WorkExperience from "../../components/Organisms/ProfileTabs/WorkExperience";
 import MyAccount from "../../components/Organisms/ProfileTabs/MyAccount";
+<<<<<<< HEAD
 import OtherInformation from "../../components/Organisms/ProfileTabs/OtherInformation";
+=======
+import Modal from "../../components/Molecules/Modal";
+import Resume from "../../components/Organisms/ProfileTabs/Resume";
+>>>>>>> 056e133d53ac2ee451b572713b1ced5b0f7b9539
 
 function Profile() {
   const { query } = useRouter();
+  const [currentTab, setCurrentTab] = useState<string>("overview");
   useEffect(() => {
     if (query.tab) {
       const itemExist = menuItems.find((m) => m.id == query.tab);
@@ -26,7 +32,6 @@ function Profile() {
     }
   }, [query]);
 
-  const [currentTab, setCurrentTab] = useState<string>("overview");
   return (
     <Container className="py-4">
       <div className="flex gap-x-10">
@@ -42,6 +47,7 @@ function Profile() {
           {currentTab === "overview" && <Overview />}
           {currentTab === "work" && <WorkExperience />}
           {currentTab === "education" && <Education />}
+          {currentTab === "resume" && <Resume />}
           {currentTab === "otherInfo" && <OtherInformation />}
           {currentTab === "account" && <MyAccount />}
           {currentTab === "skills" && <Skills />}

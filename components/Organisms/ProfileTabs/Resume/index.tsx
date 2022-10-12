@@ -3,30 +3,28 @@ import Icon from "../../../Atoms/Icon";
 import ProfileCard from "../../../Atoms/ProfileCard";
 import Modal from "../../../Molecules/Modal";
 
-const Education = () => {
+const Resume = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   return (
     <div>
-      <div>
-        <Modal isOpen={showModal} handleClose={() => setShowModal(false)}>
-          <div className="px-5 py-5">
-            <div className="flex justify-end">
-              <button onClick={() => setShowModal(false)}>
-                <Icon icon="cancel" />
-              </button>
-            </div>
-            <div className="px-3 py-4">Education</div>
+      <Modal isOpen={showModal} handleClose={() => setShowModal(false)}>
+        <div className="px-5 py-5">
+          <div className="flex justify-end">
+            <button onClick={() => setShowModal(false)}>
+              <Icon icon="cancel" />
+            </button>
           </div>
-        </Modal>
-      </div>
+          <div className="px-3 py-4">Resume</div>
+        </div>
+      </Modal>
       <div>
         <button
           onClick={() => setShowModal(true)}
           className="w-full flex items-center justify-center gap-x-3 bg-[#E1EEFB] py-6 rounded-lg"
         >
-          <Icon icon="plusCircle" />
+          <Icon icon="file" />
           <span className="font-semibold text-secondary text-base">
-            Add Education
+            Upload Resume
           </span>
         </button>
       </div>
@@ -37,15 +35,9 @@ const Education = () => {
           duration="September 2014 - 2019"
           edit={() => {}}
         />
-        <ProfileCard
-          role="Abia State University"
-          company="Bachelor of Science - BSc Economics"
-          duration="March 2019 - 2020"
-          edit={() => {}}
-        />
       </div>
     </div>
   );
 };
 
-export default Education;
+export default Resume;
