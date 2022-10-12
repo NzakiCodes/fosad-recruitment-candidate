@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SelectableLabel from "../../../Atoms/SelectableLabel";
 declare type SkillsType = {
   id: string;
   title: string;
@@ -36,7 +37,8 @@ const Skills = () => {
             <SelectableLabel
               key={id}
               isChecked={isSelected}
-              text={title}
+              label={title}
+              value={id}
               onChange={() => updateSkillsList(id)}
             />
           ))}
@@ -65,26 +67,6 @@ const Skills = () => {
   );
 };
 
-const SelectableLabel = ({
-  text,
-  isChecked,
-  onChange,
-}: {
-  text: string;
-  isChecked: boolean;
-  onChange: () => void;
-}) => {
-  return (
-    <label className="selectable-label">
-      <input
-        type="checkbox"
-        name="radio"
-        checked={isChecked}
-        onChange={onChange}
-      />
-      <span>{text}</span>
-    </label>
-  );
-};
+
 
 export default Skills;

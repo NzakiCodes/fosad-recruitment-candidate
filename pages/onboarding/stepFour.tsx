@@ -1,4 +1,5 @@
 import React, { FC, useState } from "react";
+import SelectableLabel from "../../components/Atoms/SelectableLabel";
 import { JobInterests, JobType } from "../../interfaces/jobs";
 import { useGetUserSkills } from "../api/queries/user";
 
@@ -27,33 +28,29 @@ const OnboardingStepFour: FC<OnboardingStep4> = ({
   };
 
   return (
-    <div className="lg:w-full mx-5">
+    <div className="lg:w-full mx-5 flex flex-wrap gap-x-3 gap-y-1">
       {isLoading ? (
         <div>Loading...</div>
       ) : (
         skills?.map((skill: JobInterests, index: number) => (
-          <div key={index}>
-            <label>{skill.name}</label>
-            <input
-              type="checkbox"
-              value={skill.name}
-              onChange={(e) => handleCheckBoxChange(e.target.value)}
-              checked={selectedSkills.includes(skill.name)}
-            />
-          </div>
+          <SelectableLabel
+            key={index}
+            label={skill.name}
+            value={skill.name}
+            isChecked={selectedSkills.includes(skill.name)}
+            onChange={(e) => handleCheckBoxChange(e.target.value)}
+          />
         ))
       )}
       {userSkills &&
         userSkills?.map((skill: string, index: number) => (
-          <div key={index}>
-            <label>{skill}</label>
-            <input
-              type="checkbox"
-              value={skill}
-              onChange={(e) => handleCheckBoxChange(e.target.value)}
-              checked={selectedSkills.includes(skill)}
-            />
-          </div>
+          <SelectableLabel
+            key={index}
+            label={skill}
+            value={skill}
+            isChecked={selectedSkills.includes(skill)}
+            onChange={(e) => handleCheckBoxChange(e.target.value)}
+          />
         ))}
       <hr className="my-8" />
       <div>
