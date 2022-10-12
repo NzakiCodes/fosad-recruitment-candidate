@@ -43,7 +43,7 @@ const OnboardingStepSix: FC<IOnboardingStep6> = ({ handleChange }) => {
             viewBox="0 0 24 25"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="absolute top-[30%] right-[10%]"
+            className="absolute top-[30%] right-[4%]"
             onClick={passwordVisibility}
           >
             <path

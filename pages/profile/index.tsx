@@ -15,6 +15,7 @@ import Skills from "../../components/Organisms/ProfileTabs/Skills";
 import WorkExperience from "../../components/Organisms/ProfileTabs/WorkExperience";
 import OtherInformation from "../../components/Organisms/ProfileTabs/OtherInformation";
 import MyAccount from "../../components/Organisms/ProfileTabs/MyAccount";
+import { useGetUserProfile } from "../api/queries/user";
 
 function Profile() {
   const { query } = useRouter();
@@ -27,6 +28,9 @@ function Profile() {
   }, [query]);
 
   const [currentTab, setCurrentTab] = useState<string>("overview");
+  const { data } = useGetUserProfile();
+  console.log(data);
+
   return (
     <Container className="py-4">
       <div className="flex gap-x-10">
@@ -45,9 +49,6 @@ function Profile() {
           {currentTab === "otherInfo" && <OtherInformation />}
           {currentTab === "account" && <MyAccount />}
           {currentTab === "skills" && <Skills />}
-
-          
-
         </div>
         <div className="hidden lg:block w-[25%] h-full">
           <div className="fixed">

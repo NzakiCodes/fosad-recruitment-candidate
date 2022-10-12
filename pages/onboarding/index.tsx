@@ -48,6 +48,7 @@ const Onbording: PageWithlayout = () => {
   );
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
   const [progressCount, setProgressCount] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleBack = () => {
     setProgressCount(progressCount - 1);
@@ -97,7 +98,7 @@ const Onbording: PageWithlayout = () => {
         updateStep();
       }
     } else if (progressCount === 5) {
-      if (selectWorkIndustry.name === "") {
+      if (selectWorkIndustry.name === undefined) {
         toast.error("Please select an option");
       } else {
         updateSignUpState({
@@ -114,32 +115,39 @@ const Onbording: PageWithlayout = () => {
       ) {
         toast.error("Please enter your full name, email and password");
       } else {
-        updateSignUpState({
-          ...signUpState,
-          fullName: inputs.fullName,
-          email: inputs.email,
-          password: inputs.password,
-        });
-        updateStep();
+        submit();
       }
-    } else {
-      submit();
+    } else if (progressCount === 7) {
+      router.push("/jobs/suggested");
     }
   };
 
   const submit = () => {
+    setLoading(true);
     mutate(
-      { ...signUpState },
+      {
+        ...signUpState,
+        fullName: inputs.fullName,
+        email: inputs.email,
+        password: inputs.password,
+      },
       {
         onSuccess: async (response: AxiosResponse<UserResponse>) => {
           const { data } = response;
-          router.push("/jobs/suggested");
           setAuthAndCache(data.accessToken);
           toast.success("Signup Successful");
+          // updateSignUpState()
+          updateStep();
+          setLoading(false);
         },
         onError: (error) => {
-          const err = error as AxiosError;
-          toast.error(`${err}`);
+          if (error instanceof AxiosError) {
+            toast.error(error.response?.data.data.message);
+            setLoading(false);
+          } else {
+            toast.error(`${error}`);
+            setLoading(false);
+          }
         },
       }
     );
@@ -200,6 +208,7 @@ const Onbording: PageWithlayout = () => {
           totalSteps={totalSteps}
           handleNext={handleNext}
           handleBack={handleBack}
+          loading={loading}
         />
       </div>
     </div>

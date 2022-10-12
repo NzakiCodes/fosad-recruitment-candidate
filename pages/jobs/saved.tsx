@@ -1,8 +1,11 @@
 import React, { ReactElement } from "react";
 import DashboardLayout from "../../components/Layouts/Dashboard";
 import JobCard from "../../components/Molecules/JobCard";
+import { useGetSavedJobs } from "../api/queries/jobs";
 
 function SavedJobs() {
+  const { data } = useGetSavedJobs();
+  console.log(data);
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-7 gap-5">

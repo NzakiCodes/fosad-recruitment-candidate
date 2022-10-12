@@ -2,8 +2,11 @@ import React, { ReactElement } from "react";
 import Avatar from "../../components/Atoms/Avatar";
 import DashboardLayout from "../../components/Layouts/Dashboard";
 import JobCard from "../../components/Molecules/JobCard";
+import { useGetSuggestedJobs } from "../api/queries/jobs";
 
-function SuggestedJobs() {
+const SuggestedJobs = () => {
+  const { data } = useGetSuggestedJobs();
+  console.log(data);
   return (
     <div>
       <div className="flex flex-col md:flex-row w-full">
@@ -39,7 +42,7 @@ function SuggestedJobs() {
           jobStatus="applied"
           link="/"
         />
-         <JobCard
+        <JobCard
           title="Product Designer for Global Fintach Product"
           location="Lagos, Nigeria"
           annualSalary="$250,000/yr"
@@ -49,7 +52,7 @@ function SuggestedJobs() {
           jobStatus="interview"
           link="/"
         />
-         <JobCard
+        <JobCard
           title="Product Designer for Global Fintach Product"
           location="Lagos, Nigeria"
           annualSalary="$250,000/yr"
@@ -62,7 +65,7 @@ function SuggestedJobs() {
       </div>
     </div>
   );
-}
+};
 
 SuggestedJobs.getLayout = function getLayout(page: ReactElement) {
   return <DashboardLayout>{page}</DashboardLayout>;

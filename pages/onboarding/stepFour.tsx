@@ -29,7 +29,12 @@ const OnboardingStepFour: FC<OnboardingStep4> = ({
   return (
     <div className="lg:w-full mx-5">
       {isLoading ? (
-        <div>Loading...</div>
+        <div className="lds-ring">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       ) : (
         skills?.map((skill: JobInterests, index: number) => (
           <div key={index}>

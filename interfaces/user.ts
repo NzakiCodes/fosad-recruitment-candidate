@@ -42,3 +42,21 @@ export interface UserCandidacy {
   industry_categories: string;
   user: User;
 }
+
+export interface UserProfile {
+  id: string;
+  position: null;
+  company: null;
+  summary: string;
+  skills: null;
+  languages: null;
+  email: string;
+  contacts: null;
+  profiles: null;
+  minimum_desired_pay: null;
+  years_of_experience: null;
+  employer_size: null;
+  location: null;
+  geo_preference: null;
+  user: User;
+}

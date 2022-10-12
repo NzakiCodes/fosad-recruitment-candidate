@@ -6,6 +6,7 @@ interface ProgressProps {
   handleNext: () => void;
   handleBack: () => void;
   progressCount: number;
+  loading: boolean;
 }
 
 const Progress = ({
@@ -13,6 +14,7 @@ const Progress = ({
   handleNext,
   handleBack,
   progressCount,
+  loading,
 }: ProgressProps) => {
   const progressCalc = (pCount: number) => {
     return (pCount / totalSteps) * 100;
@@ -39,7 +41,9 @@ const Progress = ({
         <div>
           <button
             className={`text-[16px] px-5 py-[14px] rounded w-32 border ${
-              progressCount === 1 || progressCount === 7 ? "hidden" : "block"
+              progressCount === 1 || progressCount === 7 || loading
+                ? "hidden"
+                : "block"
             }`}
             onClick={handleBack}
           >
@@ -56,8 +60,9 @@ const Progress = ({
             </button>
           ) : (
             <button
-              className={`bg-secondary text-white text-[16px] px-5 py-[14px] rounded w-32 m-6`}
+              className={`bg-secondary text-white text-[16px] px-5 py-[14px] rounded w-32 m-6 disabled:opacity-50 disabled:cursor-not-allowed`}
               onClick={handleNext}
+              disabled={loading}
             >
               Next
             </button>

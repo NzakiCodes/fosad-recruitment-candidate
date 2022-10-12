@@ -29,19 +29,25 @@ const OnboardingStepFive: FC<IOnboardingStep5> = ({
       <div className="inline-block mb-4 font-semibold text-xl text-secondary">
         Select any you might be interested in.
       </div>
-
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        data?.data.data?.map(({ id, name }) => (
-          <SelectCheckbox
-            key={id}
-            text={name}
-            onClick={() => updateJobTypeList(id)}
-            selected={selectWorkIndustry.id === id}
-          />
-        ))
-      )}
+      <div>
+        {isLoading ? (
+          <div className="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        ) : (
+          data?.data.data?.map(({ id, name }) => (
+            <SelectCheckbox
+              key={id}
+              text={name}
+              onClick={() => updateJobTypeList(id)}
+              selected={selectWorkIndustry.id === id}
+            />
+          ))
+        )}
+      </div>
     </div>
   );
 };
