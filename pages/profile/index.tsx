@@ -13,8 +13,8 @@ import CandidateSidebar, {
 import Overview from "../../components/Organisms/ProfileTabs/Overview";
 import Skills from "../../components/Organisms/ProfileTabs/Skills";
 import WorkExperience from "../../components/Organisms/ProfileTabs/WorkExperience";
-import OtherInformation from "../../components/Organisms/ProfileTabs/OtherInformation";
 import MyAccount from "../../components/Organisms/ProfileTabs/MyAccount";
+import OtherInformation from "../../components/Organisms/ProfileTabs/OtherInformation";
 
 function Profile() {
   const { query } = useRouter();
@@ -45,9 +45,6 @@ function Profile() {
           {currentTab === "otherInfo" && <OtherInformation />}
           {currentTab === "account" && <MyAccount />}
           {currentTab === "skills" && <Skills />}
-
-          
-
         </div>
         <div className="hidden lg:block w-[25%] h-full">
           <div className="fixed">
