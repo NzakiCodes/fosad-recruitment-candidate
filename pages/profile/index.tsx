@@ -48,6 +48,9 @@ function Profile() {
           {currentTab === "otherInfo" && <OtherInformation />}
           {currentTab === "account" && <MyAccount />}
           {currentTab === "skills" && <Skills />}
+
+          
+
         </div>
         <div className="hidden lg:block w-[25%] h-full">
           <div className="fixed">
