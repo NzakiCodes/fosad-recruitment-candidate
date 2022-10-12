@@ -1,11 +1,24 @@
-import React from "react";
+import React, { JSXElementConstructor, ReactElement, ReactNode } from "react";
 import { useEffect } from "react";
 import Portal from "../ReactPortal/Portal";
 import ModalContainer from "./ModalContainer";
 
-function Modal({ children, isOpen, handleClose, className }) {
+function Modal({
+  children,
+  isOpen,
+  handleClose,
+  className,
+}: {
+  children:
+    | ReactElement
+    | ReactNode
+    | ReactElement<any, string | JSXElementConstructor<any>>;
+  isOpen: boolean;
+  handleClose: () => void;
+  className?: string;
+}) {
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e:any) => {
       if (e.key === "Escape") {
         handleClose();
       }
@@ -20,11 +33,11 @@ function Modal({ children, isOpen, handleClose, className }) {
     <Portal wrapperId="react-portal-modal-container">
       <ModalContainer onClose={handleClose}>
         <div
-        onClick={(e)=>{
+          onClick={(e) => {
             e.stopPropagation();
-        }}
-          className={`mx-auto max-w-[534px] bg-white w-full ${
-            className ? className : "px-10 py-10 h-full"
+          }}
+          className={`mx-auto max-w-[534px] rounded-lg bg-white w-full ${
+            className ? className : ""
           }`}
         >
           {children}
