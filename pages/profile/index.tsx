@@ -13,8 +13,8 @@ import CandidateSidebar, {
 import Overview from "../../components/Organisms/ProfileTabs/Overview";
 import Skills from "../../components/Organisms/ProfileTabs/Skills";
 import WorkExperience from "../../components/Organisms/ProfileTabs/WorkExperience";
-import OtherInformation from "../../components/Organisms/ProfileTabs/OtherInformation";
 import MyAccount from "../../components/Organisms/ProfileTabs/MyAccount";
+import OtherInformation from "../../components/Organisms/ProfileTabs/OtherInformation";
 import Modal from "../../components/Molecules/Modal";
 import Resume from "../../components/Organisms/ProfileTabs/Resume";
 

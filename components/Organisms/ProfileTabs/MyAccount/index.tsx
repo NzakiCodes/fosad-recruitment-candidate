@@ -8,15 +8,91 @@ const MyAccount = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   return (
     <div>
-       <Modal isOpen={showModal} handleClose={() => setShowModal(false)}>
-        <div className="px-5 py-5">
-          <div className="flex justify-end">
+       <Modal className="max-h-[640px] overflow-scroll" isOpen={showModal} handleClose={() => setShowModal(false)}>
+        <div className="px-3 py-3 bg-[#e5eaf0] rounded-lg ">
+          <div className="flex justify-between ">
+            <div className="px-2 py-3 font-semibold text-secondary text-[18px]">Account</div>
             <button onClick={() => setShowModal(false)}>
               <Icon icon="cancel" />
             </button>
           </div>
-          <div className="px-3 py-4">My Account</div>
         </div>
+        <div>
+        <div className=" rounded-tl-lg rounded-tr-lg  px-4 py-3 landing-header-card flex items-center gap-4">
+              <div className="relative">
+              <Avatar size="small" source="/assets/images/user-1.png" />
+              </div>
+              
+              <span className="block font-medium text-base">
+                Add Profile Image
+              </span>
+            </div>
+            <form className=" px-6">
+              <label className="text-[#63748A]">Email</label>
+            <input
+            type="text"
+            className="w-full rounded-lg py-4 px-5 text-[#9EABBC] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-normal text-[18px] flex gap-5 my-3"
+            placeholder="Title your work experience"
+            name="email"
+          />
+          </form>
+            <form className="pb-4 px-6">
+              <label className="text-[#63748A]">Phone Number</label>
+            <input
+            type="text"
+            className="w-full rounded-lg py-4 px-5 text-[#9EABBC] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-normal text-[18px] flex gap-5 my-3"
+            placeholder="Name of employer company"
+            name="email"
+          />
+          </form>
+          <hr className="w-full"></hr>
+            <form className="pt-5 px-6">
+              <h1 className="font-semibold text-[18px] text-secondary pb-3">Website & Social media</h1>
+              <label className="text-[#63748A]">Website</label>
+            <input
+            type="text"
+            className="w-full rounded-lg py-4 px-5 text-[#9EABBC] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-normal text-[18px] flex gap-5 my-3"
+            placeholder="http://"
+            name="email"
+          />
+          </form>
+            <form className=" px-6">
+              <label className="text-[#63748A]">Linkedin</label>
+            <input
+            type="text"
+            className="w-full rounded-lg py-4 px-5 text-[#63748A] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-normal text-[18px] flex gap-5 my-3"
+            placeholder="linkedin.com/"
+            name="email"
+          />
+          </form>
+            <form className=" px-6">
+              <label className="text-[#63748A]">Twitter</label>
+            <input
+            type="text"
+            className="w-full rounded-lg py-4 px-5 text-[#9EABBC] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-normal text-[18px] flex gap-5 my-3"
+            placeholder="twitter.com/"
+            name="email"
+          />
+          </form>
+            <form className=" px-6">
+              <label className="text-[#63748A]">Instagram</label>
+            <input
+            type="text"
+            className="w-full rounded-lg py-4 px-5 text-[#9EABBC] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-normal text-[18px] flex gap-5 my-3"
+            placeholder="instagram.com/"
+            name="email"
+          />
+          </form>
+          <div className="pb-4 flex justify-end pt-6 px-4 ">
+            <button className="text-[16px] px-5 py-[14px] rounded-lg w-32 border border-[#D1D5DB]">
+              Cancel
+            </button>
+            <button className="bg-secondary text-white text-[16px] px-5 py-[14px] rounded-lg w-32 ml-4">
+              Save
+            </button>
+          </div>
+        </div>
+
       </Modal>
       <MyAccountCard title="My Account" edit={() => setShowModal(true)}></MyAccountCard>
       <div className="px-5 bg-white rounded-lg">
