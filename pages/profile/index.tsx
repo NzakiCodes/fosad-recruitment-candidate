@@ -1,23 +1,22 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import Avatar from "../../components/Atoms/Avatar";
 import Container from "../../components/Atoms/Container";
 import Icon from "../../components/Atoms/Icon";
 import DashboardLayout from "../../components/Layouts/Dashboard";
-import Education from "../../components/Organisms/ProfileTabs/Education";
 import CandidateSidebar, {
   menuItems,
 } from "../../components/Molecules/CandidateSidebar";
+import Education from "../../components/Organisms/ProfileTabs/Education";
 
+import MyAccount from "../../components/Organisms/ProfileTabs/MyAccount";
+import OtherInformation from "../../components/Organisms/ProfileTabs/OtherInformation";
 import Overview from "../../components/Organisms/ProfileTabs/Overview";
+import Resume from "../../components/Organisms/ProfileTabs/Resume";
 import Skills from "../../components/Organisms/ProfileTabs/Skills";
 import WorkExperience from "../../components/Organisms/ProfileTabs/WorkExperience";
-import OtherInformation from "../../components/Organisms/ProfileTabs/OtherInformation";
-import MyAccount from "../../components/Organisms/ProfileTabs/MyAccount";
 import { useGetUserProfile } from "../api/queries/user";
-import Modal from "../../components/Molecules/Modal";
-import Resume from "../../components/Organisms/ProfileTabs/Resume";
 
 function Profile() {
   const { query } = useRouter();
