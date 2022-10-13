@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Checkbox from "../../../Atoms/Checkbox/Index";
 import Icon from "../../../Atoms/Icon";
 import ProfileCard from "../../../Atoms/ProfileCard";
 import Modal from "../../../Molecules/Modal";
@@ -8,15 +9,82 @@ const Education = () => {
   return (
     <div>
       <div>
-        <Modal isOpen={showModal} handleClose={() => setShowModal(false)}>
-          <div className="px-5 py-5">
-            <div className="flex justify-end">
-              <button onClick={() => setShowModal(false)}>
-                <Icon icon="cancel" />
-              </button>
+        <Modal className="max-h-[640px] overflow-scroll" isOpen={showModal} handleClose={() => setShowModal(false)}>
+        <div className="px-3 py-3 bg-[#e5eaf0] rounded-lg ">
+          <div className="flex justify-between ">
+            <div className="px-2 py-3 font-semibold text-secondary text-[18px]">
+              Education
             </div>
-            <div className="px-3 py-4">Education</div>
+            <button onClick={() => setShowModal(false)}>
+              <Icon icon="cancel" />
+            </button>
           </div>
+        </div>
+        <div>
+          <form className="pt-6 px-6">
+            <label className="text-[#63748A] font-medium">School</label>
+            <input
+              type="text"
+              className="w-full rounded-lg py-4 px-5 text-secondary border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-medium text-[18px] flex gap-5 my-3"
+              placeholder="Title of your work experience"
+              name="email"
+            />
+          </form>
+          <form className="px-6">
+            <label className="text-[#63748A] font-medium">Degree</label>
+            <input
+              type="text"
+              className="w-full rounded-lg py-4 px-5 text-secondary border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-medium text-[18px] flex gap-5 my-3"
+              placeholder="Name of employer company"
+              name="email"
+            />
+          </form>
+          <form className="px-6">
+            <label className="text-[#63748A] font-medium">
+              Field of Study
+            </label>
+            <input
+              type="text"
+              className="w-full rounded-lg py-4 px-5 text-secondary border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-medium text-[18px] flex gap-5 my-3"
+              placeholder="Name of employer company"
+              name="email"
+            />
+          </form>
+          <div className=" px-6 py-4 flex">
+            <div className="mr-3"><Checkbox type="squared" size="small" color="primary" checked={false}/></div>
+            
+           <p className="text-[#63748A] font-medium text-[16px]">Currently in progress</p>
+          </div>
+          <div className="flex px-6 pb-4">
+          <form className=" px-6">
+            <label className="text-[#63748A] font-medium">Start Date</label>
+            <input
+              type="date"
+              className="rounded-lg py-4 px-2 text-secondary border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-medium text-[16px] flex gap-1 my-3"
+              placeholder="mm/yyyy"
+              name="email"
+            />
+          </form>
+          <form className=" px-6">
+            <label className="text-[#63748A] font-medium">End Date</label>
+            <input
+              type="date"
+              className="rounded-lg py-4 px-2 text-secondary border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-medium text-[16px] flex gap-1 my-3"
+              placeholder="mm/yyyy"
+              name="email"
+            />
+          </form>
+          </div>
+          <hr className="w-full"></hr>
+          <div className="pb-4 flex justify-end pt-6 px-4 ">
+            <button className="text-[16px] px-5 py-[14px] rounded-lg w-32 border border-[#D1D5DB]">
+              Cancel
+            </button>
+            <button className="bg-secondary text-white text-[16px] px-5 py-[14px] rounded-lg w-32 ml-4">
+              Save
+            </button>
+          </div>
+        </div>
         </Modal>
       </div>
       <div>
