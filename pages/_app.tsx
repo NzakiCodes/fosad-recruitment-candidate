@@ -25,23 +25,6 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const title = Component.title ?? undefined;
   const [queryClient] = useState(() => new QueryClient());
 
-  const { auth, initializing } = useAuth();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!initializing) {
-      if (auth) {
-        router.push("/jobs/suggested");
-      }
-    }
-    setIsLoading(false);
-  }, [auth, initializing]);
-
-  if (initializing || auth === undefined) {
-    return <Initializer />;
-  }
-
   return getLayout(
     <QueryClientProvider client={queryClient}>
       <Toaster />

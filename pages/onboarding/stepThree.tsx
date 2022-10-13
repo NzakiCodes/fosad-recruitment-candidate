@@ -1,11 +1,11 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import SelectCheckbox from "../../components/Atoms/SelectCheckbox";
 import { JobType } from "../../interfaces/jobs";
 
 interface IOnboardingStep3 {
   selectedJobLocation: string;
   setSelectedJobLocation: Function;
-  selectJobStation: JobType;
+  selectJobStation: string[];
   setSelectedJobStation: Function;
 }
 
@@ -22,14 +22,13 @@ const OnboardingStepThree: FC<IOnboardingStep3> = ({
   ]);
 
   const updateJobLocationTypeList = (id: string) => {
-    const updatedJobLocations = jobLocationTypeList.map((jobLocation) => {
+    const updatedJobLocation = jobLocationTypeList.map((jobLocation) => {
       if (id === jobLocation.id) {
-        setSelectedJobStation(jobLocation);
+        return { ...jobLocation, isSelected: !jobLocation.isSelected };
       }
       return jobLocation;
     });
-
-    setJobLocationTypeList(updatedJobLocations);
+    setJobLocationTypeList(updatedJobLocation);
   };
 
   const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,14 +36,22 @@ const OnboardingStepThree: FC<IOnboardingStep3> = ({
     setSelectedJobLocation(value);
   };
 
+  useEffect(() => {
+    jobLocationTypeList.map((job) => {
+      if (job.isSelected === true) {
+        setSelectedJobStation([...selectJobStation, job.title]);
+      }
+    });
+  }, [jobLocationTypeList]);
+
   return (
     <div className="lg:w-full mx-5">
       {jobLocationTypeList &&
-        jobLocationTypeList?.map(({ id, title }) => (
+        jobLocationTypeList?.map(({ id, title, isSelected }) => (
           <SelectCheckbox
             key={id}
             text={title}
-            selected={selectJobStation.id === id}
+            selected={isSelected}
             onClick={() => updateJobLocationTypeList(id)}
           />
         ))}

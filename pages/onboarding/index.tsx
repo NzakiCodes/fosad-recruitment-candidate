@@ -36,16 +36,10 @@ const Onbording: PageWithlayout = () => {
   const [jobOptionSelect, setJobOptionSelect] = useState<string>(
     JobSearchOption.LOOKINGFORJOB
   );
-  const [selectedJobType, setSelectedJobType] = useState<JobType>(
-    {} as JobType
-  );
+  const [selectedJobType, setSelectedJobType] = useState<string[]>([]);
   const [selectedJobLocation, setSelectedJobLocation] = useState<string>("");
-  const [selectJobStation, setSelectedJobStation] = useState<JobType>(
-    {} as JobType
-  );
-  const [selectWorkIndustry, setSelectedWorkIndustry] = useState<JobInterests>(
-    {} as JobInterests
-  );
+  const [selectJobStation, setSelectedJobStation] = useState<string[]>([]);
+  const [selectWorkIndustry, setSelectedWorkIndustry] = useState<string[]>([]);
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
   const [progressCount, setProgressCount] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
@@ -58,6 +52,8 @@ const Onbording: PageWithlayout = () => {
     setProgressCount(progressCount + 1);
   };
 
+  console.log(signUpState);
+
   const handleNext = () => {
     if (progressCount === 1) {
       if (jobOptionSelect === "") {
@@ -67,29 +63,31 @@ const Onbording: PageWithlayout = () => {
         updateStep();
       }
     } else if (progressCount === 2) {
-      if (selectedJobType.title === undefined) {
-        toast.error("Please select an option");
+      if (selectedJobType.length < 1) {
+        toast.error("Please select 1 or more options");
       } else {
         updateSignUpState({
           ...signUpState,
-          employment_demand: selectedJobType.title,
+          employment_demand: selectedJobType,
         });
         updateStep();
       }
     } else if (progressCount === 3) {
-      if (selectedJobLocation === "" || selectJobStation.title === undefined) {
-        toast.error("Please select an option and enter your location");
+      if (selectedJobLocation === "" || selectJobStation.length < 1) {
+        toast.error(
+          "Please select one or more options and enter your location"
+        );
       } else {
         updateSignUpState({
           ...signUpState,
           work_location: selectedJobLocation,
-          work_model: selectJobStation.title,
+          work_model: selectJobStation,
         });
         updateStep();
       }
     } else if (progressCount === 4) {
       if (selectedSkills.length < 1) {
-        toast.error("Please select 1 or more skills");
+        toast.error("Please select 2 or more skills");
       } else {
         updateSignUpState({
           ...signUpState,
@@ -98,12 +96,12 @@ const Onbording: PageWithlayout = () => {
         updateStep();
       }
     } else if (progressCount === 5) {
-      if (selectWorkIndustry.name === undefined) {
-        toast.error("Please select an option");
+      if (selectWorkIndustry.length < 1) {
+        toast.error("Please select one or more options");
       } else {
         updateSignUpState({
           ...signUpState,
-          industry_categories: selectWorkIndustry.name,
+          industry_categories: selectWorkIndustry,
         });
         updateStep();
       }
@@ -134,9 +132,8 @@ const Onbording: PageWithlayout = () => {
       {
         onSuccess: async (response: AxiosResponse<UserResponse>) => {
           const { data } = response;
-          setAuthAndCache(data.accessToken);
+          setAuthAndCache(data.access_token);
           toast.success("Signup Successful");
-          // updateSignUpState()
           updateStep();
           setLoading(false);
         },

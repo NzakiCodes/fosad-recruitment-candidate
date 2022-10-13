@@ -72,7 +72,10 @@ const OnboardingStepFour: FC<OnboardingStep4> = ({
           />
           <button
             className="h-full border-l  border-[#DEE3E9] w-1/6 py-4"
-            onClick={() => setUserSkills([...userSkills, skill])}
+            onClick={() => {
+              setUserSkills([...userSkills, skill]);
+              setSkill("");
+            }}
           >
             Add +
           </button>

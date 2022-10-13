@@ -3,11 +3,11 @@ export interface Signup {
   email?: string;
   password?: string;
   job_urgency?: string;
-  employment_demand?: string;
-  work_model?: string;
+  employment_demand?: string[];
+  work_model?: string[];
   work_location?: string;
   skills?: string[];
-  industry_categories?: string;
+  industry_categories?: string[];
 }
 
 export interface Login {
@@ -17,7 +17,7 @@ export interface Login {
 
 export interface UserResponse {
   candidacy: UserCandidacy;
-  accessToken: string;
+  access_token: string;
 }
 
 export interface UserRole {

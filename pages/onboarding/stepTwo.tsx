@@ -1,15 +1,15 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import SelectCheckbox from "../../components/Atoms/SelectCheckbox";
 import { JobType } from "../../interfaces/jobs";
 
 interface IOnboardingStep2 {
-  selectedJobType: JobType;
+  selectedJobType: string[];
   setSelectedJobType: Function;
 }
 
 const OnboardingStepTwo: FC<IOnboardingStep2> = ({
-  selectedJobType,
   setSelectedJobType,
+  selectedJobType,
 }) => {
   const [jobTypeList, setJobTypeList] = useState<JobType[]>([
     { id: "full_time", title: "Full Time", isSelected: false },
@@ -20,22 +20,29 @@ const OnboardingStepTwo: FC<IOnboardingStep2> = ({
   const updateJobTypeList = (id: string) => {
     const updatedJobs = jobTypeList.map((job) => {
       if (id === job.id) {
-        setSelectedJobType(job);
+        return { ...job, isSelected: !job.isSelected };
       }
       return job;
     });
-
     setJobTypeList(updatedJobs);
   };
+
+  useEffect(() => {
+    jobTypeList.map((job) => {
+      if (job.isSelected === true) {
+        setSelectedJobType([...selectedJobType, job.title]);
+      }
+    });
+  }, [jobTypeList]);
 
   return (
     <div className="lg:w-full mx-5">
       {jobTypeList &&
-        jobTypeList?.map(({ id, title }) => (
+        jobTypeList?.map(({ id, title, isSelected }) => (
           <SelectCheckbox
             key={id}
             text={title}
-            selected={selectedJobType.id === id}
+            selected={isSelected}
             onClick={() => updateJobTypeList(id)}
           />
         ))}

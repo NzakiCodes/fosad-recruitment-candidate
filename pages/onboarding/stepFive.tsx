@@ -4,7 +4,7 @@ import { JobInterests, JobType } from "../../interfaces/jobs";
 import { useGetUserInterests } from "../api/queries/user";
 
 interface IOnboardingStep5 {
-  selectWorkIndustry: JobInterests;
+  selectWorkIndustry: string[];
   setSelectedWorkIndustry: Function;
 }
 
@@ -14,14 +14,16 @@ const OnboardingStepFive: FC<IOnboardingStep5> = ({
 }) => {
   const { data, isLoading } = useGetUserInterests();
 
-  const updateJobTypeList = (id: string) => {
-    const updatedJobs = data?.data.data.map((job) => {
-      if (id === job.id) {
-        setSelectedWorkIndustry(job);
-      }
-      return job;
-    });
-    return updatedJobs;
+  const updateJobTypeList = (name: string) => {
+    if (selectWorkIndustry.indexOf(name) !== -1) {
+      setSelectedWorkIndustry(
+        selectWorkIndustry.filter(
+          (selectedName: string) => selectedName !== name
+        )
+      );
+    } else {
+      setSelectedWorkIndustry([...selectWorkIndustry, name]);
+    }
   };
 
   return (
@@ -43,7 +45,7 @@ const OnboardingStepFive: FC<IOnboardingStep5> = ({
               key={id}
               text={name}
               onClick={() => updateJobTypeList(id)}
-              selected={selectWorkIndustry.id === id}
+              selected={selectWorkIndustry.includes(id)}
             />
           ))
         )}
