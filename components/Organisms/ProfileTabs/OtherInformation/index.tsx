@@ -11,7 +11,7 @@ declare type LocationType = {
   isSelected: boolean;
 };
 
-const OtherInformation = () => {
+const OtherIndivation = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [locationList, setLocationList] = useState<LocationType[]>([
     { id: "lagos", title: "Lagos", isSelected: true },
@@ -33,22 +33,22 @@ const OtherInformation = () => {
   return (
     <div>
       <Modal
-        className="max-h-[640px] overflow-scroll"
+        className=""
         isOpen={showModal}
         handleClose={() => setShowModal(false)}
       >
-        <div className="px-3 py-3 bg-[#e5eaf0] rounded-lg ">
+        <div className="px-3 py-3 bg-[#e5eaf0] lg:rounded-t-lg ">
           <div className="flex justify-between ">
             <div className="px-2 py-3 font-semibold text-secondary text-[18px]">
-              Other Information
+              Other Indivation
             </div>
-            <button onClick={() => setShowModal(false)}>
+            <button className="self-start p-3" onClick={() => setShowModal(false)}>
               <Icon icon="cancel" />
             </button>
           </div>
         </div>
-        <div>
-          <form className="pt-6 px-6">
+        <form className="max-h-[80vh] overflow-auto">
+          <div className="pt-6 px-6">
             <label className="text-[#63748A] font-medium">Minimum Desired Pay</label>
             <input
               type="text"
@@ -56,8 +56,8 @@ const OtherInformation = () => {
               placeholder="$250,000/yr"
               name="email"
             />
-          </form>
-          <form className="px-6">
+          </div>
+          <div className="px-6">
             <label className="text-[#63748A] font-medium">Years Of Experience</label>
             <input
               type="text"
@@ -65,8 +65,8 @@ const OtherInformation = () => {
               placeholder="11"
               name="email"
             />
-          </form>
-          <form className="px-6">
+          </div>
+          <div className="px-6">
             <label className="text-[#63748A] font-medium">
               Preferred Employer Size
             </label>
@@ -76,8 +76,8 @@ const OtherInformation = () => {
               placeholder="Startups, middle business"
               name="email"
             />
-          </form>
-          <form className=" px-6">
+          </div>
+          <div className=" px-6">
             <label className="text-[#63748A] font-medium">Languages</label>
             <input
               type="text"
@@ -85,8 +85,8 @@ const OtherInformation = () => {
               placeholder="English, French, Yoruba"
               name="email"
             />
-          </form>
-          <form className=" px-6">
+          </div>
+          <div className=" px-6">
             <label className="text-[#63748A] font-medium">Location</label>
             <input
               type="text"
@@ -94,8 +94,8 @@ const OtherInformation = () => {
               placeholder="Lagos, Nigeria"
               name="email"
             />
-          </form>
-          <form className=" px-6">
+          </div>
+          <div className=" px-6">
             <label className="text-[#63748A] font-medium">Geo Preference</label>
             <input
               type="text"
@@ -103,7 +103,7 @@ const OtherInformation = () => {
               placeholder=" Lagos, Abuja, Portharcourt, Ogun"
               name="email"
             />
-          </form>
+          </div>
           <div className="flex gap-x-3 flex-wrap px-4 pb-3">
             {locationList &&
               locationList?.map(({ id, title, isSelected }) => (
@@ -125,10 +125,10 @@ const OtherInformation = () => {
               Save
             </button>
           </div>
-        </div>
+        </form>
       </Modal>
       <OtherInfoCard
-        title="Other Informations"
+        title="Other Indivations"
         edit={() => setShowModal(true)}
       ></OtherInfoCard>
       <div className="px-5 bg-white rounded-lg">
@@ -203,4 +203,4 @@ const OtherInfoCard = ({ title, edit }: { title: string; edit: Function }) => {
   );
 };
 
-export default OtherInformation;
+export default OtherIndivation;

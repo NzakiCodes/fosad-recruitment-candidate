@@ -9,22 +9,26 @@ const SuggestedJobs = () => {
   console.log(data);
   return (
     <div>
-      <div className="flex flex-col md:flex-row w-full">
-        <div className="w-full md:w-2/5 lg:w-1/4 bg-primary bg-opacity-30 rounded-tl-lg rounded-tr-lg md:rounded-bl-lg md:rounded-tl-lg px-4 py-7 landing-header-card  flex items-center gap-4">
-          <Avatar source="/assets/ai-avatar.svg" alt="ai-avatar" size="large" />
+      <div className="flex flex-col md:flex-row w-full mt-5 lg:mt-10">
+        <div className="w-full md:w-2/5 lg:w-1/4 bg-primary bg-opacity-30 rounded-tl-lg rounded-tr-lg md:rounded-bl-lg md:rounded-tl-lg px-4 py-4 lg:py-7 landing-header-card  flex items-center gap-4">
+          <Avatar
+            className="!w-[52px] !h-[52px] lg:!w-17 lg:!h-17"
+            source="/assets/ai-avatar.svg"
+            alt="ai-avatar"
+          />
           <div className="text-secondary ">
             <span className="block font-semibold text-base">{"I'm"} Tega,</span>
-            <span className="text-base font-normal">
+            <span className="text-sm lg:text-base font-normal">
               your personal recruiter.
             </span>
           </div>
         </div>
-        <div className="bg-white w-full py-5 md:w-3/5 lg:w-3/4 rounded-br-lg rounded-bl-lg lg:rounded-br-lg lg:rounded-tr-lg">
+        <div className="bg-white w-full py-5  md:w-3/5 lg:w-3/4 rounded-br-lg rounded-bl-lg lg:rounded-br-lg lg:rounded-tr-lg">
           <div className="text-secondary flex flex-col justify-center my-auto h-full px-6">
-            <span className="block font-semibold text-base">
+            <span className="block font-semibold text-sm lg:text-base mb-3 lg:mb-1">
               Here are some suggested Job openings
             </span>
-            <span className="text-base font-normal text-[#63748A]">
+            <span className="text-xs lg:text-base font-normal text-[#63748A]">
               I’ve currated some job openings suggestion based on the data
               provied.
             </span>

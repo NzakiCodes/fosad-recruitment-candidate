@@ -33,17 +33,19 @@ function Profile() {
   console.log(data);
 
   return (
-    <Container className="py-4">
+    <Container className="py-4 px-0">
       <div className="flex gap-x-10">
-        <div className="w-[20%] h-full hidden lg:block relative">
-          <div className="fixed">
-            <CandidateSidebar
-              activeTabId={currentTab}
-              setActiveTab={setCurrentTab}
-            />
+        <div className="lg:w-[20%] h-full hidden lg:block relative">
+          <div className="fixed  ">
+            <div>
+              <CandidateSidebar
+                activeTabId={currentTab}
+                setActiveTab={setCurrentTab}
+              />
+            </div>
           </div>
         </div>
-        <div className="w-[55%]">
+        <div className="w-full lg:w-[55%]">
           {currentTab === "overview" && <Overview />}
           {currentTab === "work" && <WorkExperience />}
           {currentTab === "education" && <Education />}
@@ -52,7 +54,7 @@ function Profile() {
           {currentTab === "account" && <MyAccount />}
           {currentTab === "skills" && <Skills />}
         </div>
-        <div className="hidden lg:block w-[25%] h-full">
+        <div className="hidden lg:block xl:w-[25%] h-full">
           <div className="fixed">
             <div className="w-[343px]">
               <div className=" bg-primary bg-opacity-30 rounded-tl-lg rounded-tr-lg  px-4 py-2 landing-header-card  flex items-center gap-4">

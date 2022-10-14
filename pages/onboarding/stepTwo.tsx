@@ -36,7 +36,7 @@ const OnboardingStepTwo: FC<IOnboardingStep2> = ({
   }, [jobTypeList]);
 
   return (
-    <div className="lg:w-full mx-5">
+    <div className="lg:w-full lg:mx-5">
       {jobTypeList &&
         jobTypeList?.map(({ id, title, isSelected }) => (
           <SelectCheckbox

@@ -8,81 +8,92 @@ const MyAccount = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   return (
     <div>
-       <Modal className="max-h-[640px] overflow-scroll" isOpen={showModal} handleClose={() => setShowModal(false)}>
-        <div className="px-3 py-3 bg-[#e5eaf0] rounded-lg ">
+      <Modal
+        className=""
+        isOpen={showModal}
+        handleClose={() => setShowModal(false)}
+      >
+        <div className="px-3 py-3 bg-[#e5eaf0] rounded-t-lg ">
           <div className="flex justify-between ">
-            <div className="px-2 py-3 font-semibold text-secondary text-[18px]">Account</div>
-            <button onClick={() => setShowModal(false)}>
+            <div className="px-2 py-3 font-semibold text-secondary text-[18px]">
+              Account
+            </div>
+            <button
+              className="self-start p-3"
+              onClick={() => setShowModal(false)}
+            >
               <Icon icon="cancel" />
             </button>
           </div>
         </div>
-        <div>
-        <div className=" rounded-tl-lg rounded-tr-lg  px-4 py-3 landing-header-card flex items-center gap-4">
-              <div className="relative">
+        <form className="max-h-[90vh] overflow-auto pb-20  lg:pb-4">
+          <div className=" rounded-tl-lg rounded-tr-lg  px-4 py-3 landing-header-card flex items-center gap-4">
+            <div className="relative">
               <Avatar size="small" source="/assets/images/user-1.png" />
-              </div>
-              
-              <span className="block font-medium text-base">
-                Add Profile Image
-              </span>
             </div>
-            <form className=" px-6">
-              <label className="text-[#63748A]">Email</label>
+
+            <span className="block font-medium text-base">
+              Add Profile Image
+            </span>
+          </div>
+          <div className=" px-6">
+            <label className="text-[#63748A]">Email</label>
             <input
-            type="text"
-            className="w-full rounded-lg py-4 px-5 text-[#9EABBC] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-normal text-[18px] flex gap-5 my-3"
-            placeholder="Title your work experience"
-            name="email"
-          />
-          </form>
-            <form className="pb-4 px-6">
-              <label className="text-[#63748A]">Phone Number</label>
+              type="text"
+              className="w-full rounded-lg py-4 px-5 text-[#9EABBC] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-normal text-[18px] flex gap-5 my-3"
+              placeholder="Title your work experience"
+              name="email"
+            />
+          </div>
+          <div className="pb-4 px-6">
+            <label className="text-[#63748A]">Phone Number</label>
             <input
-            type="text"
-            className="w-full rounded-lg py-4 px-5 text-[#9EABBC] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-normal text-[18px] flex gap-5 my-3"
-            placeholder="Name of employer company"
-            name="email"
-          />
-          </form>
+              type="text"
+              className="w-full rounded-lg py-4 px-5 text-[#9EABBC] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-normal text-[18px] flex gap-5 my-3"
+              placeholder="Name of employer company"
+              name="email"
+            />
+          </div>
           <hr className="w-full"></hr>
-            <form className="pt-5 px-6">
-              <h1 className="font-semibold text-[18px] text-secondary pb-3">Website & Social media</h1>
-              <label className="text-[#63748A]">Website</label>
+          <div className="pt-5 px-6">
+            <h1 className="font-semibold text-[18px] text-secondary pb-3">
+              Website & Social media
+            </h1>
+            <label className="text-[#63748A]">Website</label>
             <input
-            type="text"
-            className="w-full rounded-lg py-4 px-5 text-[#9EABBC] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-normal text-[18px] flex gap-5 my-3"
-            placeholder="http://"
-            name="email"
-          />
-          </form>
-            <form className=" px-6">
-              <label className="text-[#63748A]">Linkedin</label>
+              type="text"
+              className="w-full rounded-lg py-4 px-5 text-[#9EABBC] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-normal text-[18px] flex gap-5 my-3"
+              placeholder="http://"
+              name="email"
+            />
+          </div>
+          <div className=" px-6">
+            <label className="text-[#63748A]">Linkedin</label>
             <input
-            type="text"
-            className="w-full rounded-lg py-4 px-5 text-[#63748A] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-normal text-[18px] flex gap-5 my-3"
-            placeholder="linkedin.com/"
-            name="email"
-          />
-          </form>
-            <form className=" px-6">
-              <label className="text-[#63748A]">Twitter</label>
+              type="text"
+              className="w-full rounded-lg py-4 px-5 text-[#63748A] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-normal text-[18px] flex gap-5 my-3"
+              placeholder="linkedin.com/"
+              name="email"
+            />
+          </div>
+          <div className=" px-6">
+            <label className="text-[#63748A]">Twitter</label>
             <input
-            type="text"
-            className="w-full rounded-lg py-4 px-5 text-[#9EABBC] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-normal text-[18px] flex gap-5 my-3"
-            placeholder="twitter.com/"
-            name="email"
-          />
-          </form>
-            <form className=" px-6">
-              <label className="text-[#63748A]">Instagram</label>
+              type="text"
+              className="w-full rounded-lg py-4 px-5 text-[#9EABBC] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-normal text-[18px] flex gap-5 my-3"
+              placeholder="twitter.com/"
+              name="email"
+            />
+          </div>
+          <div className=" px-6">
+            <label className="text-[#63748A]">Instagram</label>
             <input
-            type="text"
-            className="w-full rounded-lg py-4 px-5 text-[#9EABBC] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-normal text-[18px] flex gap-5 my-3"
-            placeholder="instagram.com/"
-            name="email"
-          />
-          </form>
+              type="text"
+              className="w-full rounded-lg py-4 px-5 text-[#9EABBC] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-normal text-[18px] flex gap-5 my-3"
+              placeholder="instagram.com/"
+              name="email"
+            />
+          </div>
           <div className="pb-4 flex justify-end pt-6 px-4 ">
             <button className="text-[16px] px-5 py-[14px] rounded-lg w-32 border border-[#D1D5DB]">
               Cancel
@@ -91,21 +102,23 @@ const MyAccount = () => {
               Save
             </button>
           </div>
-        </div>
-
+        </form>
       </Modal>
-      <MyAccountCard title="My Account" edit={() => setShowModal(true)}></MyAccountCard>
+      <MyAccountCard
+        title="My Account"
+        edit={() => setShowModal(true)}
+      ></MyAccountCard>
       <div className="px-5 bg-white rounded-lg">
         <div className=" pt-6 pb-3">
           <div className="left-[24px]">
             <div className=" bg-primary bg-opacity-30 rounded-tl-lg rounded-tr-lg  px-4 py-2 landing-header-card  flex items-center gap-4">
               <div className="relative">
-              <Avatar size="large" source="/assets/images/user-1.png" />
-              <span className="bg-[#3983CF] rounded-full w-8 h-8 -right-1 -bottom-1 absolute">
-                <Icon icon="camera" />
-              </span>
+                <Avatar size="large" source="/assets/images/user-1.png" />
+                <span className="bg-[#3983CF] rounded-full w-8 h-8 -right-1 -bottom-1 absolute">
+                  <Icon icon="camera" />
+                </span>
               </div>
-              
+
               <span className="block font-semibold text-base">
                 Elvie Weimann
               </span>
@@ -114,7 +127,7 @@ const MyAccount = () => {
         </div>
         <div className=" pt-6 pb-3">
           <div className="font-mediun text-[16px] text-[#63748A] pb-3">
-            Contact Information
+            Contact Indivation
           </div>
           <table className="border-2 w-full rounded-lg border-separate">
             <tr className="border-2">

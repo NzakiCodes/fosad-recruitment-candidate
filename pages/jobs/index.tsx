@@ -6,8 +6,7 @@ function Jobs() {
   const router = useRouter();
   useEffect(() => {
     router.push("/jobs/suggested");
-  }, []);
-
+  }, [router]);
   return (
     <div className="py-10 flex justify-center items-center">
       <h1 className="text-grey-800 font-bold text-xl">Loading...</h1>

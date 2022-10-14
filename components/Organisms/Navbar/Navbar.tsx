@@ -7,7 +7,7 @@ import Avatar from "../../Atoms/Avatar";
 export default function Navbar() {
   return (
     <div className="bg-secondary text-white py-5 fixed top-0 left-0 z-40 w-full">
-      <Container className="flex justify-between items-center flex-col lg:flex-row py-2 ">
+      <Container className="flex justify-start lg:justify-between items-center flex-row py-2 ">
         <NavLink
           noOpacity
           href={"/"}

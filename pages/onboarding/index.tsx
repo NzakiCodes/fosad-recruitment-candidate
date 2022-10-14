@@ -157,8 +157,8 @@ const Onbording: PageWithlayout = () => {
 
   return (
     <div className="relative">
-      <div className="py-4 mx-auto max-w-xl h-screen mb-32">
-        <div className="flex justify-center items-center h-full w-full">
+      <div className="py-8 lg:py-4 px-5 mx-auto max-w-xl lg:h-screen mb-32">
+        <div className="flex justify-center items-center  lg:h-full w-full">
           <div className="w-full">
             {progressCount === 1 && (
               <OnboardingStepOne
@@ -199,7 +199,7 @@ const Onbording: PageWithlayout = () => {
           </div>
         </div>
       </div>
-      <div className="fixed z-30 bottom-0 w-1/2 bg-white mt-3 right-0">
+      <div className="fixed z-30 bottom-0 w-full lg:w-1/2 bg-white mt-3 right-0">
         <Progress
           progressCount={progressCount}
           totalSteps={totalSteps}
