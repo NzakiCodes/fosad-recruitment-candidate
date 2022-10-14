@@ -38,7 +38,7 @@ const OnboardingStepThree: FC<IOnboardingStep3> = ({
   };
 
   return (
-    <div className="lg:w-full mx-5">
+    <div className="lg:w-full lg:mx-5">
       {jobLocationTypeList &&
         jobLocationTypeList?.map(({ id, title }) => (
           <SelectCheckbox

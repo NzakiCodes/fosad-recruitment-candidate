@@ -6,10 +6,11 @@ interface Props {
   alt?: string;
   colorClass?: string;
   initials?: string;
-  size: "small" | "medium" | "large" | "xlarge";
+  size?: "small" | "medium" | "large" | "xlarge";
+  className?: string;
 }
 
-function Avatar({ source, alt, size, initials, colorClass }: Props) {
+function Avatar({ source, alt, size, initials, colorClass, className }: Props) {
   if (source) {
     return (
       <img
@@ -22,8 +23,8 @@ function Avatar({ source, alt, size, initials, colorClass }: Props) {
             ? "w-17 h-17"
             : size === "xlarge"
             ? "w-[100px] h-[100px]"
-            : "w-10 h-10 h"
-        } rounded-full mx-1 my-1`}
+            : "w-10 h-10 h" 
+        } rounded-full mx-1 my-1 ${className ? className : ""}`}
         src={source}
         alt={alt}
         loading={"lazy"}

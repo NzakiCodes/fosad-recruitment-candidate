@@ -28,7 +28,7 @@ const OnboardingStepFour: FC<OnboardingStep4> = ({
   };
 
   return (
-    <div className="lg:w-full mx-5 flex flex-wrap gap-x-3 gap-y-1">
+    <div className="lg:w-full lg:mx-5 flex flex-wrap gap-x-3 gap-y-1">
       {isLoading ? (
         <div>Loading...</div>
       ) : (
@@ -52,7 +52,7 @@ const OnboardingStepFour: FC<OnboardingStep4> = ({
             onChange={(e) => handleCheckBoxChange(e.target.value)}
           />
         ))}
-      <hr className="my-8" />
+      <hr className="my-8  w-full" />
       <div>
         <span className="inline-block mb-4 font-semibold text-xl text-secondary">
           Add your own skills
@@ -61,12 +61,12 @@ const OnboardingStepFour: FC<OnboardingStep4> = ({
           <input
             type="text"
             placeholder="Enter Skill"
-            className="w-5/6 px-8 py-4 h-full active:outline-0 focus:outline-0"
+            className="w-4/6 lg:w-5/6 px-8 py-4 h-full active:outline-0 focus:outline-0"
             onChange={(e) => setSkill(e.target.value)}
             value={skill}
           />
           <button
-            className="h-full border-l  border-[#DEE3E9] w-1/6 py-4"
+            className="h-full border-l  border-[#DEE3E9] w-2/6 lg:w-1/6 py-4"
             onClick={() => setUserSkills([...userSkills, skill])}
           >
             Add +

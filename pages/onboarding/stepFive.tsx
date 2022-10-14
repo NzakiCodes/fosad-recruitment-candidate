@@ -25,7 +25,7 @@ const OnboardingStepFive: FC<IOnboardingStep5> = ({
   };
 
   return (
-    <div className="lg:w-full mx-5">
+    <div className="lg:w-full lg:mx-5">
       <div className="inline-block mb-4 font-semibold text-xl text-secondary">
         Select any you might be interested in.
       </div>

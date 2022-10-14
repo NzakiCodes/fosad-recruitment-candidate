@@ -28,17 +28,17 @@ const Home: PageWithlayout = () => {
     <div className="">
       <LandingHeader />
       <Container>
-        <div className="text-center py-24 max-w-[779px] mx-auto">
-          <h2 className="font-bold text-[34px] leading-[41px] text-secondary">
+        <div className="text-center py-11 lg:py-24 max-w-[779px] mx-auto">
+          <h2 className="font-bold text-lg lg:text-[34px] lg:leading-[41px] text-secondary">
             With a personal recruiter, you’ll get matched to roles that are
             right for you.
           </h2>
         </div>
         <div className="flex justify-between gap-x-8 mb-10">
-          <div className="w-1/2 p-10">
+          <div className="w-full lg:w-1/2 p-10">
             <div>A</div>
           </div>
-          <div className="w-1/2">
+          <div className="lg:w-1/2 hidden lg:block ">
             <div>
               <img src="/assets/img-1.png" alt="" />
             </div>

@@ -20,17 +20,17 @@ const HeaderCard = () => {
 
   return (
     <div className="">
-      <div className="bg-primary rounded-tr-lg rounded-tl-lg px-8 py-10 landing-header-card flex items-center gap-4">
-        <Avatar source="/assets/ai-avatar.svg" alt="ai-avatar" size="large" />
+      <div className="bg-primary rounded-tr-lg rounded-tl-lg px-3 py-5 lg:px-8 lg:py-10 landing-header-card flex items-center gap-2 lg:gap-4">
+        <Avatar className="!w-11 !h-11 lg:!w-17 lg:!h-17" source="/assets/ai-avatar.svg" alt="ai-avatar" />
         <div className="text-secondary">
-          <span className="block font-medium text-[18px]">Welcome!</span>
-          <span className="text-xl font-semibold">
+          <span className="block font-medium text-sm  lg:text-[18px]">Welcome!</span>
+          <span className="text-base lg:text-xl font-semibold">
             {"I'm"} Tega, your personal recruiter.
           </span>
         </div>
       </div>
-      <div className="bg-white rounded-br-lg rounded-bl-lg px-8 py-10">
-        <span className="text-xl font-semibold text-secondary">
+      <div className="bg-white rounded-br-lg rounded-bl-lg px-5 lg:px-8 py-4 lg:py-10">
+        <span className="text-base lg:text-xl font-semibold text-secondary">
           What brings you here today?
         </span>
         <div className="py-4">
@@ -48,7 +48,7 @@ const HeaderCard = () => {
           />
 
           <div
-            className="flex justify-center gap-x-1 bg-secondary  rounded-lg py-5 px-8 w-full items-center mt-5 transition-all hover:opacity-90 hover:transition-all"
+            className="flex justify-center gap-x-1 bg-secondary  rounded-lg py-4 lg:py-5 lg:px-8 w-full items-center mt-5 transition-all hover:opacity-90 hover:transition-all"
             onClick={proceed}
           >
             <span>Next</span>
