@@ -36,3 +36,5 @@ export * from "./Linkedin";
 export * from "./Camera";
 export * from "./File";
 export * from "./Cancel";
+export * from "./Dot";
+export * from "./LogoWhiteText";

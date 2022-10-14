@@ -36,7 +36,7 @@ function Modal({
           onClick={(e) => {
             e.stopPropagation();
           }}
-          className={`mx-auto max-w-[534px] rounded-lg bg-white w-full ${
+          className={`mx-auto max-w-[534px] lg:max-w-2xl lg:rounded-lg bg-white w-full ${
             className ? className : ""
           }`}
         >

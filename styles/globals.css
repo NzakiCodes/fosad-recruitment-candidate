@@ -32,7 +32,7 @@ body {
 }
 
 .landing-header{
-  @apply bg-secondary bg-hero-pattern bg-no-repeat bg-[length:230px_400px];
+  @apply bg-secondary lg:bg-hero-pattern bg-no-repeat bg-[length:230px_400px];
 }
 
 .landing-header-card{

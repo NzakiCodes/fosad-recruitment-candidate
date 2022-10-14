@@ -72,7 +72,7 @@ const JobCard = ({
         </div>
       </div>
       <div className="py-3">
-        <div className="flex gap-x-2 mb-3">
+        <div className="flex gap-x-2 mb-3 flex-wrap">
           <Label type="salary" text={annualSalary} />
           <Label type="jobType" text={jobType} />
           <Label type="workType" text={workType} />

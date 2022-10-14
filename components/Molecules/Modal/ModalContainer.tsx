@@ -12,7 +12,7 @@ function ModalContainer({
   return (
     <div
       onClick={onClose}
-      className={`${className} w-screen h-screen top-0 fixed z-[999] bg-[rgba(0,0,0,0.5)] flex justify-center content-center items-center py-5`}
+      className={`${className} w-full h-full lg:p-4 top-[80px] lg:top-0 fixed z-[999] bg-white lg:bg-[rgba(0,0,0,0.5)] flex justify-center content-center lg:items-center lg:py-5`}
     >
       {children}
     </div>

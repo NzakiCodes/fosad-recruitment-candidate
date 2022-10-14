@@ -36,7 +36,7 @@ const SelectRadio = ({
                 : "!border-secondary"
             } border-secondary !text-secondary`
           : ""
-      } rounded-lg py-5 px-8 w-full transition-colors hover:transition-colors font-medium text-[18px] flex gap-5 my-3`}
+      } rounded-lg py-[14px] px-4 lg:py-5 lg:px-8 w-full transition-colors hover:transition-colors font-medium text-sm lg:text-[18px] flex items-center gap-3 lg:gap-5 my-3`}
       onClick={handleEvent}
     >
       {selected ? (

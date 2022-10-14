@@ -2,7 +2,7 @@ import React, { ButtonHTMLAttributes, ReactElement } from "react";
 
 interface ButtonProp {
   label: string;
-  size?: "small" | "medium" | "large";
+  size?: "small" | "medium" | "large"|"none";
   rounded?: boolean;
   color?: "primary" | "secondary" | "white";
   icon?: ReactElement;
@@ -10,9 +10,10 @@ interface ButtonProp {
   iconLeft?: ReactElement;
   noMargin?: boolean;
   bold?: boolean;
+  cl?: string;
 }
 
-function Button(props: ButtonProp & ButtonHTMLAttributes<HTMLButtonElement>) {
+function Button(props: ButtonProp  & ButtonHTMLAttributes<HTMLButtonElement>) {
   const {
     label,
     size = "medium",
@@ -23,19 +24,20 @@ function Button(props: ButtonProp & ButtonHTMLAttributes<HTMLButtonElement>) {
     iconRight,
     noMargin = false,
     bold,
+    cl,
   } = props;
   return (
     <button
       className={` w-full ${
-        iconRight || iconLeft ? " flex justify-between gap-x-2" : ""
+        iconRight || iconLeft || icon ? " flex justify-center gap-x-2" : ""
       } ${noMargin ? "" : " m-4 lg:m-6"} ${
         rounded ? "rounded-full" : "rounded-lg"
       } ${
         size === "small"
           ? "text-[14px] px-4 py-3"
-          : "text-sm lg:text-base font-normal px-3 lg:px-5 py-3 lg:py-[14px]"
+          : ( size === "none" ?"":"text-sm lg:text-base font-normal px-3 lg:px-5 py-3 lg:py-[14px]")
       }
-     
+      ${cl ? cl : ""}
       ${
         color === "primary"
           ? "bg-primary"
@@ -47,7 +49,13 @@ function Button(props: ButtonProp & ButtonHTMLAttributes<HTMLButtonElement>) {
       }`}
       {...props}
     >
-      <span className={` ${bold && "!font-medium"} text-center block`}>{label}</span>
+      {!icon ? (
+        <span className={` ${bold && "!font-medium"} text-center block`}>
+          {label}
+        </span>
+      ) : (
+        <div className="w-min self-center block">{icon}</div>
+      )}
 
       {iconRight}
     </button>

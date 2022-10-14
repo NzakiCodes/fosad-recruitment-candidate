@@ -2,25 +2,33 @@ import { useState } from "react";
 import Checkbox from "../../../Atoms/Checkbox/Index";
 import Icon from "../../../Atoms/Icon";
 import ProfileCard from "../../../Atoms/ProfileCard";
+import TextArea from "../../../Atoms/TextArea";
 import Modal from "../../../Molecules/Modal";
 
 const WorkExperience = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   return (
     <div>
-       <Modal className="max-h-[640px] overflow-scroll" isOpen={showModal} handleClose={() => setShowModal(false)}>
-       <div className="px-3 py-3 bg-[#e5eaf0] rounded-lg ">
+      <Modal
+        className=" rounded-lg"
+        isOpen={showModal}
+        handleClose={() => setShowModal(false)}
+      >
+        <div className="px-3 py-3 bg-[#e5eaf0] rounded-t-lg">
           <div className="flex justify-between ">
             <div className="px-2 py-3 font-semibold text-secondary text-[18px]">
               Work Experience
             </div>
-            <button onClick={() => setShowModal(false)}>
+            <button
+              className="self-start p-2"
+              onClick={() => setShowModal(false)}
+            >
               <Icon icon="cancel" />
             </button>
           </div>
         </div>
-        <div>
-          <form className="pt-6 px-6">
+        <form className=" max-h-[85vh] overflow-auto">
+          <div className="pt-6 px-6">
             <label className="text-[#63748A] font-medium">Title</label>
             <input
               type="text"
@@ -28,8 +36,8 @@ const WorkExperience = () => {
               placeholder="Title of your work experience"
               name="email"
             />
-          </form>
-          <form className="px-6">
+          </div>
+          <div className="px-6">
             <label className="text-[#63748A] font-medium">Company</label>
             <input
               type="text"
@@ -37,33 +45,46 @@ const WorkExperience = () => {
               placeholder="Name of employer company"
               name="email"
             />
-          </form>
-         
+          </div>
+
           <div className=" px-6 py-4 flex">
-            <div className="mr-3 w-4 h-4"><Checkbox type="squared" size="small" color="primary" checked={false}/></div>
-            
-           <p className="text-[#63748A] font-medium text-[16px]">I currently work here</p>
+            <div className="mr-3 w-4 h-4">
+              <Checkbox
+                type="squared"
+                size="small"
+                color="primary"
+                checked={false}
+              />
+            </div>
+
+            <p className="text-[#63748A] font-medium text-[16px]">
+              I currently work here
+            </p>
           </div>
-          <div className="flex px-6 pb-4">
-          <form className=" px-6">
-            <label className="text-[#63748A] font-medium">Start Date</label>
-            <input
-              type="date"
-              className="rounded-lg py-4 px-2 text-secondary border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-medium text-[16px] flex gap-1 my-3"
-              placeholder="mm/yyyy"
-              name="email"
-            />
-          </form>
-          <form className=" px-6">
-            <label className="text-[#63748A] font-medium">End Date</label>
-            <input
-              type="date"
-              className="rounded-lg py-4 px-2 text-secondary border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-medium text-[16px] flex gap-1 my-3"
-              placeholder="mm/yyyy"
-              name="email"
-            />
-          </form>
-          </div>
+          <div className="flex px-6 pb-4 gap-x-3 lg:gap-6">
+              <div className="w-1/2">
+                <label className="text-[#63748A] font-medium">Start Date</label>
+                <input
+                  type="date"
+                  className="rounded-lg py-4 px-2 text-secondary border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-medium text-[16px] flex gap-1 my-3 w-full"
+                  placeholder="mm/yyyy"
+                  name="email"
+                />
+              </div>
+              <div className="w-1/2">
+                <label className="text-[#63748A] font-medium">End Date</label>
+                <input
+                  type="date"
+                  className="rounded-lg py-4 px-2 text-secondary border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-medium text-[16px] flex gap-1 my-3 w-full"
+                  placeholder="mm/yyyy"
+                  name="email"
+                />
+              </div>
+            </div>
+
+            <div className="px-6">
+              <TextArea theme="secondary" className="!w-full" placeholder="Description (optional)"></TextArea>
+            </div>
           <hr className="w-full"></hr>
           <div className="pb-4 flex justify-end pt-6 px-4 ">
             <button className="text-[16px] px-5 py-[14px] rounded-lg w-32 border border-[#D1D5DB]">
@@ -73,12 +94,17 @@ const WorkExperience = () => {
               Save
             </button>
           </div>
-        </div>
+        </form>
       </Modal>
       <div>
-        <button onClick={()=>setShowModal(true)} className="w-full flex items-center justify-center gap-x-3 bg-[#E1EEFB] py-6 rounded-lg">
-          <Icon icon="plusCircle"/>
-          <span className="font-semibold active:outline-0 text-secondary text-base">Add Work Experience</span>
+        <button
+          onClick={() => setShowModal(true)}
+          className="w-full flex items-center justify-center gap-x-3 bg-[#E1EEFB] py-6 rounded-lg"
+        >
+          <Icon icon="plusCircle" />
+          <span className="font-semibold active:outline-0 text-secondary text-base">
+            Add Work Experience
+          </span>
         </button>
       </div>
       <div>
@@ -108,8 +134,5 @@ const WorkExperience = () => {
     </div>
   );
 };
-
-
-
 
 export default WorkExperience;
