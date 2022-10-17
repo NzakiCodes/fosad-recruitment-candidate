@@ -55,6 +55,7 @@ function DashboardLayout({ children }: DashboardLayoutType) {
               <TabLink text="Applied Jobs" href="/jobs/applied" />
               <TabLink text="Saved Jobs" href="/jobs/saved" />
               <TabLink text="My Profile" href="/profile" />
+              {/* <TabLink text="My Jobs" href="/jobs/job/[jobId]" /> */}
             </div>
           </Container>
         </div>
