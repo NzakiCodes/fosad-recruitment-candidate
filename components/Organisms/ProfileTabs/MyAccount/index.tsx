@@ -39,7 +39,7 @@ const MyAccount = () => {
           <div className=" px-6">
             <label className="text-[#63748A]">Email</label>
             <input
-              type="text"
+              type="email"
               className="w-full rounded-lg py-4 px-5 text-[#9EABBC] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-normal text-[18px] flex gap-5 my-3"
               placeholder="Title your work experience"
               name="email"
@@ -48,10 +48,9 @@ const MyAccount = () => {
           <div className="pb-4 px-6">
             <label className="text-[#63748A]">Phone Number</label>
             <input
-              type="text"
+              type="number"
               className="w-full rounded-lg py-4 px-5 text-[#9EABBC] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-normal text-[18px] flex gap-5 my-3"
               placeholder="Name of employer company"
-              name="email"
             />
           </div>
           <hr className="w-full"></hr>
