@@ -18,6 +18,7 @@ const OnboardingStepFour: FC<OnboardingStep4> = ({
   const [userSkills, setUserSkills] = useState<string[]>([]);
 
   const handleCheckBoxChange = (name: string) => {
+    console.log(name);
     if (selectedSkills.indexOf(name) !== -1) {
       setSelectedSkills(
         selectedSkills.filter((selectedId: string) => selectedId !== name)
@@ -26,6 +27,8 @@ const OnboardingStepFour: FC<OnboardingStep4> = ({
       setSelectedSkills([...selectedSkills, name]);
     }
   };
+
+  console.log(selectedSkills);
 
   return (
     <div className="lg:w-full lg:mx-5 flex flex-wrap gap-x-3 gap-y-1">
@@ -72,7 +75,10 @@ const OnboardingStepFour: FC<OnboardingStep4> = ({
           />
           <button
             className="h-full border-l  border-[#DEE3E9] w-2/6 lg:w-1/6 py-4"
-            onClick={() => setUserSkills([...userSkills, skill])}
+            onClick={() => {
+              setUserSkills([...userSkills, skill]);
+              setSkill("");
+            }}
           >
             Add +
           </button>

@@ -6,7 +6,7 @@ import { useGetSuggestedJobs } from "../api/queries/jobs";
 
 const SuggestedJobs = () => {
   const { data } = useGetSuggestedJobs();
-  console.log(data);
+
   return (
     <div>
       <div className="flex flex-col md:flex-row w-full mt-5 lg:mt-10">

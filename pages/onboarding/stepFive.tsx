@@ -14,15 +14,15 @@ const OnboardingStepFive: FC<IOnboardingStep5> = ({
 }) => {
   const { data, isLoading } = useGetUserInterests();
 
-  const updateJobTypeList = (name: string) => {
-    if (selectWorkIndustry.indexOf(name) !== -1) {
+  const updateJobTypeList = (jobType: JobInterests) => {
+    if (selectWorkIndustry.indexOf(jobType.name) !== -1) {
       setSelectedWorkIndustry(
         selectWorkIndustry.filter(
-          (selectedName: string) => selectedName !== name
+          (selectedName: string) => selectedName !== jobType.name
         )
       );
     } else {
-      setSelectedWorkIndustry([...selectWorkIndustry, name]);
+      setSelectedWorkIndustry([...selectWorkIndustry, jobType.name]);
     }
   };
 
@@ -40,12 +40,12 @@ const OnboardingStepFive: FC<IOnboardingStep5> = ({
             <div></div>
           </div>
         ) : (
-          data?.data.data?.map(({ id, name }) => (
+          data?.data.data?.map((item: JobInterests) => (
             <SelectCheckbox
-              key={id}
-              text={name}
-              onClick={() => updateJobTypeList(id)}
-              selected={selectWorkIndustry.includes(id)}
+              key={item.id}
+              text={item.name}
+              onClick={() => updateJobTypeList(item)}
+              selected={selectWorkIndustry.includes(item.name)}
             />
           ))
         )}

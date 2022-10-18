@@ -30,7 +30,6 @@ function Profile() {
   }, [query]);
 
   const { data } = useGetUserProfile();
-  console.log(data);
 
   return (
     <Container className="py-4 px-0">

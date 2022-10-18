@@ -15,20 +15,22 @@ const OnboardingStepThree: FC<IOnboardingStep3> = ({
   setSelectedJobStation,
   selectJobStation,
 }) => {
-  const [jobLocationTypeList, setJobLocationTypeList] = useState<JobType[]>([
+  const [jobStationTypeList, setJobStationTypeList] = useState<JobType[]>([
     { id: "in_person", title: "In-Person", isSelected: false },
     { id: "hybrid", title: "Hybrid", isSelected: false },
     { id: "remote", title: "Remote", isSelected: false },
   ]);
 
-  const updateJobLocationTypeList = (id: string) => {
-    const updatedJobLocation = jobLocationTypeList.map((jobLocation) => {
-      if (id === jobLocation.id) {
-        return { ...jobLocation, isSelected: !jobLocation.isSelected };
-      }
-      return jobLocation;
-    });
-    setJobLocationTypeList(updatedJobLocation);
+  const updateJobStationList = (jobType: JobType) => {
+    if (selectJobStation.indexOf(jobType.title) !== -1) {
+      setSelectedJobStation(
+        selectJobStation.filter(
+          (selectedName: string) => selectedName !== jobType.title
+        )
+      );
+    } else {
+      setSelectedJobStation([...selectJobStation, jobType.title]);
+    }
   };
 
   const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,23 +38,15 @@ const OnboardingStepThree: FC<IOnboardingStep3> = ({
     setSelectedJobLocation(value);
   };
 
-  useEffect(() => {
-    jobLocationTypeList.map((job) => {
-      if (job.isSelected === true) {
-        setSelectedJobStation([...selectJobStation, job.title]);
-      }
-    });
-  }, [jobLocationTypeList]);
-
   return (
     <div className="lg:w-full lg:mx-5">
-      {jobLocationTypeList &&
-        jobLocationTypeList?.map(({ id, title, isSelected }) => (
+      {jobStationTypeList &&
+        jobStationTypeList?.map((jobStation: JobType) => (
           <SelectCheckbox
-            key={id}
-            text={title}
-            selected={isSelected}
-            onClick={() => updateJobLocationTypeList(id)}
+            key={jobStation.id}
+            text={jobStation.title}
+            selected={selectJobStation.includes(jobStation.title)}
+            onClick={() => updateJobStationList(jobStation)}
           />
         ))}
       <hr className="my-8" />

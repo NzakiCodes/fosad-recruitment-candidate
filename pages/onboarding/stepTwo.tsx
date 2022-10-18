@@ -17,33 +17,27 @@ const OnboardingStepTwo: FC<IOnboardingStep2> = ({
     { id: "others", title: "Others", isSelected: false },
   ]);
 
-  const updateJobTypeList = (id: string) => {
-    const updatedJobs = jobTypeList.map((job) => {
-      if (id === job.id) {
-        return { ...job, isSelected: !job.isSelected };
-      }
-      return job;
-    });
-    setJobTypeList(updatedJobs);
+  const updateJobTypeList = (jobType: JobType) => {
+    if (selectedJobType.indexOf(jobType.title) !== -1) {
+      setSelectedJobType(
+        selectedJobType.filter(
+          (selectedName: string) => selectedName !== jobType.title
+        )
+      );
+    } else {
+      setSelectedJobType([...selectedJobType, jobType.title]);
+    }
   };
-
-  useEffect(() => {
-    jobTypeList.map((job) => {
-      if (job.isSelected === true) {
-        setSelectedJobType([...selectedJobType, job.title]);
-      }
-    });
-  }, [jobTypeList]);
 
   return (
     <div className="lg:w-full lg:mx-5">
       {jobTypeList &&
-        jobTypeList?.map(({ id, title, isSelected }) => (
+        jobTypeList?.map((job: JobType) => (
           <SelectCheckbox
-            key={id}
-            text={title}
-            selected={isSelected}
-            onClick={() => updateJobTypeList(id)}
+            key={job.id}
+            text={job.title}
+            selected={selectedJobType.includes(job.title)}
+            onClick={() => updateJobTypeList(job)}
           />
         ))}
     </div>
