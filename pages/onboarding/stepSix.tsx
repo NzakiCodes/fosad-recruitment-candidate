@@ -13,7 +13,7 @@ const OnboardingStepSix: FC<IOnboardingStep6> = ({ handleChange }) => {
   };
 
   return (
-    <div className="lg:w-full lg:mx-5 lg:mx-0">
+    <div className="lg:w-full lg:mx-5 ">
       <div>
         <input
           type="text"

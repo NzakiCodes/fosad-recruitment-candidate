@@ -21,7 +21,7 @@ const LandingNavbar = () => {
                         Enterprise
                     </NavLink>
                     <div className="btn-group">
-                        <NavLink noOpacity className="btn" href="#">
+                        <NavLink noOpacity className="btn" href="/login">
                             Log in
                         </NavLink>
                         <NavLink noOpacity className="btn" href="#">
