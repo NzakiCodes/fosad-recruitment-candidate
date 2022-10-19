@@ -18,6 +18,7 @@ export interface Education {
   endDate: string;
   id?: string;
   candidate?: User;
+  fieldOfStudy: string;
 }
 
 export interface OtherInformation {
@@ -28,4 +29,5 @@ export interface OtherInformation {
   location: string;
   geoPreferences: string[];
   user: string;
+  id?: "";
 }

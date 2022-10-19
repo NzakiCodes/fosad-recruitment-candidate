@@ -1,3 +1,4 @@
+import Spinner from "@components/Spinner";
 import { FC, useEffect, useState } from "react";
 import SelectCheckbox from "../../components/Atoms/SelectCheckbox";
 import { JobInterests, JobType } from "../../interfaces/jobs";
@@ -33,12 +34,7 @@ const OnboardingStepFive: FC<IOnboardingStep5> = ({
       </div>
       <div>
         {isLoading ? (
-          <div className="lds-ring">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
+          <Spinner />
         ) : (
           data?.data.data?.map((item: JobInterests) => (
             <SelectCheckbox

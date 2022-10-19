@@ -1,9 +1,14 @@
-import React, { useState } from "react";
-import Button from "../../../Atoms/Button";
-import Icon from "../../../Atoms/Icon";
-import { edit } from "../../../Atoms/Icon/icons";
-import SelectableLabel from "../../../Atoms/SelectableLabel";
-import Modal from "../../../Molecules/Modal";
+import { useAddOtherInformation } from "@api/mutations/profile/otherInformation";
+import { useGetOtherInformation } from "@api/queries/profile/otherInformation";
+import Button from "@components/Atoms/Button";
+import Icon from "@components/Atoms/Icon";
+import SelectableLabel from "@components/Atoms/SelectableLabel";
+import Modal from "@components/Molecules/Modal";
+import { OtherInformation } from "@interface/profile";
+import useForm from "@utils/useForm";
+import { AxiosError, AxiosResponse } from "axios";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 declare type LocationType = {
   id: string;
@@ -11,25 +16,46 @@ declare type LocationType = {
   isSelected: boolean;
 };
 
-const OtherIndivation = () => {
+const OtherInformation = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [locationList, setLocationList] = useState<LocationType[]>([
-    { id: "lagos", title: "Lagos", isSelected: true },
-    { id: "abuja", title: "Abuja", isSelected: true },
-    { id: "porthacourt", title: "Porthacourt", isSelected: true },
-    { id: "ogun", title: "Ogun", isSelected: true },
-  ]);
-  const updateLocationList = (id: string) => {
-    const updatedLocationList = locationList.map((location) => {
-      if (id === location.id) {
-        return { ...location, isSelected: !location.isSelected };
-      }
-      return location;
-    });
-    console.log(updatedLocationList);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [geoPreferences, setGeoPreferences] = useState<string[]>([]);
+  const [languages, setLanguages] = useState<string[]>([]);
+  const [geoPreference, setGeoPreference] = useState<string>("");
+  const [language, setLanguage] = useState<string>("");
+  const { data } = useGetOtherInformation();
+  const { mutate, isLoading } = useAddOtherInformation();
 
-    setLocationList(updatedLocationList);
+  const submit = () => {
+    setLoading(true);
+    mutate(
+      { ...inputs },
+      {
+        onSuccess: async (response: AxiosResponse<OtherInformation>) => {
+          toast.success("Successful");
+          setLoading(false);
+          setShowModal(false);
+        },
+        onError: (error) => {
+          if (error instanceof AxiosError) {
+            toast.error(error.response?.data.data.message);
+            setLoading(false);
+            setShowModal(false);
+          } else {
+            toast.error(`${error}`);
+            setLoading(false);
+            setShowModal(false);
+          }
+        },
+      }
+    );
   };
+
+  const { handleChange, handleSubmit, inputs } = useForm<OtherInformation>(
+    {} as OtherInformation,
+    submit
+  );
+
   return (
     <div>
       <Modal
@@ -40,30 +66,39 @@ const OtherIndivation = () => {
         <div className="px-3 py-3 bg-[#e5eaf0] lg:rounded-t-lg ">
           <div className="flex justify-between ">
             <div className="px-2 py-3 font-semibold text-secondary text-[18px]">
-              Other Indivation
+              Other Informations
             </div>
-            <button className="self-start p-3" onClick={() => setShowModal(false)}>
+            <button
+              className="self-start p-3"
+              onClick={() => setShowModal(false)}
+            >
               <Icon icon="cancel" />
             </button>
           </div>
         </div>
-        <form className="max-h-[80vh] overflow-auto">
+        <form className="max-h-[80vh] overflow-auto" onSubmit={handleSubmit}>
           <div className="pt-6 px-6">
-            <label className="text-[#63748A] font-medium">Minimum Desired Pay</label>
+            <label className="text-[#63748A] font-medium">
+              Minimum Desired Pay
+            </label>
             <input
               type="text"
               className="w-full rounded-lg py-4 px-5 text-secondary border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-medium text-[18px] flex gap-5 my-3"
               placeholder="$250,000/yr"
-              name="email"
+              name="minimumDesiredPay"
+              onChange={handleChange}
             />
           </div>
           <div className="px-6">
-            <label className="text-[#63748A] font-medium">Years Of Experience</label>
+            <label className="text-[#63748A] font-medium">
+              Years Of Experience
+            </label>
             <input
               type="text"
               className="w-full rounded-lg py-4 px-5 text-secondary border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-medium text-[18px] flex gap-5 my-3"
               placeholder="11"
-              name="email"
+              name="yearsOfExperience"
+              onChange={handleChange}
             />
           </div>
           <div className="px-6">
@@ -74,7 +109,8 @@ const OtherIndivation = () => {
               type="text"
               className="w-full rounded-lg py-4 px-5 text-secondary border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-medium text-[18px] flex gap-5 my-3"
               placeholder="Startups, middle business"
-              name="email"
+              name="preferredEmployerSize"
+              onChange={handleChange}
             />
           </div>
           <div className=" px-6">
@@ -83,7 +119,16 @@ const OtherIndivation = () => {
               type="text"
               className="w-full rounded-lg py-4 px-5 text-[#63748A] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-medium text-[18px] flex gap-5 my-3"
               placeholder="English, French, Yoruba"
-              name="email"
+              name="preferredEmployerSize"
+              onKeyUp={(e: any) => {
+                if (e.key === ",") {
+                  let input = e.target.value.trim().split(",");
+                  if (input.length === 0 || input[0] === "") return;
+                  setLanguages([...languages, input]);
+                  setLanguage("");
+                }
+              }}
+              onChange={(e) => setLanguage(e.target.value)}
             />
           </div>
           <div className=" px-6">
@@ -92,7 +137,8 @@ const OtherIndivation = () => {
               type="text"
               className="w-full rounded-lg py-4 px-5 text-secondary border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-medium text-[18px] flex gap-5 my-3"
               placeholder="Lagos, Nigeria"
-              name="email"
+              name="Location"
+              onChange={handleChange}
             />
           </div>
           <div className=" px-6">
@@ -100,20 +146,22 @@ const OtherIndivation = () => {
             <input
               type="text"
               className="w-full rounded-lg py-4 px-5 text-secondary border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-medium text-[18px] flex gap-5 my-3"
-              placeholder=" Lagos, Abuja, Portharcourt, Ogun"
-              name="email"
+              onKeyUp={(e: any) => {
+                if (e.key === ",") {
+                  let input = e.target.value.trim().split(",");
+                  if (input.length === 0 || input[0] === "") return;
+                  setGeoPreferences([...geoPreferences, input]);
+                  setGeoPreference("");
+                }
+              }}
+              name="geoPrefences"
+              onChange={(e) => setGeoPreference(e.target.value)}
             />
           </div>
           <div className="flex gap-x-3 flex-wrap px-4 pb-3">
-            {locationList &&
-              locationList?.map(({ id, title, isSelected }) => (
-                <SelectableLabel
-                  key={id}
-                  isChecked={isSelected}
-                  label={title}
-                  value={id}
-                  onChange={() => updateLocationList(id)}
-                />
+            {geoPreferences &&
+              geoPreferences?.map((item: string, index: number) => (
+                <SelectableLabel key={index} label={item} />
               ))}
           </div>
           <hr className="w-full"></hr>
@@ -128,7 +176,7 @@ const OtherIndivation = () => {
         </form>
       </Modal>
       <OtherInfoCard
-        title="Other Indivations"
+        title="Other Informations"
         edit={() => setShowModal(true)}
       ></OtherInfoCard>
       <div className="px-5 bg-white rounded-lg">
@@ -203,4 +251,4 @@ const OtherInfoCard = ({ title, edit }: { title: string; edit: Function }) => {
   );
 };
 
-export default OtherIndivation;
+export default OtherInformation;

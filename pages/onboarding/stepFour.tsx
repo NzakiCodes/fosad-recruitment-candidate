@@ -1,3 +1,4 @@
+import Spinner from "@components/Spinner";
 import React, { FC, useState } from "react";
 import SelectableLabel from "../../components/Atoms/SelectableLabel";
 import { JobInterests, JobType } from "../../interfaces/jobs";
@@ -33,12 +34,7 @@ const OnboardingStepFour: FC<OnboardingStep4> = ({
   return (
     <div className="lg:w-full lg:mx-5 flex flex-wrap gap-x-3 gap-y-1">
       {isLoading ? (
-        <div className="lds-ring">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
+        <Spinner />
       ) : (
         skills?.map((skill: JobInterests, index: number) => (
           <SelectableLabel
