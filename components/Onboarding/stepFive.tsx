@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import SelectCheckbox from "../../components/Atoms/SelectCheckbox";
 import { JobInterests, JobType } from "../../interfaces/jobs";
-import { useGetUserInterests } from "../api/queries/user";
+import { useGetUserInterests } from "../../pages/api/queries/user";
 
 interface IOnboardingStep5 {
   selectWorkIndustry: JobInterests;
