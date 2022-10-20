@@ -1,10 +1,7 @@
 import Link from "next/link";
-import React, { FormEvent, ReactNode, useState } from "react";
-import Avatar from "../../components/Atoms/Avatar";
-import Button from "../../components/Atoms/Button";
+import React, { FormEvent, useState } from "react";
 import Container from "../../components/Atoms/Container";
 import Icon from "../../components/Atoms/Icon";
-import { OnboardingLayout } from "../../components/Layouts";
 import { LandingNavbar } from "../../components/Organisms/Navbar";
 
 function Login() {
