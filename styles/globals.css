@@ -70,3 +70,11 @@ body {
 .selectable-label span {
   @apply bg-[#E1EEFB] flex font-medium justify-between items-center px-4 py-3 rounded-full text-secondary xl:text-[14px] transition-[0.25s] ease-linear;
 }
+
+.landing-banner{
+  @apply bg-secondary bg-landing-banner bg-no-repeat bg-[left_-22em_top_-13rem] bg-[length:680px_500px];
+}
+
+.landing-banner-lit{
+  @apply bg-secondary bg-landing-banner bg-no-repeat bg-[left_-22em_top_-13rem] bg-[length:680px_500px];
+}
