@@ -1,8 +1,8 @@
+import { useGetUserSkills } from "@api/queries/user";
+import SelectableLabel from "@components/Atoms/SelectableLabel";
 import Spinner from "@components/Spinner";
+import { JobInterests } from "@interface/jobs";
 import React, { FC, useState } from "react";
-import SelectableLabel from "../../components/Atoms/SelectableLabel";
-import { JobInterests, JobType } from "../../interfaces/jobs";
-import { useGetUserSkills } from "../api/queries/user";
 
 interface OnboardingStep4 {
   selectedSkills: string[];
@@ -14,7 +14,7 @@ const OnboardingStepFour: FC<OnboardingStep4> = ({
   setSelectedSkills,
 }) => {
   const { data, isLoading } = useGetUserSkills();
-  const skills = data?.data.data;
+  const skills = data?.data;
   const [skill, setSkill] = useState<string>("");
   const [userSkills, setUserSkills] = useState<string[]>([]);
 
@@ -28,8 +28,6 @@ const OnboardingStepFour: FC<OnboardingStep4> = ({
       setSelectedSkills([...selectedSkills, name]);
     }
   };
-
-  console.log(selectedSkills);
 
   return (
     <div className="lg:w-full lg:mx-5 flex flex-wrap gap-x-3 gap-y-1">

@@ -25,9 +25,9 @@ const GetSingleWorkExperience = async (id: string) => {
   return res;
 };
 
-const UpdateWorkExperience = async (payload: Experience) => {
-  const res: AxiosResponse<Experience> = await Axios.post(
-    `experience/${payload.id}`,
+const UpdateWorkExperience = async (payload: Experience, id: string) => {
+  const res: AxiosResponse<Experience> = await Axios.patch(
+    `experience/${id}`,
     payload
   );
   return res;

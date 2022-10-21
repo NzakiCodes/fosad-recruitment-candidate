@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import SelectCheckbox from "../../components/Atoms/SelectCheckbox";
 import { JobType } from "../../interfaces/jobs";
 
@@ -43,7 +43,7 @@ const OnboardingStepThree: FC<IOnboardingStep3> = ({
       {jobStationTypeList &&
         jobStationTypeList?.map((jobStation: JobType) => (
           <SelectCheckbox
-            key={jobStation.id}
+            key={jobStation?.id}
             text={jobStation.title}
             selected={selectJobStation.includes(jobStation.title)}
             onClick={() => updateJobStationList(jobStation)}

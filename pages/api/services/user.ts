@@ -12,9 +12,7 @@ const GetUserInterests = async () => {
 };
 
 const GetUserSkills = async () => {
-  const res: AxiosResponse<IResponse<JobInterests[]>> = await Axios.get(
-    "skill"
-  );
+  const res: AxiosResponse<JobInterests[]> = await Axios.get("skill/list");
   return res;
 };
 

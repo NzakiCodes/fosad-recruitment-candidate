@@ -23,7 +23,8 @@ type PillTypes =
   | "hired"
   | "interview"
   | "rejected"
-  | "offer";
+  | "offer"
+  | "PENDING";
 
 export const pillTypeList: {
   name: PillTypes;
@@ -89,6 +90,12 @@ export const pillTypeList: {
     label: "Rejected",
     indicatorColor: "#EC722E",
     backgroundColor: "#FFE7E7",
+  },
+  {
+    name: "PENDING",
+    label: "pending",
+    indicatorColor: "#F6C244",
+    backgroundColor: "#FFFFFF",
   },
 ];
 

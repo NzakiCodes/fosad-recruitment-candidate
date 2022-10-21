@@ -20,7 +20,8 @@ declare type JobCardPropsType = {
     | "hired"
     | "interview"
     | "rejected"
-    | "offer";
+    | "offer"
+    | "PENDING";
   link: string;
 };
 

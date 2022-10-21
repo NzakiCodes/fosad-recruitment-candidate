@@ -5,13 +5,13 @@ export interface Experience {
   organization: string;
   startDate: string;
   endDate: string;
-  isCurrent: boolean;
+  isCurrent?: boolean;
   details: string;
   id?: string;
   candidate?: User;
 }
 
-export interface Education {
+export interface EducationInterface {
   degree: string;
   institution: string;
   startDate: string;
@@ -21,13 +21,34 @@ export interface Education {
   fieldOfStudy: string;
 }
 
-export interface OtherInformation {
+export interface OtherInformationInterface {
   minimumDesiredPay: string;
   yearsOfExperience: number;
   preferredEmployerSize: number;
   languages: string[];
   location: string;
   geoPreferences: string[];
-  user: string;
+  user?: string;
   id?: "";
+}
+
+export interface SkillsInterface {
+  id?: string;
+  name: string;
+}
+
+export interface AccountInterface {
+  email: string;
+  phone: string;
+  social: SocialsInterface;
+  user: User;
+}
+
+export interface SocialsInterface {
+  facebook: string;
+  linkedin: string;
+  twitter: string;
+  instagram: string;
+  github: string;
+  website: string;
 }

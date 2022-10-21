@@ -1,55 +1,59 @@
+import Button from "@components/Atoms/Button";
+import Icon from "@components/Atoms/Icon";
+import Modal from "@components/Molecules/Modal";
 import Image from "next/image";
-import React, { useState } from "react";
-import Button from "../../../Atoms/Button";
-import Icon from "../../../Atoms/Icon";
-import ProfileCard from "../../../Atoms/ProfileCard";
-import Modal from "../../../Molecules/Modal";
+import React, { useEffect, useRef, useState } from "react";
+import AddResume from "./addResume";
 
 const Resume = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [uploadFile, setUploadFile] = useState<string>("");
+
+  const uploadRef = useRef<HTMLInputElement>(null);
+
+  const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setUploadFile(reader.result as any);
+        setShowModal(true);
+      };
+      if (e.target.files![0]) {
+        reader.readAsDataURL(e.target.files![0]);
+      }
+    }
+  };
+
+  console.log(uploadFile);
+
   return (
     <div>
-      <Modal isOpen={showModal} handleClose={() => setShowModal(false)}>
-        <div className="px-5 py-5">
-          <div className="flex justify-end">
-            <button onClick={() => setShowModal(false)}>
-              <Icon icon="cancel" />
-            </button>
-          </div>
-          
-          <div className="lg:w-full lg:mx-5 lg:mx-auto text-center flex flex-col items-center justify-center pb-4">
-      <div className="h-[58px] w-[58px] bg-[#E1EEFB] rounded-full my-5"></div>
-      <span className="block font-semibold text-[18px] text-secondary">
-        Upload Your resume
-      </span>
-      <span className="inline-block font-medium text-[16px] text-[#63748A]">
-        Uploading a new resume might alter your existing profile. <br />
-        Are you sure you want to proceed?
-      </span>
-          </div>
-          <hr className="w-full"></hr>
-          <div className="pb-4 flex justify-between pt-6 lg:px-4 ">
-            <button  onClick={() => setShowModal(false)} className="text-[15px] w-1/2 px-2 lg:px-5 py-[14px] rounded-lg w-38 border h-[58px] text-[#63748A] border-[#D1D5DB]">
-              No, {"don't"} upload
-            </button>
-
-            <button  className="bg-secondary w-1/2 text-white text-[15px] px-5 py-[14px] rounded-lg w-38 h-[58px] ml-4">
-              Yes, Upload
-            </button>
-          </div>
-        </div>
-      </Modal>
       <div>
         <button
-          onClick={() => setShowModal(true)}
           className="w-full flex items-center justify-center gap-x-3 bg-[#E1EEFB] py-6 rounded-lg"
+          onClick={() => uploadRef.current?.click()}
         >
+          <input
+            type="file"
+            accept="application/pdf"
+            ref={uploadRef}
+            hidden={true}
+            name="file"
+            onChange={onSelectFile}
+          />
           <Icon icon="file" />
           <span className="font-semibold text-secondary text-base">
             Upload Resume
           </span>
         </button>
       </div>
+      {showModal && (
+        <AddResume
+          showModal={showModal}
+          setShowModal={setShowModal}
+          uploadedFile={uploadFile}
+        />
+      )}
       <div>
         <ResumeCard
           date="Added 24/08/2022"
@@ -67,7 +71,7 @@ const Resume = () => {
           preview="/assets/images/cv_preview.png"
           deleteResume={() => {}}
         />
-         <ResumeCard
+        <ResumeCard
           date="Added 24/08/2022"
           isDefault={false}
           size="1.2 MB"
@@ -108,15 +112,21 @@ const ResumeCard = ({
           />
         </div>
         <div>
-          <h4 className="text-secondary font-medium text-sm md:text-lg">{name}</h4>
+          <h4 className="text-secondary font-medium text-sm md:text-lg">
+            {name}
+          </h4>
           <span className="text-xs md:text-base text-[#63748A] font-medium flex justify-between items-center gap-x-1">
             {size} <Icon icon="dot" />
             {date}
           </span>
         </div>
       </div>
-      <div className={`flex ${isDefault ? "w-3/5 lg:w-2/5 lg:gap-3":"w-3/4 lg:w-[50%] gap-3 my-4"}  lg:justify-between lg:gap-3`}>
-        <div className={`${isDefault?"w-2/3 lg:w-1/2":""}`}>
+      <div
+        className={`flex ${
+          isDefault ? "w-3/5 lg:w-2/5 lg:gap-3" : "w-3/4 lg:w-[50%] gap-3 my-4"
+        }  lg:justify-between lg:gap-3`}
+      >
+        <div className={`${isDefault ? "w-2/3 lg:w-1/2" : ""}`}>
           {isDefault ? (
             <Button
               size="large"
@@ -125,12 +135,20 @@ const ResumeCard = ({
               rounded
             />
           ) : (
-            <Button cl={"m-0 w-full lg:m-6 lg:translate-x-8"} label="Make default" color="white" />
+            <Button
+              cl={"m-0 w-full lg:m-6 lg:translate-x-8"}
+              label="Make default"
+              color="white"
+            />
           )}
         </div>
         <Button
           label=""
-          cl={`  ${isDefault ? "text-white px-5 md:px-1 w-1/3 lg:w-2/5" : "-px-1 py-3 md:py-0 w-1/4 lg:w-1/5 m-0"}`}
+          cl={`  ${
+            isDefault
+              ? "text-white px-5 md:px-1 w-1/3 lg:w-2/5"
+              : "-px-1 py-3 md:py-0 w-1/4 lg:w-1/5 m-0"
+          }`}
           color="white"
           size="none"
           icon={

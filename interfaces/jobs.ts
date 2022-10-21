@@ -1,4 +1,3 @@
-import SuggestedJobs from "../pages/jobs/suggested";
 import { User } from "./user";
 
 export interface JobType {
@@ -17,11 +16,11 @@ export interface JobInterests {
   name: string;
 }
 
-export interface SuggestedJobs {
+export interface SuggestedJobsInterface {
   _id: string;
   title: string;
   description: string;
-  status: string;
+  status: JobStatus;
   location: string;
   remote: boolean;
   employment_type: string;
@@ -51,12 +50,26 @@ export interface Company {
 
 export interface AppliedJobs {
   code: number;
-  job: SuggestedJobs;
+  job: SuggestedJobsInterface;
   user: User;
 }
 
 export interface SavedJobs {
   id: string;
   candidate: User;
-  job: SuggestedJobs;
+  job: SuggestedJobsInterface;
+}
+
+// | "onHold"
+// | "completed"
+// | "cancelled"
+// | "applied"
+// | "hired"
+// | "interview"
+// | "rejected"
+// | "offer";
+
+export enum JobStatus {
+  PENDING = "PENDING",
+  ACTIVE = "ACTIVE",
 }

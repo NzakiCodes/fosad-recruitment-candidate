@@ -1,3 +1,10 @@
+import OnboardingStepFive from "@components/Onboarding/stepFive";
+import OnboardingStepFour from "@components/Onboarding/stepFour";
+import OnboardingStepOne from "@components/Onboarding/stepOne";
+import OnboardingStepSeven from "@components/Onboarding/stepSeven";
+import OnboardingStepSix from "@components/Onboarding/stepSix";
+import OnboardingStepThree from "@components/Onboarding/stepThree";
+import OnboardingStepTwo from "@components/Onboarding/stepTwo";
 import { AxiosError, AxiosResponse } from "axios";
 import { useRouter } from "next/router";
 import { ReactNode, useContext, useState } from "react";
@@ -6,19 +13,11 @@ import { OnboardingLayout } from "../../components/Layouts";
 import Progress from "../../components/Molecules/Progress";
 import AuthContext from "../../context/authContext";
 import { useToast } from "../../context/toastContext";
-import { JobInterests, JobSearchOption, JobType } from "../../interfaces/jobs";
-import { IResponse } from "../../interfaces/response";
+import { JobSearchOption } from "../../interfaces/jobs";
 import { UserResponse } from "../../interfaces/user";
 import useForm from "../../utils/useForm";
 import { useSignUpCandidtate } from "../api/mutations/auth";
 import { PageWithlayout } from "../_app";
-import OnboardingStepFive from "./stepFive";
-import OnboardingStepFour from "./stepFour";
-import OnboardingStepOne from "./stepOne";
-import OnboardingStepSeven from "./stepSeven";
-import OnboardingStepSix from "./stepSix";
-import OnboardingStepThree from "./stepThree";
-import OnboardingStepTwo from "./stepTwo";
 
 interface IUserSignUp {
   fullName: string;
@@ -31,6 +30,7 @@ const Onbording: PageWithlayout = () => {
   const { mutate } = useSignUpCandidtate();
   const { updateSignUpState, signUpState, setAuthAndCache } =
     useContext(AuthContext);
+  const [loading, setLoading] = useState<boolean>(false);
   const { addToast } = useToast();
   const totalSteps = 7;
   const [jobOptionSelect, setJobOptionSelect] = useState<string>(
@@ -42,7 +42,6 @@ const Onbording: PageWithlayout = () => {
   const [selectWorkIndustry, setSelectedWorkIndustry] = useState<string[]>([]);
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
   const [progressCount, setProgressCount] = useState<number>(1);
-  const [loading, setLoading] = useState<boolean>(false);
 
   const handleBack = () => {
     setProgressCount(progressCount - 1);
@@ -51,8 +50,6 @@ const Onbording: PageWithlayout = () => {
   const updateStep = () => {
     setProgressCount(progressCount + 1);
   };
-
-  console.log(signUpState);
 
   const handleNext = () => {
     if (progressCount === 1) {
@@ -139,6 +136,10 @@ const Onbording: PageWithlayout = () => {
         },
         onError: (error) => {
           if (error instanceof AxiosError) {
+            if (error.message) {
+              toast.error(error.message);
+              setLoading(false);
+            }
             toast.error(error.response?.data.data.message);
             setLoading(false);
           } else {

@@ -1,8 +1,8 @@
+import { useGetUserInterests } from "@api/queries/user";
+import SelectCheckbox from "@components/Atoms/SelectCheckbox";
 import Spinner from "@components/Spinner";
-import { FC, useEffect, useState } from "react";
-import SelectCheckbox from "../../components/Atoms/SelectCheckbox";
-import { JobInterests, JobType } from "../../interfaces/jobs";
-import { useGetUserInterests } from "../api/queries/user";
+import { JobInterests } from "@interface/jobs";
+import { FC } from "react";
 
 interface IOnboardingStep5 {
   selectWorkIndustry: string[];

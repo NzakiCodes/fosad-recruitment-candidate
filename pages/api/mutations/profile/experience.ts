@@ -1,11 +1,6 @@
-import {
-  AddExperience,
-  UpdateWorkExperience,
-} from "@api/services/profile/experience";
+import { AddExperience } from "@api/services/profile/experience";
 import { useMutation } from "react-query";
 
 const useAddExperience = () => useMutation(AddExperience);
 
-const useUpdateWorkExperience = () => useMutation(UpdateWorkExperience);
-
-export { useAddExperience, useUpdateWorkExperience };
+export { useAddExperience };

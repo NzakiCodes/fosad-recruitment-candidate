@@ -10,7 +10,7 @@ export interface Signup {
   industry_categories?: string[];
 }
 
-export interface Login {
+export interface LoginInterface {
   email: string;
   password: string;
 }
