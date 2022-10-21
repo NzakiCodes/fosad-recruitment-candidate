@@ -12,7 +12,8 @@ module.exports = {
       colors:{
         primary:"#98CBFF",
         secondary:"#002D5B",
-        secondaryBorder:"#1A4374"
+        secondaryBorder:"#1A4374",
+        themeGrey:"#63748A"
       },
       fontFamily:{
         'sans':['Inter', 'sans-serif'],
@@ -20,6 +21,9 @@ module.exports = {
       backgroundImage: {
         'hero-pattern': "url('/assets/landing-header-pattern.svg') ",
         'hero-card-pattern': "url('/assets/landing-header-card-pattern.svg') ",
+        'landing-banner': "url('/assets/landing-banner-pattern.svg') ",
+        'landing-banner-right': "url('/assets/landing-banner-pattern.svg') ",
+        
       },
     },
   },
