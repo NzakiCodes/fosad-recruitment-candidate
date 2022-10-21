@@ -12,13 +12,13 @@ import { UserResponse } from "../../interfaces/user";
 import useForm from "../../utils/useForm";
 import { useSignUpCandidtate } from "../api/mutations/auth";
 import { PageWithlayout } from "../_app";
-import OnboardingStepFive from "./stepFive";
-import OnboardingStepFour from "./stepFour";
-import OnboardingStepOne from "./stepOne";
-import OnboardingStepSeven from "./stepSeven";
-import OnboardingStepSix from "./stepSix";
-import OnboardingStepThree from "./stepThree";
-import OnboardingStepTwo from "./stepTwo";
+import OnboardingStepOne from "../../components/Onboarding/stepOne";
+import OnboardingStepTwo from "../../components/Onboarding/stepTwo";
+import OnboardingStepThree from "../../components/Onboarding/stepThree";
+import OnboardingStepFour from "../../components/Onboarding/stepFour";
+import OnboardingStepFive from "../../components/Onboarding/stepFive";
+import OnboardingStepSix from "../../components/Onboarding/stepSix";
+import OnboardingStepSeven from "../../components/Onboarding/stepSeven";
 
 interface IUserSignUp {
   fullName: string;

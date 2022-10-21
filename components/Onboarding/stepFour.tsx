@@ -1,7 +1,8 @@
 import React, { FC, useState } from "react";
 import SelectableLabel from "../../components/Atoms/SelectableLabel";
 import { JobInterests, JobType } from "../../interfaces/jobs";
-import { useGetUserSkills } from "../api/queries/user";
+import { useGetUserInterests, useGetUserSkills } from "../../pages/api/queries/user";
+
 
 interface OnboardingStep4 {
   selectedSkills: string[];
