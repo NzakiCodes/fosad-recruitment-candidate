@@ -1,101 +1,21 @@
+import { useGetUsersWorkExperience } from "@api/queries/profile/experience";
+import Spinner from "@components/Spinner";
+import { Experience } from "@interface/profile";
+import moment from "moment";
 import { useState } from "react";
-import Checkbox from "../../../Atoms/Checkbox/Index";
 import Icon from "../../../Atoms/Icon";
 import ProfileCard from "../../../Atoms/ProfileCard";
-import TextArea from "../../../Atoms/TextArea";
-import Modal from "../../../Molecules/Modal";
+import AddWorkExperience from "./addWorkExperience";
+import EditWorkExperience from "./editWorkExperience";
 
 const WorkExperience = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [showEditModal, setShowEditModal] = useState<boolean>(false);
+  const [itemEdit, setItemEdit] = useState<Experience>({} as Experience);
+  const { data, isLoading, refetch } = useGetUsersWorkExperience();
+
   return (
     <div>
-      <Modal
-        className=" rounded-lg"
-        isOpen={showModal}
-        handleClose={() => setShowModal(false)}
-      >
-        <div className="px-3 py-3 bg-[#e5eaf0] rounded-t-lg">
-          <div className="flex justify-between ">
-            <div className="px-2 py-3 font-semibold text-secondary text-[18px]">
-              Work Experience
-            </div>
-            <button
-              className="self-start p-2"
-              onClick={() => setShowModal(false)}
-            >
-              <Icon icon="cancel" />
-            </button>
-          </div>
-        </div>
-        <form className=" max-h-[85vh] overflow-auto">
-          <div className="pt-6 px-6">
-            <label className="text-[#63748A] font-medium">Title</label>
-            <input
-              type="text"
-              className="w-full rounded-lg py-4 px-5 text-secondary border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-medium text-[18px] flex gap-5 my-3"
-              placeholder="Title of your work experience"
-              name="email"
-            />
-          </div>
-          <div className="px-6">
-            <label className="text-[#63748A] font-medium">Company</label>
-            <input
-              type="text"
-              className="w-full rounded-lg py-4 px-5 text-secondary border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-medium text-[18px] flex gap-5 my-3"
-              placeholder="Name of employer company"
-              name="email"
-            />
-          </div>
-
-          <div className=" px-6 py-4 flex">
-            <div className="mr-3 w-4 h-4">
-              <Checkbox
-                type="squared"
-                size="small"
-                color="primary"
-                checked={false}
-              />
-            </div>
-
-            <p className="text-[#63748A] font-medium text-[16px]">
-              I currently work here
-            </p>
-          </div>
-          <div className="flex px-6 pb-4 gap-x-3 lg:gap-6">
-              <div className="w-1/2">
-                <label className="text-[#63748A] font-medium">Start Date</label>
-                <input
-                  type="date"
-                  className="rounded-lg py-4 px-2 text-secondary border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-medium text-[16px] flex gap-1 my-3 w-full"
-                  placeholder="mm/yyyy"
-                  name="email"
-                />
-              </div>
-              <div className="w-1/2">
-                <label className="text-[#63748A] font-medium">End Date</label>
-                <input
-                  type="date"
-                  className="rounded-lg py-4 px-2 text-secondary border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-medium text-[16px] flex gap-1 my-3 w-full"
-                  placeholder="mm/yyyy"
-                  name="email"
-                />
-              </div>
-            </div>
-
-            <div className="px-6">
-              <TextArea theme="secondary" className="!w-full" placeholder="Description (optional)"></TextArea>
-            </div>
-          <hr className="w-full"></hr>
-          <div className="pb-4 flex justify-end pt-6 px-4 ">
-            <button className="text-[16px] px-5 py-[14px] rounded-lg w-32 border border-[#D1D5DB]">
-              Cancel
-            </button>
-            <button className="bg-secondary text-white text-[16px] px-5 py-[14px] rounded-lg w-32 ml-4">
-              Save
-            </button>
-          </div>
-        </form>
-      </Modal>
       <div>
         <button
           onClick={() => setShowModal(true)}
@@ -106,30 +26,47 @@ const WorkExperience = () => {
             Add Work Experience
           </span>
         </button>
+        {showModal && (
+          <AddWorkExperience
+            showModal={showModal}
+            setShowModal={setShowModal}
+            refetchData={refetch}
+          />
+        )}
+        {showEditModal && (
+          <EditWorkExperience
+            showModal={showEditModal}
+            setShowModal={setShowEditModal}
+            editItem={itemEdit}
+            refetchData={refetch}
+          />
+        )}
       </div>
       <div>
-        <ProfileCard
-          role="Product Lead"
-          company="Smuv Legacy Limited"
-          duration="September 2020 - Current"
-          description="Are you looking for a unique opportunity that allows you to help children and families struggling with educational challenges. Are you a driven and tenacious extrovert who enjoys sharing the benefits of proven products that have the power to change lives forever."
-          edit={() => {}}
-          current
-        />
-        <ProfileCard
-          role="Creative Director"
-          company="Smuv Legacy Limited"
-          duration="March 2019 - 2020"
-          description="Are you looking for a unique opportunity that allows you to help children and families struggling with educational challenges. Are you a driven and tenacious extrovert who enjoys sharing the benefits of proven products that have the power to change lives forever."
-          edit={() => {}}
-        />
-        <ProfileCard
-          role="Creative Director"
-          company="Smuv Legacy Limited"
-          duration="March 2019 - 2020"
-          description="Are you looking for a unique opportunity that allows you to help children and families struggling with educational challenges. Are you a driven and tenacious extrovert who enjoys sharing the benefits of proven products that have the power to change lives forever."
-          edit={() => {}}
-        />
+        {isLoading ? (
+          <Spinner />
+        ) : data?.data.data && data?.data.data.length > 0 ? (
+          data?.data.data.map((experience: Experience) => (
+            <ProfileCard
+              key={experience.id}
+              role={experience.role}
+              company={experience.organization}
+              duration={`${moment(experience.startDate).format(
+                "LL"
+              )} - Current`}
+              description={experience.details}
+              edit={() => {
+                setShowEditModal(true);
+                setItemEdit(experience);
+              }}
+              current
+            />
+          ))
+        ) : (
+          <div className="font-semibold active:outline-0 text-secondary text-base mt-5">
+            Please Complete your profile and Add your Experience
+          </div>
+        )}
       </div>
     </div>
   );

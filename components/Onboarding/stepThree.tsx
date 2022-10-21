@@ -1,11 +1,11 @@
+import SelectCheckbox from "@components/Atoms/SelectCheckbox";
+import { JobType } from "@interface/jobs";
 import React, { FC, useState } from "react";
-import SelectCheckbox from "../../components/Atoms/SelectCheckbox";
-import { JobType } from "../../interfaces/jobs";
 
 interface IOnboardingStep3 {
   selectedJobLocation: string;
   setSelectedJobLocation: Function;
-  selectJobStation: JobType;
+  selectJobStation: string[];
   setSelectedJobStation: Function;
 }
 
@@ -15,21 +15,22 @@ const OnboardingStepThree: FC<IOnboardingStep3> = ({
   setSelectedJobStation,
   selectJobStation,
 }) => {
-  const [jobLocationTypeList, setJobLocationTypeList] = useState<JobType[]>([
+  const [jobStationTypeList, setJobStationTypeList] = useState<JobType[]>([
     { id: "in_person", title: "In-Person", isSelected: false },
     { id: "hybrid", title: "Hybrid", isSelected: false },
     { id: "remote", title: "Remote", isSelected: false },
   ]);
 
-  const updateJobLocationTypeList = (id: string) => {
-    const updatedJobLocations = jobLocationTypeList.map((jobLocation) => {
-      if (id === jobLocation.id) {
-        setSelectedJobStation(jobLocation);
-      }
-      return jobLocation;
-    });
-
-    setJobLocationTypeList(updatedJobLocations);
+  const updateJobStationList = (jobType: JobType) => {
+    if (selectJobStation.indexOf(jobType.title) !== -1) {
+      setSelectedJobStation(
+        selectJobStation.filter(
+          (selectedName: string) => selectedName !== jobType.title
+        )
+      );
+    } else {
+      setSelectedJobStation([...selectJobStation, jobType.title]);
+    }
   };
 
   const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,13 +40,13 @@ const OnboardingStepThree: FC<IOnboardingStep3> = ({
 
   return (
     <div className="lg:w-full lg:mx-5">
-      {jobLocationTypeList &&
-        jobLocationTypeList?.map(({ id, title }) => (
+      {jobStationTypeList &&
+        jobStationTypeList?.map((jobStation: JobType) => (
           <SelectCheckbox
-            key={id}
-            text={title}
-            selected={selectJobStation.id === id}
-            onClick={() => updateJobLocationTypeList(id)}
+            key={jobStation?.id}
+            text={jobStation.title}
+            selected={selectJobStation.includes(jobStation.title)}
+            onClick={() => updateJobStationList(jobStation)}
           />
         ))}
       <hr className="my-8" />

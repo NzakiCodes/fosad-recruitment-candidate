@@ -1,19 +1,67 @@
+import { useLoginCandidate } from "@api/mutations/auth";
+import AuthContext from "@context/authContext";
+import { IResponse } from "@interface/response";
+import { LoginInterface, UserResponse } from "@interface/user";
+import useForm from "@utils/useForm";
+import { AxiosResponse, AxiosError } from "axios";
 import Link from "next/link";
-import React, { FormEvent, useState } from "react";
+import { useRouter } from "next/router";
+import React, { ReactNode, useContext, useState, FormEvent } from "react";
+import toast from "react-hot-toast";
+import Button from "../../components/Atoms/Button";
+import { OnboardingLayout } from "../../components/Layouts";
 import Container from "../../components/Atoms/Container";
 import Icon from "../../components/Atoms/Icon";
 import { LandingNavbar } from "../../components/Organisms/Navbar";
 
 function Login() {
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const handleChange = () => {};
+  const { setAuthAndCache } = useContext(AuthContext);
+  const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
+
+  const { mutate, isLoading } = useLoginCandidate();
 
   const passwordVisibility = () => {
     setShowPassword(!showPassword);
   };
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+
+  const submit = () => {
+    setLoading(true);
+    mutate(
+      {
+        ...inputs,
+      },
+      {
+        onSuccess: async (response: AxiosResponse<IResponse<UserResponse>>) => {
+          const { data } = response;
+          setAuthAndCache(data.data.access_token);
+          router.push("/jobs/suggested");
+          toast.success("Login Successful");
+          setLoading(false);
+        },
+        onError: (error) => {
+          if (error instanceof AxiosError) {
+            if (error.message) {
+              toast.error(error.message);
+              setLoading(false);
+            }
+            toast.error(error.response?.data.data.message);
+            setLoading(false);
+          } else {
+            toast.error(`${error}`);
+            setLoading(false);
+          }
+        },
+      }
+    );
   };
+
+  const { handleChange, inputs, handleSubmit } = useForm<LoginInterface>(
+    {} as LoginInterface,
+    submit
+  );
+
   return (
     <div className="flex flex-col lg:flex-row  h-screen">
       <div className="w-full lg:w-2/5 bg-secondary">
@@ -43,9 +91,7 @@ function Login() {
       <div className="w-full lg:w-3/5  ">
         <div className="lg:hidden">
           <LandingNavbar />
-          <div className="bg-[#E1EEFB] flex items-center gap-x-3 mt-20 py-7 px-4 w-full text-center">
-           
-          </div>
+          <div className="bg-[#E1EEFB] flex items-center gap-x-3 mt-20 py-7 px-4 w-full text-center"></div>
         </div>
         <div className="flex justify-center items-center h-full">
           <form
@@ -66,7 +112,7 @@ function Login() {
                 className="w-full rounded-lg py-3 px-4 text-[#6B6B6B] bg-[#F5F5F5] active:outline-0 focus:outline-1 focus:outline-slate-200 transition-colors hover:transition-colors font-medium text-[16px] flex gap-5"
                 placeholder="@"
                 onChange={handleChange}
-                name="password"
+                name="email"
               />
             </div>
             <div className="w-full ">
@@ -88,6 +134,14 @@ function Login() {
                 placeholder="6 max characters"
                 onChange={handleChange}
                 name="password"
+              />
+            </div>
+            <div className="flex justify-center w-full">
+              <Button
+                label="Login"
+                cl="text-white text-lg py-5 disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={loading || isLoading}
+                type="submit"
               />
             </div>
           </form>

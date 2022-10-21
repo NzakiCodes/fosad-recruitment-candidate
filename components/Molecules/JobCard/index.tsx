@@ -1,5 +1,5 @@
 import Link from "next/link";
-import truncateString from "../../../utility/truncate";
+import truncateString from "../../../utils/truncate";
 import Button from "../../Atoms/Button";
 import Label from "../../Atoms/Label";
 import Pill from "../../Atoms/Pill";
@@ -20,7 +20,8 @@ declare type JobCardPropsType = {
     | "hired"
     | "interview"
     | "rejected"
-    | "offer";
+    | "offer"
+    | "PENDING";
   link: string;
 };
 

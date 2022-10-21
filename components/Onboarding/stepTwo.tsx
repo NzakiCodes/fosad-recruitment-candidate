@@ -1,15 +1,15 @@
+import SelectCheckbox from "@components/Atoms/SelectCheckbox";
+import { JobType } from "@interface/jobs";
 import { FC, useState } from "react";
-import SelectCheckbox from "../../components/Atoms/SelectCheckbox";
-import { JobType } from "../../interfaces/jobs";
 
 interface IOnboardingStep2 {
-  selectedJobType: JobType;
+  selectedJobType: string[];
   setSelectedJobType: Function;
 }
 
 const OnboardingStepTwo: FC<IOnboardingStep2> = ({
-  selectedJobType,
   setSelectedJobType,
+  selectedJobType,
 }) => {
   const [jobTypeList, setJobTypeList] = useState<JobType[]>([
     { id: "full_time", title: "Full Time", isSelected: false },
@@ -17,26 +17,27 @@ const OnboardingStepTwo: FC<IOnboardingStep2> = ({
     { id: "others", title: "Others", isSelected: false },
   ]);
 
-  const updateJobTypeList = (id: string) => {
-    const updatedJobs = jobTypeList.map((job) => {
-      if (id === job.id) {
-        setSelectedJobType(job);
-      }
-      return job;
-    });
-
-    setJobTypeList(updatedJobs);
+  const updateJobTypeList = (jobType: JobType) => {
+    if (selectedJobType.indexOf(jobType.title) !== -1) {
+      setSelectedJobType(
+        selectedJobType.filter(
+          (selectedName: string) => selectedName !== jobType.title
+        )
+      );
+    } else {
+      setSelectedJobType([...selectedJobType, jobType.title]);
+    }
   };
 
   return (
     <div className="lg:w-full lg:mx-5">
       {jobTypeList &&
-        jobTypeList?.map(({ id, title }) => (
+        jobTypeList?.map((job: JobType) => (
           <SelectCheckbox
-            key={id}
-            text={title}
-            selected={selectedJobType.id === id}
-            onClick={() => updateJobTypeList(id)}
+            key={job?.id}
+            text={job.title}
+            selected={selectedJobType.includes(job.title)}
+            onClick={() => updateJobTypeList(job)}
           />
         ))}
     </div>

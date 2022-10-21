@@ -18,13 +18,15 @@ const Home: PageWithlayout = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (auth && !isLoading && !initializing) {
-      router.push("/jobs");
+    if (!initializing) {
+      if (auth) {
+        router.push("/jobs/suggested");
+      }
     }
     setIsLoading(false);
-  }, [auth, isLoading, initializing]);
+  }, [auth, initializing, router]);
 
-  if (initializing && isLoading && !auth) {
+  if (initializing && !auth) {
     return <Initializer />;
   }
 

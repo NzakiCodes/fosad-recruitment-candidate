@@ -43,7 +43,7 @@ const OnboardingStepSix: FC<IOnboardingStep6> = ({ handleChange }) => {
             viewBox="0 0 24 25"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="absolute top-[30%] right-[10%]"
+            className="absolute top-[30%] right-[4%]"
             onClick={passwordVisibility}
           >
             <path
@@ -54,9 +54,8 @@ const OnboardingStepSix: FC<IOnboardingStep6> = ({ handleChange }) => {
         </div>
 
         <span className="inline-block my-4 font-medium text-sm text-[#63748A]">
-          If {"you're"}By clicking Next, I agree to the Fosad Terms of Use and
-          acknowledge I have read the Privacy Policy, and agree to receive email
-          job alerts.
+          By clicking Next, I agree to the Fosad Terms of Use and acknowledge I
+          have read the Privacy Policy, and agree to receive email job alerts.
         </span>
         <span className="block my-8  text-xl text-secondary text-center">
           Already have an account?

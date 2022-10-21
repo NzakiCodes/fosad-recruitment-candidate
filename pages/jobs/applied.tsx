@@ -1,12 +1,15 @@
-import React, { ReactElement } from 'react'
-import DashboardLayout from '../../components/Layouts/Dashboard';
-import JobCard from '../../components/Molecules/JobCard';
+import React, { ReactElement } from "react";
+import DashboardLayout from "../../components/Layouts/Dashboard";
+import JobCard from "../../components/Molecules/JobCard";
+import { useGetAppliedJobs } from "../api/queries/jobs";
 
 function AppliedJobs() {
+  const { data } = useGetAppliedJobs();
+
   return (
     <div>
-       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-7 gap-5">
-       <JobCard
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-7 gap-5">
+        <JobCard
           title="Product Designer for Global Fintach Product"
           location="Lagos, Nigeria"
           annualSalary="$250,000/yr"
@@ -16,7 +19,7 @@ function AppliedJobs() {
           jobStatus="applied"
           link="/"
         />
-         <JobCard
+        <JobCard
           title="Product Designer for Global Fintach Product"
           location="Lagos, Nigeria"
           annualSalary="$250,000/yr"
@@ -26,7 +29,7 @@ function AppliedJobs() {
           jobStatus="applied"
           link="/"
         />
-         <JobCard
+        <JobCard
           title="Product Designer for Global Fintach Product"
           location="Lagos, Nigeria"
           annualSalary="$250,000/yr"
@@ -36,7 +39,7 @@ function AppliedJobs() {
           jobStatus="applied"
           link="/"
         />
-         <JobCard
+        <JobCard
           title="Product Designer for Global Fintach Product"
           location="Lagos, Nigeria"
           annualSalary="$250,000/yr"
@@ -46,11 +49,11 @@ function AppliedJobs() {
           jobStatus="applied"
           link="/"
         />
-        </div>
+      </div>
     </div>
-  )
+  );
 }
 AppliedJobs.getLayout = function getLayout(page: ReactElement) {
-    return <DashboardLayout>{page}</DashboardLayout>;
-  };
-export default AppliedJobs
+  return <DashboardLayout>{page}</DashboardLayout>;
+};
+export default AppliedJobs;

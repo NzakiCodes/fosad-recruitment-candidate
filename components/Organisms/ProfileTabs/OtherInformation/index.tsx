@@ -1,179 +1,115 @@
-import React, { useState } from "react";
-import Button from "../../../Atoms/Button";
-import Icon from "../../../Atoms/Icon";
-import { edit } from "../../../Atoms/Icon/icons";
-import SelectableLabel from "../../../Atoms/SelectableLabel";
-import Modal from "../../../Molecules/Modal";
+import { useGetOtherInformation } from "@api/queries/profile/otherInformation";
+import Button from "@components/Atoms/Button";
+import Icon from "@components/Atoms/Icon";
+import Spinner from "@components/Spinner";
+import { OtherInformationInterface } from "@interface/profile";
+import { useState } from "react";
+import AddOtherInformation from "./addOtherInformation";
+import EditOtherInformation from "./editOtherInformation";
 
-declare type LocationType = {
-  id: string;
-  title: string;
-  isSelected: boolean;
-};
-
-const OtherIndivation = () => {
+const OtherInformation = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [locationList, setLocationList] = useState<LocationType[]>([
-    { id: "lagos", title: "Lagos", isSelected: true },
-    { id: "abuja", title: "Abuja", isSelected: true },
-    { id: "porthacourt", title: "Porthacourt", isSelected: true },
-    { id: "ogun", title: "Ogun", isSelected: true },
-  ]);
-  const updateLocationList = (id: string) => {
-    const updatedLocationList = locationList.map((location) => {
-      if (id === location.id) {
-        return { ...location, isSelected: !location.isSelected };
-      }
-      return location;
-    });
-    console.log(updatedLocationList);
+  const [showEditModal, setShowEditModal] = useState<boolean>(false);
+  const [itemEdit, setItemEdit] = useState<OtherInformationInterface>(
+    {} as OtherInformationInterface
+  );
+  const { data, refetch, isLoading } = useGetOtherInformation();
 
-    setLocationList(updatedLocationList);
-  };
   return (
     <div>
-      <Modal
-        className=""
-        isOpen={showModal}
-        handleClose={() => setShowModal(false)}
+      <button
+        onClick={() => setShowModal(true)}
+        className="w-full flex items-center justify-center gap-x-3 bg-[#E1EEFB] py-6 rounded-lg"
       >
-        <div className="px-3 py-3 bg-[#e5eaf0] lg:rounded-t-lg ">
-          <div className="flex justify-between ">
-            <div className="px-2 py-3 font-semibold text-secondary text-[18px]">
-              Other Indivation
+        <Icon icon="plusCircle" />
+        <span className="font-semibold text-secondary text-base">
+          Add Other Information
+        </span>
+      </button>
+      {showModal && (
+        <AddOtherInformation
+          showModal={showModal}
+          setShowModal={setShowModal}
+          refetchData={refetch}
+        />
+      )}
+      {showEditModal && (
+        <EditOtherInformation
+          setShowModal={setShowEditModal}
+          showModal={showEditModal}
+          editItem={itemEdit}
+          refetchData={refetch}
+        />
+      )}
+      {isLoading ? (
+        <Spinner />
+      ) : data?.data.data && data?.data.data.length > 0 ? (
+        data.data.data.map((item: OtherInformationInterface) => (
+          <div key={item.id}>
+            <OtherInfoCard
+              title="Other Informations"
+              edit={() => {
+                setShowEditModal(true);
+                setItemEdit(item);
+              }}
+            ></OtherInfoCard>
+
+            <div className="px-5 bg-white rounded-lg">
+              <div className=" pt-6 pb-3">
+                <div className="font-mediun text-[16px] text-[#63748A]">
+                  Minimum Desired Pay
+                </div>
+                <div className="text-[16px] font-semibold">{`$${item.minimumDesiredPay}/yr`}</div>
+              </div>
+              <hr className="w-full"></hr>
+              <div className=" pt-6 pb-3">
+                <div className="font-mediun text-[16px] text-[#63748A]">
+                  Years of Experience
+                </div>
+                <p className="text-[16px] font-semibold">
+                  {item.yearsOfExperience}
+                </p>
+              </div>
+              <hr className="w-full"></hr>
+              <div className="pt-6 pb-3">
+                <div className="font-mediun text-[16px] text-[#63748A]">
+                  Preferred Employer Size
+                </div>
+                <p className="text-[16px] font-semibold">
+                  {item.preferredEmployerSize}
+                </p>
+              </div>
+              <hr className="w-full"></hr>
+              <div className="pt-6 pb-3">
+                <div className="font-mediun text-[16px] text-[#63748A]">
+                  Languages
+                </div>
+                <p className="text-[16px] font-semibold">{item.languages}</p>
+              </div>
+              <hr className="w-full"></hr>
+              <div className=" pt-6 pb-3">
+                <div className="font-mediun text-[16px] text-[#63748A]">
+                  Location
+                </div>
+                <p className="text-[16px] font-semibold">{item.location}</p>
+              </div>
+              <hr className="w-full"></hr>
+              <div className=" pt-6 pb-3">
+                <div className="font-mediun text-[16px] text-[#63748A]">
+                  Geo Preferences
+                </div>
+                <p className="text-[16px] font-semibold">
+                  {item.geoPreferences.join(", ").slice(0, -1)}
+                </p>
+              </div>
             </div>
-            <button className="self-start p-3" onClick={() => setShowModal(false)}>
-              <Icon icon="cancel" />
-            </button>
           </div>
+        ))
+      ) : (
+        <div className="font-semibold active:outline-0 text-secondary text-base mt-5">
+          Please Add other Information about you
         </div>
-        <form className="max-h-[80vh] overflow-auto">
-          <div className="pt-6 px-6">
-            <label className="text-[#63748A] font-medium">Minimum Desired Pay</label>
-            <input
-              type="text"
-              className="w-full rounded-lg py-4 px-5 text-secondary border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-medium text-[18px] flex gap-5 my-3"
-              placeholder="$250,000/yr"
-              name="email"
-            />
-          </div>
-          <div className="px-6">
-            <label className="text-[#63748A] font-medium">Years Of Experience</label>
-            <input
-              type="text"
-              className="w-full rounded-lg py-4 px-5 text-secondary border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-medium text-[18px] flex gap-5 my-3"
-              placeholder="11"
-              name="email"
-            />
-          </div>
-          <div className="px-6">
-            <label className="text-[#63748A] font-medium">
-              Preferred Employer Size
-            </label>
-            <input
-              type="text"
-              className="w-full rounded-lg py-4 px-5 text-secondary border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-medium text-[18px] flex gap-5 my-3"
-              placeholder="Startups, middle business"
-              name="email"
-            />
-          </div>
-          <div className=" px-6">
-            <label className="text-[#63748A] font-medium">Languages</label>
-            <input
-              type="text"
-              className="w-full rounded-lg py-4 px-5 text-[#63748A] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-medium text-[18px] flex gap-5 my-3"
-              placeholder="English, French, Yoruba"
-              name="email"
-            />
-          </div>
-          <div className=" px-6">
-            <label className="text-[#63748A] font-medium">Location</label>
-            <input
-              type="text"
-              className="w-full rounded-lg py-4 px-5 text-secondary border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-medium text-[18px] flex gap-5 my-3"
-              placeholder="Lagos, Nigeria"
-              name="email"
-            />
-          </div>
-          <div className=" px-6">
-            <label className="text-[#63748A] font-medium">Geo Preference</label>
-            <input
-              type="text"
-              className="w-full rounded-lg py-4 px-5 text-secondary border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-medium text-[18px] flex gap-5 my-3"
-              placeholder=" Lagos, Abuja, Portharcourt, Ogun"
-              name="email"
-            />
-          </div>
-          <div className="flex gap-x-3 flex-wrap px-4 pb-3">
-            {locationList &&
-              locationList?.map(({ id, title, isSelected }) => (
-                <SelectableLabel
-                  key={id}
-                  isChecked={isSelected}
-                  label={title}
-                  value={id}
-                  onChange={() => updateLocationList(id)}
-                />
-              ))}
-          </div>
-          <hr className="w-full"></hr>
-          <div className="pb-4 flex justify-end pt-6 px-4 ">
-            <button className="text-[16px] px-5 py-[14px] rounded-lg w-32 border border-[#D1D5DB]">
-              Cancel
-            </button>
-            <button className="bg-secondary text-white text-[16px] px-5 py-[14px] rounded-lg w-32 ml-4">
-              Save
-            </button>
-          </div>
-        </form>
-      </Modal>
-      <OtherInfoCard
-        title="Other Indivations"
-        edit={() => setShowModal(true)}
-      ></OtherInfoCard>
-      <div className="px-5 bg-white rounded-lg">
-        <div className=" pt-6 pb-3">
-          <div className="font-mediun text-[16px] text-[#63748A]">
-            Minimum Desired Pay
-          </div>
-          <div className="text-[16px] font-semibold">$250,000/yr</div>
-        </div>
-        <hr className="w-full"></hr>
-        <div className=" pt-6 pb-3">
-          <div className="font-mediun text-[16px] text-[#63748A]">
-            Years of Experience
-          </div>
-          <p className="text-[16px] font-semibold">11</p>
-        </div>
-        <hr className="w-full"></hr>
-        <div className="pt-6 pb-3">
-          <div className="font-mediun text-[16px] text-[#63748A]">
-            Preferred Employer Size
-          </div>
-          <p className="text-[16px] font-semibold">Startups, Middle Business</p>
-        </div>
-        <hr className="w-full"></hr>
-        <div className="pt-6 pb-3">
-          <div className="font-mediun text-[16px] text-[#63748A]">
-            Languages
-          </div>
-          <p className="text-[16px] font-semibold">English, French, Yoruba</p>
-        </div>
-        <hr className="w-full"></hr>
-        <div className=" pt-6 pb-3">
-          <div className="font-mediun text-[16px] text-[#63748A]">Location</div>
-          <p className="text-[16px] font-semibold">Lagos, Nigeria</p>
-        </div>
-        <hr className="w-full"></hr>
-        <div className=" pt-6 pb-3">
-          <div className="font-mediun text-[16px] text-[#63748A]">
-            Geo Preferences
-          </div>
-          <p className="text-[16px] font-semibold">
-            Lagos, Abuja, Portharcourt, Ogun
-          </p>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
@@ -203,4 +139,4 @@ const OtherInfoCard = ({ title, edit }: { title: string; edit: Function }) => {
   );
 };
 
-export default OtherIndivation;
+export default OtherInformation;

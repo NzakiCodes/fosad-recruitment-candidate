@@ -1,3 +1,10 @@
+import OnboardingStepFive from "@components/Onboarding/stepFive";
+import OnboardingStepFour from "@components/Onboarding/stepFour";
+import OnboardingStepOne from "@components/Onboarding/stepOne";
+import OnboardingStepSeven from "@components/Onboarding/stepSeven";
+import OnboardingStepSix from "@components/Onboarding/stepSix";
+import OnboardingStepThree from "@components/Onboarding/stepThree";
+import OnboardingStepTwo from "@components/Onboarding/stepTwo";
 import { AxiosError, AxiosResponse } from "axios";
 import { useRouter } from "next/router";
 import { ReactNode, useContext, useState } from "react";
@@ -6,19 +13,11 @@ import { OnboardingLayout } from "../../components/Layouts";
 import Progress from "../../components/Molecules/Progress";
 import AuthContext from "../../context/authContext";
 import { useToast } from "../../context/toastContext";
-import { JobInterests, JobSearchOption, JobType } from "../../interfaces/jobs";
-import { IResponse } from "../../interfaces/response";
+import { JobSearchOption } from "../../interfaces/jobs";
 import { UserResponse } from "../../interfaces/user";
 import useForm from "../../utils/useForm";
 import { useSignUpCandidtate } from "../api/mutations/auth";
 import { PageWithlayout } from "../_app";
-import OnboardingStepOne from "../../components/Onboarding/stepOne";
-import OnboardingStepTwo from "../../components/Onboarding/stepTwo";
-import OnboardingStepThree from "../../components/Onboarding/stepThree";
-import OnboardingStepFour from "../../components/Onboarding/stepFour";
-import OnboardingStepFive from "../../components/Onboarding/stepFive";
-import OnboardingStepSix from "../../components/Onboarding/stepSix";
-import OnboardingStepSeven from "../../components/Onboarding/stepSeven";
 
 interface IUserSignUp {
   fullName: string;
@@ -31,21 +30,16 @@ const Onbording: PageWithlayout = () => {
   const { mutate } = useSignUpCandidtate();
   const { updateSignUpState, signUpState, setAuthAndCache } =
     useContext(AuthContext);
+  const [loading, setLoading] = useState<boolean>(false);
   const { addToast } = useToast();
   const totalSteps = 7;
   const [jobOptionSelect, setJobOptionSelect] = useState<string>(
     JobSearchOption.LOOKINGFORJOB
   );
-  const [selectedJobType, setSelectedJobType] = useState<JobType>(
-    {} as JobType
-  );
+  const [selectedJobType, setSelectedJobType] = useState<string[]>([]);
   const [selectedJobLocation, setSelectedJobLocation] = useState<string>("");
-  const [selectJobStation, setSelectedJobStation] = useState<JobType>(
-    {} as JobType
-  );
-  const [selectWorkIndustry, setSelectedWorkIndustry] = useState<JobInterests>(
-    {} as JobInterests
-  );
+  const [selectJobStation, setSelectedJobStation] = useState<string[]>([]);
+  const [selectWorkIndustry, setSelectedWorkIndustry] = useState<string[]>([]);
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
   const [progressCount, setProgressCount] = useState<number>(1);
 
@@ -66,29 +60,31 @@ const Onbording: PageWithlayout = () => {
         updateStep();
       }
     } else if (progressCount === 2) {
-      if (selectedJobType.title === undefined) {
-        toast.error("Please select an option");
+      if (selectedJobType.length < 1) {
+        toast.error("Please select 1 or more options");
       } else {
         updateSignUpState({
           ...signUpState,
-          employment_demand: selectedJobType.title,
+          employment_demand: selectedJobType,
         });
         updateStep();
       }
     } else if (progressCount === 3) {
-      if (selectedJobLocation === "" || selectJobStation.title === undefined) {
-        toast.error("Please select an option and enter your location");
+      if (selectedJobLocation === "" || selectJobStation.length < 1) {
+        toast.error(
+          "Please select one or more options and enter your location"
+        );
       } else {
         updateSignUpState({
           ...signUpState,
           work_location: selectedJobLocation,
-          work_model: selectJobStation.title,
+          work_model: selectJobStation,
         });
         updateStep();
       }
     } else if (progressCount === 4) {
       if (selectedSkills.length < 1) {
-        toast.error("Please select 1 or more skills");
+        toast.error("Please select 2 or more skills");
       } else {
         updateSignUpState({
           ...signUpState,
@@ -97,12 +93,12 @@ const Onbording: PageWithlayout = () => {
         updateStep();
       }
     } else if (progressCount === 5) {
-      if (selectWorkIndustry.name === "") {
-        toast.error("Please select an option");
+      if (selectWorkIndustry.length < 1) {
+        toast.error("Please select one or more options");
       } else {
         updateSignUpState({
           ...signUpState,
-          industry_categories: selectWorkIndustry.name,
+          industry_categories: selectWorkIndustry,
         });
         updateStep();
       }
@@ -114,32 +110,42 @@ const Onbording: PageWithlayout = () => {
       ) {
         toast.error("Please enter your full name, email and password");
       } else {
-        updateSignUpState({
-          ...signUpState,
-          fullName: inputs.fullName,
-          email: inputs.email,
-          password: inputs.password,
-        });
-        updateStep();
+        submit();
       }
-    } else {
-      submit();
+    } else if (progressCount === 7) {
+      router.push("/jobs/suggested");
     }
   };
 
   const submit = () => {
+    setLoading(true);
     mutate(
-      { ...signUpState },
+      {
+        ...signUpState,
+        fullName: inputs.fullName,
+        email: inputs.email,
+        password: inputs.password,
+      },
       {
         onSuccess: async (response: AxiosResponse<UserResponse>) => {
           const { data } = response;
-          router.push("/jobs/suggested");
-          setAuthAndCache(data.accessToken);
+          setAuthAndCache(data.access_token);
           toast.success("Signup Successful");
+          updateStep();
+          setLoading(false);
         },
         onError: (error) => {
-          const err = error as AxiosError;
-          toast.error(`${err}`);
+          if (error instanceof AxiosError) {
+            if (error.message) {
+              toast.error(error.message);
+              setLoading(false);
+            }
+            toast.error(error.response?.data.data.message);
+            setLoading(false);
+          } else {
+            toast.error(`${error}`);
+            setLoading(false);
+          }
         },
       }
     );
@@ -200,6 +206,7 @@ const Onbording: PageWithlayout = () => {
           totalSteps={totalSteps}
           handleNext={handleNext}
           handleBack={handleBack}
+          loading={loading}
         />
       </div>
     </div>

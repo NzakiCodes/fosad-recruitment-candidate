@@ -1,8 +1,6 @@
-import { useRouter } from "next/router";
-import React, { FC, useContext, useState } from "react";
-import SelectRadio from "../../components/Atoms/SelectRadio";
-import AuthContext from "../../context/authContext";
-import { JobSearchOption } from "../../interfaces/jobs";
+import SelectRadio from "@components/Atoms/SelectRadio";
+import { JobSearchOption } from "@interface/jobs";
+import { FC } from "react";
 
 interface IOnboardingStep1 {
   jobOptionSelect: string;

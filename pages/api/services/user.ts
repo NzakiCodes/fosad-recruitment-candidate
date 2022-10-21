@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios";
 import { JobInterests } from "../../../interfaces/jobs";
 import { IResponse } from "../../../interfaces/response";
+import { UserProfile } from "../../../interfaces/user";
 import Axios from "./axios";
 
 const GetUserInterests = async () => {
@@ -11,10 +12,13 @@ const GetUserInterests = async () => {
 };
 
 const GetUserSkills = async () => {
-  const res: AxiosResponse<IResponse<JobInterests[]>> = await Axios.get(
-    "skill"
-  );
+  const res: AxiosResponse<JobInterests[]> = await Axios.get("skill/list");
   return res;
 };
 
-export { GetUserInterests, GetUserSkills };
+const GetUserProfile = async () => {
+  const res: AxiosResponse<IResponse<UserProfile>> = await Axios.get("profile");
+  return res;
+};
+
+export { GetUserInterests, GetUserSkills, GetUserProfile };

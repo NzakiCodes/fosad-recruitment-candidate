@@ -3,21 +3,21 @@ export interface Signup {
   email?: string;
   password?: string;
   job_urgency?: string;
-  employment_demand?: string;
-  work_model?: string;
+  employment_demand?: string[];
+  work_model?: string[];
   work_location?: string;
   skills?: string[];
-  industry_categories?: string;
+  industry_categories?: string[];
 }
 
-export interface Login {
+export interface LoginInterface {
   email: string;
   password: string;
 }
 
 export interface UserResponse {
   candidacy: UserCandidacy;
-  accessToken: string;
+  access_token: string;
 }
 
 export interface UserRole {
@@ -40,5 +40,23 @@ export interface UserCandidacy {
   work_location: string;
   skills: string[];
   industry_categories: string;
+  user: User;
+}
+
+export interface UserProfile {
+  id: string;
+  position: null;
+  company: null;
+  summary: string;
+  skills: null;
+  languages: null;
+  email: string;
+  contacts: null;
+  profiles: null;
+  minimum_desired_pay: null;
+  years_of_experience: null;
+  employer_size: null;
+  location: null;
+  geo_preference: null;
   user: User;
 }

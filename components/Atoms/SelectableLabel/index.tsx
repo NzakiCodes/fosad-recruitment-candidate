@@ -7,9 +7,9 @@ const SelectableLabel = ({
   onChange,
 }: {
   label: string;
-  value: string;
-  isChecked: boolean;
-  onChange: ChangeEventHandler<HTMLInputElement>;
+  value?: string;
+  isChecked?: boolean;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
 }) => {
   return (
     <label className="selectable-label">

@@ -1,8 +1,8 @@
+import { useGetUserSkills } from "@api/queries/user";
+import SelectableLabel from "@components/Atoms/SelectableLabel";
+import Spinner from "@components/Spinner";
+import { JobInterests } from "@interface/jobs";
 import React, { FC, useState } from "react";
-import SelectableLabel from "../../components/Atoms/SelectableLabel";
-import { JobInterests, JobType } from "../../interfaces/jobs";
-import { useGetUserInterests, useGetUserSkills } from "../../pages/api/queries/user";
-
 
 interface OnboardingStep4 {
   selectedSkills: string[];
@@ -14,11 +14,12 @@ const OnboardingStepFour: FC<OnboardingStep4> = ({
   setSelectedSkills,
 }) => {
   const { data, isLoading } = useGetUserSkills();
-  const skills = data?.data.data;
+  const skills = data?.data;
   const [skill, setSkill] = useState<string>("");
   const [userSkills, setUserSkills] = useState<string[]>([]);
 
   const handleCheckBoxChange = (name: string) => {
+    console.log(name);
     if (selectedSkills.indexOf(name) !== -1) {
       setSelectedSkills(
         selectedSkills.filter((selectedId: string) => selectedId !== name)
@@ -31,7 +32,7 @@ const OnboardingStepFour: FC<OnboardingStep4> = ({
   return (
     <div className="lg:w-full lg:mx-5 flex flex-wrap gap-x-3 gap-y-1">
       {isLoading ? (
-        <div>Loading...</div>
+        <Spinner />
       ) : (
         skills?.map((skill: JobInterests, index: number) => (
           <SelectableLabel
@@ -68,7 +69,10 @@ const OnboardingStepFour: FC<OnboardingStep4> = ({
           />
           <button
             className="h-full border-l  border-[#DEE3E9] w-2/6 lg:w-1/6 py-4"
-            onClick={() => setUserSkills([...userSkills, skill])}
+            onClick={() => {
+              setUserSkills([...userSkills, skill]);
+              setSkill("");
+            }}
           >
             Add +
           </button>
