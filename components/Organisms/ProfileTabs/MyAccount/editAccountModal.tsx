@@ -1,4 +1,5 @@
 import { useAddAccount } from "@api/mutations/profile/account";
+import { UpdateAccount } from "@api/services/profile/account";
 import Avatar from "@components/Atoms/Avatar";
 import Icon from "@components/Atoms/Icon";
 import Modal from "@components/Molecules/Modal";
@@ -22,36 +23,51 @@ const EditAccount: FC<IModal> = ({
   editItem,
 }) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const { mutate, isLoading } = useAddAccount();
 
-  console.log(editItem);
-
-  const submit = () => {
+  const submit = async () => {
     setLoading(true);
-    mutate(
-      { ...inputs },
-      {
-        onSuccess: async (response: AxiosResponse<AccountInterface>) => {
-          toast.success("Successful");
+    try {
+      const res = await UpdateAccount(
+        {
+          email: inputs.email ? inputs.email : editItem.email,
+          phone: inputs.phone ? inputs.phone : editItem.phone,
+          social: {
+            twitter: inputs.social?.twitter
+              ? inputs.social?.twitter
+              : editItem.social.twitter,
+            website: inputs.social?.website
+              ? inputs.social?.website
+              : editItem.social.website,
+            linkedin: inputs.social?.linkedin
+              ? inputs.social?.linkedin
+              : editItem.social.linkedin,
+            facebook: inputs.social?.facebook
+              ? inputs.social?.facebook
+              : editItem.social.facebook,
+            instagram: inputs.social?.instagram
+              ? inputs.social?.instagram
+              : editItem.social.instagram,
+          },
+        },
+        editItem._id!
+      );
+      setLoading(false);
+      toast.success("Successfully Updated");
+      setShowModal(false);
+      refetchData();
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        if (error.response?.data.data.message) {
+          toast.error(error.response?.data.data.message);
           setLoading(false);
           setShowModal(false);
-          refetchData();
-        },
-        onError: (error) => {
-          if (error instanceof AxiosError) {
-            if (error.response?.data.data.message) {
-              toast.error(error.response?.data.data.message);
-              setLoading(false);
-              setShowModal(false);
-            } else {
-              toast.error(`${error.message}`);
-              setLoading(false);
-              setShowModal(false);
-            }
-          }
-        },
+        } else {
+          toast.error(`${error.message}`);
+          setLoading(false);
+          setShowModal(false);
+        }
       }
-    );
+    }
   };
 
   const { handleChange, handleSubmit, inputs } = useForm<AccountInterface>(
@@ -78,7 +94,10 @@ const EditAccount: FC<IModal> = ({
             </button>
           </div>
         </div>
-        <form className="max-h-[90vh] overflow-auto pb-20  lg:pb-4">
+        <form
+          className="max-h-[90vh] overflow-auto pb-20  lg:pb-4"
+          onSubmit={handleSubmit}
+        >
           <div className=" rounded-tl-lg rounded-tr-lg  px-4 py-3 landing-header-card flex items-center gap-4">
             <div className="relative">
               <Avatar size="small" source="/assets/images/user-1.png" />
@@ -95,6 +114,8 @@ const EditAccount: FC<IModal> = ({
               className="w-full rounded-lg py-4 px-5 text-[#9EABBC] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-normal text-[18px] flex gap-5 my-3"
               placeholder="Title your work experience"
               name="email"
+              defaultValue={editItem.email}
+              onChange={handleChange}
             />
           </div>
           <div className="pb-4 px-6">
@@ -103,6 +124,9 @@ const EditAccount: FC<IModal> = ({
               type="number"
               className="w-full rounded-lg py-4 px-5 text-[#9EABBC] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-normal text-[18px] flex gap-5 my-3"
               placeholder="Name of employer company"
+              name="phone"
+              defaultValue={editItem.phone}
+              onChange={handleChange}
             />
           </div>
           <hr className="w-full"></hr>
@@ -115,7 +139,9 @@ const EditAccount: FC<IModal> = ({
               type="text"
               className="w-full rounded-lg py-4 px-5 text-[#9EABBC] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-normal text-[18px] flex gap-5 my-3"
               placeholder="http://"
-              name="email"
+              name="website"
+              defaultValue={editItem.social.website}
+              onChange={handleChange}
             />
           </div>
           <div className=" px-6">
@@ -124,7 +150,9 @@ const EditAccount: FC<IModal> = ({
               type="text"
               className="w-full rounded-lg py-4 px-5 text-[#63748A] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-normal text-[18px] flex gap-5 my-3"
               placeholder="linkedin.com/"
-              name="email"
+              name="linkedin"
+              defaultValue={editItem.social.linkedin}
+              onChange={handleChange}
             />
           </div>
           <div className=" px-6">
@@ -133,7 +161,9 @@ const EditAccount: FC<IModal> = ({
               type="text"
               className="w-full rounded-lg py-4 px-5 text-[#9EABBC] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-normal text-[18px] flex gap-5 my-3"
               placeholder="twitter.com/"
-              name="email"
+              name="twitter"
+              defaultValue={editItem.social.twitter}
+              onChange={handleChange}
             />
           </div>
           <div className=" px-6">
@@ -142,14 +172,24 @@ const EditAccount: FC<IModal> = ({
               type="text"
               className="w-full rounded-lg py-4 px-5 text-[#9EABBC] border-[#DEE3E9] border hover:border-secondary hover:text-secondary transition-colors hover:transition-colors font-normal text-[18px] flex gap-5 my-3"
               placeholder="instagram.com/"
-              name="email"
+              name="instagram"
+              defaultValue={editItem.social.instagram}
+              onChange={handleChange}
             />
           </div>
           <div className="pb-4 flex justify-end pt-6 px-4 ">
-            <button className="text-[16px] px-5 py-[14px] rounded-lg w-32 border border-[#D1D5DB]">
+            <button
+              className="text-[16px] px-5 py-[14px] rounded-lg w-32 border border-[#D1D5DB]"
+              type="button"
+              onClick={() => setShowModal(false)}
+            >
               Cancel
             </button>
-            <button className="bg-secondary text-white text-[16px] px-5 py-[14px] rounded-lg w-32 ml-4">
+            <button
+              className="bg-secondary text-white text-[16px] px-5 py-[14px] rounded-lg w-32 ml-4 disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={loading}
+              type="submit"
+            >
               Save
             </button>
           </div>

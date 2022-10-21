@@ -41,7 +41,8 @@ export interface AccountInterface {
   email: string;
   phone: string;
   social: SocialsInterface;
-  user: User;
+  user?: User;
+  _id?: string;
 }
 
 export interface SocialsInterface {
@@ -49,6 +50,6 @@ export interface SocialsInterface {
   linkedin: string;
   twitter: string;
   instagram: string;
-  github: string;
+  github?: string;
   website: string;
 }

@@ -24,8 +24,6 @@ const Resume = () => {
     }
   };
 
-  console.log(uploadFile);
-
   return (
     <div>
       <div>

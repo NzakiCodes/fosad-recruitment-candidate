@@ -28,6 +28,7 @@ const AddResume: FC<IModal> = ({ showModal, setShowModal, uploadedFile }) => {
     } catch (error) {
       console.log(error);
       setLoading(false);
+      setShowModal(false);
       // if (error instanceof AxiosError) {
       //   if (error.response?.data.data.message) {
       //     toast.error(error.response?.data.data.message);

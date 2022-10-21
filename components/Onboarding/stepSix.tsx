@@ -54,9 +54,8 @@ const OnboardingStepSix: FC<IOnboardingStep6> = ({ handleChange }) => {
         </div>
 
         <span className="inline-block my-4 font-medium text-sm text-[#63748A]">
-          If {"you're"}By clicking Next, I agree to the Fosad Terms of Use and
-          acknowledge I have read the Privacy Policy, and agree to receive email
-          job alerts.
+          By clicking Next, I agree to the Fosad Terms of Use and acknowledge I
+          have read the Privacy Policy, and agree to receive email job alerts.
         </span>
         <span className="block my-8  text-xl text-secondary text-center">
           Already have an account?

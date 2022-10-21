@@ -1,26 +1,38 @@
+import { useGetUsersAccount } from "@api/queries/profile/account";
+import { useGetUsersEducation } from "@api/queries/profile/education";
+import { useGetUsersWorkExperience } from "@api/queries/profile/experience";
+import { useGetOtherInformation } from "@api/queries/profile/otherInformation";
+import { useGetCandidatesSkills } from "@api/queries/profile/skill";
+import { useGetUserProfile } from "@api/queries/user";
+import Avatar from "@components/Atoms/Avatar";
+import Container from "@components/Atoms/Container";
+import Icon from "@components/Atoms/Icon";
+import DashboardLayout from "@components/Layouts/Dashboard";
+import CandidateSidebar, {
+  menuItems,
+} from "@components/Molecules/CandidateSidebar";
+import Education from "@components/Organisms/ProfileTabs/Education";
+import MyAccount from "@components/Organisms/ProfileTabs/MyAccount";
+import OtherInformation from "@components/Organisms/ProfileTabs/OtherInformation";
+import Overview from "@components/Organisms/ProfileTabs/Overview";
+import Resume from "@components/Organisms/ProfileTabs/Resume";
+import Skills from "@components/Organisms/ProfileTabs/Skills";
+import WorkExperience from "@components/Organisms/ProfileTabs/WorkExperience";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { ReactElement, useEffect, useState } from "react";
-import Avatar from "../../components/Atoms/Avatar";
-import Container from "../../components/Atoms/Container";
-import Icon from "../../components/Atoms/Icon";
-import DashboardLayout from "../../components/Layouts/Dashboard";
-import CandidateSidebar, {
-  menuItems,
-} from "../../components/Molecules/CandidateSidebar";
-import Education from "../../components/Organisms/ProfileTabs/Education";
-
-import MyAccount from "../../components/Organisms/ProfileTabs/MyAccount";
-import OtherInformation from "../../components/Organisms/ProfileTabs/OtherInformation";
-import Overview from "../../components/Organisms/ProfileTabs/Overview";
-import Resume from "../../components/Organisms/ProfileTabs/Resume";
-import Skills from "../../components/Organisms/ProfileTabs/Skills";
-import WorkExperience from "../../components/Organisms/ProfileTabs/WorkExperience";
-import { useGetUserProfile } from "../api/queries/user";
 
 function Profile() {
   const { query } = useRouter();
   const [currentTab, setCurrentTab] = useState<string>("overview");
+  const education = useGetUsersEducation();
+  const account = useGetUsersAccount();
+  const skills = useGetCandidatesSkills();
+  const workExperience = useGetUsersWorkExperience();
+  const otherInformation = useGetOtherInformation();
+
+  console.log(currentTab);
+
   useEffect(() => {
     if (query.tab) {
       const itemExist = menuItems.find((m) => m.id == query.tab);
@@ -28,8 +40,6 @@ function Profile() {
       if (itemExist) setCurrentTab(`${query.tab}`);
     }
   }, [query]);
-
-  const { data } = useGetUserProfile();
 
   return (
     <Container className="py-4 px-0">
@@ -88,24 +98,104 @@ function Profile() {
                   </span>
                 </div>
                 <div className="my-4 px-6 relative z-[1]">
-                  <CustomRadioButtton
-                    isSelected={false}
-                    text="Add Work Experience"
-                  />
-                  <CustomRadioButtton isSelected={true} text="Add Education" />
-                  <CustomRadioButtton isSelected={true} text="Add Skills" />
-                  <CustomRadioButtton
-                    isSelected={false}
-                    text="Add Years of Experience"
-                  />
-                  <CustomRadioButtton
-                    isSelected={false}
-                    text="Add Salary Range"
-                  />
-                  <CustomRadioButtton
-                    isSelected={false}
-                    text="Add Profile Image"
-                  />
+                  <div
+                    onClick={() =>
+                      workExperience.data?.data.data &&
+                      workExperience.data.data.data.length === 0
+                        ? setCurrentTab("work")
+                        : ""
+                    }
+                  >
+                    <CustomRadioButtton
+                      isSelected={
+                        workExperience.data?.data.data &&
+                        workExperience.data.data.data.length > 0
+                      }
+                      text="Add Work Experience"
+                    />
+                  </div>
+
+                  <div
+                    onClick={() =>
+                      education.data?.data.data &&
+                      education.data.data.data.length === 0
+                        ? setCurrentTab("education")
+                        : ""
+                    }
+                  >
+                    <CustomRadioButtton
+                      isSelected={
+                        education.data?.data.data &&
+                        education.data?.data.data.length > 0
+                      }
+                      text="Add Education"
+                    />
+                  </div>
+
+                  <div
+                    onClick={() =>
+                      skills.data?.data.data &&
+                      skills.data.data.data.length === 0
+                        ? setCurrentTab("skills")
+                        : ""
+                    }
+                  >
+                    <CustomRadioButtton
+                      isSelected={
+                        skills.data?.data.data &&
+                        skills.data?.data.data.length > 0
+                      }
+                      text="Add Skills"
+                    />
+                  </div>
+                  <div
+                    onClick={() =>
+                      otherInformation.data?.data.data &&
+                      otherInformation.data?.data.data.length === 0
+                        ? setCurrentTab("otherInfo")
+                        : ""
+                    }
+                  >
+                    <CustomRadioButtton
+                      isSelected={
+                        otherInformation.data?.data.data &&
+                        otherInformation.data?.data.data.length > 0
+                      }
+                      text="Add Years of Experience"
+                    />
+                  </div>
+
+                  <div
+                    onClick={() =>
+                      otherInformation.data?.data.data &&
+                      otherInformation.data?.data.data.length === 0
+                        ? setCurrentTab("otherInfo")
+                        : ""
+                    }
+                  >
+                    <CustomRadioButtton
+                      isSelected={
+                        otherInformation.data?.data.data &&
+                        otherInformation.data?.data.data.length > 0
+                      }
+                      text="Add Salary Range"
+                    />
+                  </div>
+
+                  <div
+                    onClick={() =>
+                      account.data?.data && account.data.data.length === 0
+                        ? setCurrentTab("account")
+                        : ""
+                    }
+                  >
+                    <CustomRadioButtton
+                      isSelected={
+                        account.data?.data && account.data.data.length > 0
+                      }
+                      text="Add Profile Image"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -119,15 +209,18 @@ function Profile() {
 const CustomRadioButtton = ({
   isSelected,
   text,
+  onClick,
 }: {
-  isSelected: boolean;
+  isSelected?: boolean;
   text: string;
+  onClick?: () => void;
 }) => {
   return (
     <button
       className={`flex justify-between w-full items-center my-3 ${
         isSelected ? "opacity-40" : ""
       }`}
+      onClick={() => onClick}
     >
       <div className="flex gap-x-3 items-center">
         {isSelected ? (

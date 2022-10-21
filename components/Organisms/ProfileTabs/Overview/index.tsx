@@ -4,6 +4,7 @@ import { useGetUsersWorkExperience } from "@api/queries/profile/experience";
 import { useGetOtherInformation } from "@api/queries/profile/otherInformation";
 import { useGetCandidatesSkills } from "@api/queries/profile/skill";
 import { EducationInterface, Experience } from "@interface/profile";
+import moment from "moment";
 
 const Overview = () => {
   const education = useGetUsersEducation();
@@ -22,7 +23,9 @@ const Overview = () => {
         <div className="flex flex-col md:flex-row justify-between pt-6 pb-3">
           <div className="text-[#63748A] font-medium w-[40%]">Location</div>
           <div className="font-semibold w-[40%]">
-            {otherInformation.data?.data.data[0].location}
+            {otherInformation.data?.data.data[0]?.location !== undefined
+              ? otherInformation.data.data.data[0].location
+              : ""}
           </div>
         </div>
         <hr className="w-full"></hr>
@@ -32,9 +35,11 @@ const Overview = () => {
           </div>
           <div className="w-full md:w-[40%]">
             {education.data?.data.data.map((item: EducationInterface) => (
-              <h1 className="font-semibold pb-4">
+              <h1 className="font-semibold pb-4" key={item.id}>
                 {item.institution}
-                <p className="text-[#63748A]">{`${item.degree}, ${item.startDate} - ${item.endDate}`}</p>
+                <p className="text-[#63748A]">{`${item.degree}, ${moment(
+                  item.startDate
+                ).format("LL")} - ${moment(item.endDate).format("LL")}`}</p>
               </h1>
             ))}
           </div>
@@ -46,9 +51,11 @@ const Overview = () => {
           </div>
           <div className="w-full md:w-[40%]">
             {workExperience.data?.data.data.map((item: Experience) => (
-              <h1 className="font-semibold pb-4">
+              <h1 className="font-semibold pb-4" key={item.id}>
                 {item.role}
-                <p className="text-[#63748A]">{`${item.organization}, ${item.startDate} - ${item.endDate}`}</p>
+                <p className="text-[#63748A]">{`${item.organization},  ${moment(
+                  item.startDate
+                ).format("LL")} - ${moment(item.endDate).format("LL")}`}</p>
               </h1>
             ))}
           </div>
@@ -67,7 +74,12 @@ const Overview = () => {
           <div className="text-[#63748A] font-medium w-full lg:w-[40%]">
             Years Of Experience
           </div>
-          <div className="font-semibold w-full lg:w-[40%]">11</div>
+          <div className="font-semibold w-full lg:w-[40%]">
+            {otherInformation.data?.data.data[0]?.yearsOfExperience !==
+            undefined
+              ? otherInformation.data.data.data[0].yearsOfExperience
+              : ""}
+          </div>
         </div>
         <hr className="w-full"></hr>
         <div className="flex flex-col md:flex-row gap-y-5 justify-between pt-6 pb-3">
@@ -75,7 +87,10 @@ const Overview = () => {
             Preferred Employer Size
           </div>
           <div className="font-semibold w-full md:w-[40%]">
-            Startups, Middle Business
+            {otherInformation.data?.data.data[0]?.preferredEmployerSize !==
+            undefined
+              ? otherInformation.data.data.data[0].preferredEmployerSize
+              : ""}
           </div>
         </div>
         <hr className="w-full"></hr>
@@ -84,7 +99,10 @@ const Overview = () => {
             Languages
           </div>
           <div className="font-semibold w-full md:w-[40%]">
-            English, French, Yoruba
+            {otherInformation.data?.data.data &&
+            otherInformation.data?.data.data[0]?.languages.length > 0
+              ? otherInformation.data.data.data[0].location
+              : ""}
           </div>
         </div>
       </div>

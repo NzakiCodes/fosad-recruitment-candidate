@@ -45,12 +45,11 @@ const OtherInformation = () => {
         <Spinner />
       ) : data?.data.data && data?.data.data.length > 0 ? (
         data.data.data.map((item: OtherInformationInterface) => (
-          <div>
+          <div key={item.id}>
             <OtherInfoCard
-              key={item.id}
               title="Other Informations"
               edit={() => {
-                setShowModal(true);
+                setShowEditModal(true);
                 setItemEdit(item);
               }}
             ></OtherInfoCard>
@@ -107,7 +106,9 @@ const OtherInformation = () => {
           </div>
         ))
       ) : (
-        <div>Add Other Information</div>
+        <div className="font-semibold active:outline-0 text-secondary text-base mt-5">
+          Please Add other Information about you
+        </div>
       )}
     </div>
   );

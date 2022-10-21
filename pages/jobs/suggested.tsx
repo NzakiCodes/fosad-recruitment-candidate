@@ -44,6 +44,7 @@ const SuggestedJobs = () => {
         ) : data?.data.data && data?.data.data.length > 0 ? (
           data?.data.data.map((jobs: SuggestedJobsInterface) => (
             <JobCard
+              key={jobs._id}
               title={jobs.title}
               location={jobs.location}
               annualSalary={`$${jobs.from_amount.toLocaleString()} - $${jobs.to_amount.toLocaleString()}`}

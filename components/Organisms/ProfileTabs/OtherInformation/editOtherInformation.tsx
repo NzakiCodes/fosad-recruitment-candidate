@@ -1,4 +1,3 @@
-import { useUpdateOtherInformation } from "@api/mutations/profile/otherInformation";
 import { UpdateOtherInformation } from "@api/services/profile/otherInformations";
 import Icon from "@components/Atoms/Icon";
 import SelectableLabel from "@components/Atoms/SelectableLabel";
@@ -20,6 +19,7 @@ const EditOtherInformation: FC<IModal> = ({
   showModal,
   setShowModal,
   editItem,
+  refetchData,
 }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [geoPreferences, setGeoPreferences] = useState<string[]>(
@@ -54,6 +54,7 @@ const EditOtherInformation: FC<IModal> = ({
       toast.success("Successful");
       setLoading(false);
       setShowModal(false);
+      refetchData();
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.response?.data.data.message) {

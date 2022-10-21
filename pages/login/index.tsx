@@ -112,7 +112,7 @@ function Login() {
                 className="w-full rounded-lg py-3 px-4 text-[#6B6B6B] bg-[#F5F5F5] active:outline-0 focus:outline-1 focus:outline-slate-200 transition-colors hover:transition-colors font-medium text-[16px] flex gap-5"
                 placeholder="@"
                 onChange={handleChange}
-                name="password"
+                name="email"
               />
             </div>
             <div className="w-full ">
@@ -134,6 +134,14 @@ function Login() {
                 placeholder="6 max characters"
                 onChange={handleChange}
                 name="password"
+              />
+            </div>
+            <div className="flex justify-center w-full">
+              <Button
+                label="Login"
+                cl="text-white text-lg py-5 disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={loading || isLoading}
+                type="submit"
               />
             </div>
           </form>

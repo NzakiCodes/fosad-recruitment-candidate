@@ -1,6 +1,6 @@
+import SelectCheckbox from "@components/Atoms/SelectCheckbox";
+import { JobType } from "@interface/jobs";
 import React, { FC, useState } from "react";
-import SelectCheckbox from "../../components/Atoms/SelectCheckbox";
-import { JobType } from "../../interfaces/jobs";
 
 interface IOnboardingStep3 {
   selectedJobLocation: string;

@@ -59,7 +59,9 @@ const Skills = () => {
             />
           ))
         ) : (
-          <div>Please Add Your Skills</div>
+          <div className="font-semibold active:outline-0 text-secondary text-base mt-5">
+            Please Add your skills
+          </div>
         )}
       </div>
       <div className="border-t  py-8 mt-8">

@@ -40,19 +40,11 @@ const MyAccount = () => {
           refetchData={refetch}
         />
       )}
-      {showEditModal && (
-        <EditAccount
-          showModal={showEditModal}
-          setShowModal={setShowEditModal}
-          refetchData={refetch}
-          editItem={itemEdit}
-        />
-      )}
       {isLoading ? (
         <Spinner />
       ) : data?.data && data.data.length > 0 ? (
         data.data.map((item: AccountInterface) => (
-          <div>
+          <div key={item._id}>
             <div className="bg-white p-6 rounded-lg my-1">
               <div className="flex justify-between">
                 <div>
@@ -68,7 +60,7 @@ const MyAccount = () => {
                     bold
                     size="small"
                     onClick={() => {
-                      setShowModal(true);
+                      setShowEditModal(true);
                       setItemEdit(item);
                     }}
                     iconRight={<Icon icon="editwhite" />}
@@ -88,7 +80,7 @@ const MyAccount = () => {
                     </div>
 
                     <span className="block font-semibold text-base">
-                      {item.user.fullName}
+                      {item.user?.fullName}
                     </span>
                   </div>
                 </div>
@@ -183,6 +175,14 @@ const MyAccount = () => {
                 </table>
               </div>
             </div>
+            {showEditModal && (
+              <EditAccount
+                showModal={showEditModal}
+                setShowModal={setShowEditModal}
+                refetchData={refetch}
+                editItem={itemEdit}
+              />
+            )}
           </div>
         ))
       ) : (
